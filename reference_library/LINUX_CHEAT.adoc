@@ -1,0 +1,106 @@
+= A Linux Cheat Sheet
+polyglot-jones
+v0.01, 6/2/2021
+
+:toc:
+:toc-placement!:
+
+toc::[]
+
+These notes particularly pertain to *Debian-flavored distros* (Ubuntu, Mint).
+Adjust accordingly.
+
+== Key Bindings
+
+[width="100%",cols="",options="header"]
+|===
+| ^c | cancel a running process
+| ^d | end of file
+| q  | quit out of `more`, `man`, etc.
+|===
+
+
+== Frequently Used Commands
+
+[width="100%"]
+|===
+| Category  | Command            | Function
+| Access    | `scp`              | secure file copy
+| Access    | `ssh`              | secure shell 
+| Files     | `cat`              | concatenates (prints) the contents of a file(s)
+| Files     | `cp`               | copy a file
+| Files     | `mv`               | move a file
+| Files     | `rm`               | remove a file
+| Files     | `rmdir`            | remove a directory
+| Files     | `chmod`            | change the attributes (modifiers) of a file
+| Files     | `chown`            | change the ownership of a file
+| Files     | `df -k`            | shows info about the filesystem
+| Files     | `grep`             | find occurrences of text in file(s)
+| Files     | `ls`               | list files
+| Files     | `more`             | displays text one screen-full at a time
+| Files     | `pwd`              | prints the name of the current directory
+| Files     | `tail`             | print the last N lines of a file (e.g of a log file)
+| Files     | `which`            | Show which copy of a command will execute
+| Files     | `whereis`          | Locate binary, source, and manual-page files for a command
+| System    | `alias`            | defines a command alias
+| System    | `date`             | show or change the date
+| System    | `kill`             | kill a process (by pid number) -- see below
+| System    | `killall`          | kill a process (by name) -- see below
+| System    | `shutdown -r now`  | reboot
+| System    | `sudo`             | run the following command as if logged in as root
+| System    | `uname -a`         | shows system info
+| Terminal  | `clear`            | clears the terminal
+| Terminal  | `exit`             | close the terminal 
+| Terminal  | `script`           | records the terminal session
+| Users     | `adduser`          | create a new user account (newer, friendlier version of `useradd`)
+| Users     | `passwd`           | change the logged-in user's password
+| Users     | `su`               | Temporarily switch to (log in as) another user (use `exit` to switch back)
+| Users     | `userdel –r`       | destroy a user account
+| Users     | `who`              | shows users who are currently logged in
+| Users     | `whoami`           | show who you are logged in as
+|===
+
+
+== File System
+
+[width="100%",cols="",options="header"]
+|===
+| /bin   | user-accessible commands
+| /boot  | files needed to boot the system
+| /dev   | devices
+| /etc   | etcetera -- configuration files, etc.
+| /home  | home folders for the non-root user accounts
+| /lib   | library files (program modules)
+| /media | (automatic) mounting points for filesystem devices (e.g. USB drives)
+| /mnt   | (manual) mounting points for filesystem devices (e.g. VM shared folders)
+| /root  | home folder for the root account
+| /sbin  | root-accessible commands
+| /tmp   | temporary files
+| /usr   | user-specific
+| /var   | log files
+|===
+
+
+== System Operations
+
+=== Kill a process by name
+
+Running `kill` will terminate a process but you have to know the PID (process ID) first. 
+`killall` allows you to kill a process but not look up the PID. 
+For example: `killall -9 httpd` will kill all the processes that are httpd. 
+The -9 basically kills the process with extreme prejudice, it will die immediately. 
+Be careful when using this on processes that need to do cleanup before they die.
+
+
+
+== Various Server Applications
+
+=== MySQL
+
+`UPDATE mysql.user SET Password=password(‘MyNewPassword') WHERE Host='%' AND User='dbUser'`
+`/etc/rc.d/init.d/mysql restart`
+
+=== Apache Web Server
+
+`apt install apache2`
+`sudo systemctl start apache2`

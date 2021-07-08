@@ -1,0 +1,537 @@
+= A Python Cheat Sheet
+polyglot-jones
+v0.01, 9/14/2020
+
+:toc:
+:toc-placement!:
+
+toc::[]
+
+== Lint
+
+* For imports that appear to be unused but actually are, add `# noqa: F401` to the end of the line.
+
+
+== Numbers
+
+Integer division operator: `//`
+
+Chaining comparison operators: `if 5 < x < 15:`
+
+
+
+== Dates
+
+=== DateUtils
+
+https://pypi.org/project/python-dateutil/
+
+* Relative deltas (next month, next year, next Monday, last week of month, etc) -- both ways
+* Flexible recurrence rules
+* Generic (fuzzy) parsing of dates in almost any string format
+* More
+
+----
+from dateutil.parser import parse
+logline = 'INFO 2020-01-01T00:00:01 Happy new year, human.'
+timestamp = parse(logline, fuzzy=True)
+print(timestamp)
+# 2020-01-01 00:00:01
+----
+
+=== DateTime
+
+`import datetime`
+
+In the following, _dt_ is short for `datetime`:
+
+* dt.MINYEAR
+* dt.MAXYEAR
+* class dt.date
+* class dt.time
+* class dt.dt
+* class dt.timedelta
+* class dt.timezone
+
+All are immutable, hashable, efficiently pickled.
+
+----
+class dt.dt(year, month, day, hour=0, minute=0, second=0, microsecond=0, tzinfo=None, fold=0)
+
+classmethod dt.today()
+classmethod dt.now()
+classmethod dt.fromisoformat(date_string) # YYYY-MM-DD[\*HH[:MM[:SS[.fff[fff]]]][+HH:MM[:SS[.ffffff]]]] (where * is any single char)
+classmethod dt.strptime() -- parse formatted
+
+dt.min # -> dt(MINYEAR, 1, 1, tzinfo=None)
+dt.max # -> dt(MAXYEAR, 12, 31, 23, 59, 59, 999999, tzinfo=None).
+dt.year
+dt.month
+dt.day
+dt.hour
+dt.minute
+dt.second
+dt.microsecond
+dt.tzinfo
+dt.fold -> in [0, 1] -- overlapping hour at the end of DST
+
+dt2 = dt1 + timedelta
+dt2 = dt1 - timedelta
+timedelta = dt1 - dt2
+dt1 < dt2
+
+dt.replace(year=self.year, month=self.month, day=self.day, hour=self.hour, minute=self.minute, second=self.second, microsecond=self.microsecond, tzinfo=self.tzinfo, fold=0)
+dt.timetuple() # -> time.struct_time((d.year, d.month, d.day, d.hour, d.minute, d.second, d.weekday(), yday, dst))
+
+dt.weekday() # Monday 0 .. Sunday 6
+dt.isoweekday() # Monday 1 .. Sunday 7
+dt.isocalendar()
+dt.isoformat(sep='T', timespec='auto') # -> "YYYY-MM-DDTHH:MM:SS.ffffff"
+dt.__str__() # -> dt.isoformat()
+dt.ctime()
+dt.strftime(format)
+dt.__format__(format) # thus f"{dt1:%B %d, %Y}"
+----
+
+=== Date Formatting (per the C89 standard)
+
+[width="100%"]
+|===
+| %a | Weekday abbr                        | Mon..Sun
+| %A | Weekday full name                   | Monday..Sunday
+| %w | Weekday as a decimal                | 0..6
+| %d | Day of month                        | 01..31
+| %b | Month abbr                          | Jan..Dec
+| %B | Month full name                     | January..December
+| %m | Month                               | 01..12
+| %y | 2-digit Year                        | 00..99
+| %Y | 4-digit Year                        | 0001..9999
+| %H | Military Hour                       | 00..23
+| %I | Civilian Hour                       | 01..12
+| %p | AM/PM                               | AM, PM
+| %M | Minute                              | 00..59
+| %S | Second                              | 00..59
+| %f | Microsecond                         | 000000..999999
+| %z | UTC offset                          | (empty), +0000, -0400, +1030, +063415, -030712.345216
+| %Z | Time zone name                      | (empty), UTC, EST, CST
+| %j | Day of the year                     | 001..366
+| %U | Week of the year Sunday based       | 00..53
+| %W | Week of the year Monday based       | 00..53
+| %c | Locale’s appropriate representation | Tue Aug 16 21:30:00 1988
+| %x | Locale’s appropriate representation | 08/16/1988
+| %X | Locale’s appropriate representation | 21:30:00
+| %% | Percent sign                        | %
+|===
+
+Additional Directives:
+
+[width="100%"]
+|===
+| %G | ISO 8601 year that contains the greater part of the ISO week (%V) | 0001..9999
+| %u | ISO 8601 weekday where 1 is Monday                                | 1..7
+| %V | ISO 8601 week Monday based where Week 01 contains Jan 4.          | 01..53
+|===
+
+
+
+== Character Sets
+
+Charset detection with chardet -- pip install chardet
+
+
+
+== Strings
+
+=== String Functions
+
+
+* str.*capitalize*() -- copy of the string with its first character capitalized and the rest lowercased.
+* str.*casefold*() -- for caseless matching.
+* str.*center*/*ljust*/*rjust*(width[, fillchar])
+* str.*count*(sub[, start[, end]]) -- number of non-overlapping occurrences of substring sub in the range [start, end].
+* str.*encode*(encoding="utf-8", errors="strict")
+* str.*expandtabs*(tabsize=8)
+* str.*find*/*rfind*(sub[, start[, end]]) -- Only use to determine the position; otherwise use the `in` operator.
+* str.*format*(`*`args, `**`kwargs)
+* str.*format_map*(mapping)
+* str.*index*/*rindex*(sub[, start[, end]]) -- Like find(), but raise ValueError when the substring is not found.
+* str.*isidentifier*() -- Also: Call keyword.iskeyword(str) to test if is a reserved identifier.
+* str.*isalnum*()
+* str.*isalpha*(), str.*isascii*(), str.*isdecimal*(), str.*isdigit*(), str.*islower*(), str.*isnumeric*(), str.*isprintable*(), str.*isspace*(), str.*istitle*(), str.*isupper*()
+* str.*join*(iterable)
+* str.*lower*()
+* str.*partition*/*rpartition*(sep) -- Split the string at the first occurrence of sep, and return a 3-tuple containing the part before the separator, the separator itself, and the part after the separator. If the separator is not found, return a 3-tuple containing the string itself, followed by two empty strings.
+* str.*replace*(old, new[, count]) -- a copy of the string with all occurrences of substring old replaced by new. If the optional argument count is given, only the first count occurrences are replaced.
+* str.*split*/*rsplit*(sep=None, maxsplit=-1) -- breaking the string at word boundaries (sep=None means split on runs of whitespace.)
+* str.*splitlines*([keepends]) -- breaking the string at line boundaries. (Use keepend=True to keep the EOL).
+* str.*startswith*/*endswith*(prefix[, start[, end]])
+* str.*strip*/*lstrip*/*rstrip*([chars]) -- a copy of the string with the leading and trailing characters removed. The chars argument is a string specifying the set of characters to be removed. If omitted or None, the chars argument defaults to removing whitespace. The chars argument is not a prefix or suffix; rather, all combinations of its values are stripped:
+* str.*swapcase*() -- a copy of the string with uppercase characters converted to lowercase and vice versa. Note that it is not necessarily true that s.swapcase().swapcase() == s.
+* str.*title*() -- a titlecased version of the string
+* str.*translate*(table) -- a copy of the string in which each character has been mapped through the given translation table. The table must be an object that implements indexing via __getitem__(), typically a mapping or sequence. When indexed by a Unicode ordinal (an integer), the table object can do any of the following: return a Unicode ordinal or a string, to map the character to one or more other characters; return None, to delete the character from the return string; or raise a LookupError exception, to map the character to itself. You can use str.maketrans() to create a translation map from character-to-character mappings in different formats.
+* str.*upper*()
+* str.*zfill*(width)
+
+=== String Constants
+
+* string.*ascii_letters* == ascii_lowercase + ascii_uppercase
+* string.*ascii_lowercase* -- 'abcdefghijklmnopqrstuvwxyz'
+* string.*ascii_uppercase* -- 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'
+* string.*digits* == '0123456789'
+* string.*hexdigits* == '0123456789abcdefABCDEF'
+* string.*octdigits* == '01234567'
+* string.*punctuation* == `!"#$%&'()*+,-./:;<=>?@[\]^_`{|}~.
+* string.*printable* == digits `+` ascii_letters `+` punctuation + whitespace.
+* string.*whitespace* == space, tab, linefeed, return, formfeed, and vertical tab.
+
+=== String Misc.
+
+TODO: Multi-Line Strings vs. """
+
+
+== RegEx
+
+https://docs.python.org/3/library/re.html
+
+
+== Containers
+
+* List Comprehensions: `[ expression for item in list if conditional ]`
+* Merging dictionaries (Python 3.5+): `merged = { **dict1, **dict2 }`
+* Reversing strings and lists: `revstring = "abcdefg"[::-1]`
+* Map: `map(function, something_iterable)`
+* Unique elements: `set(mylist)`
+* Most frequently occurring value: `max(set(test), key = test.count)`
+* Counting occurrences: `from collections import Counter`
+* List.append(single item)
+* List.extend(another list)
+
+
+=== Tuples
+
+`Color = namedtuple("Color", "red green blue", defaults=[0,0,0])`
+
+color = Color.make([255,255,255])
+
+=== Dictionaries
+
+* `class dict(**kwarg)`
+* `class dict(mapping, **kwarg)`
+* `class dict(iterable, **kwarg)`
+* `list(d)` -- A list of all the keys used in the dictionary.
+* `len(d)` -- The number of items in the dictionary.
+* `d[key]` -- Raises a KeyError if key is not in the map and no __missing__ method.
+* `d[key] = value`
+* `del d[key]` -- Raises a KeyError if key is not in the map.
+* `key in d`
+* `key not in d`
+* `iter(d)` -- An iterator over the keys. Shortcut for iter(d.keys()).
+* `clear()`
+* `copy()` -- A shallow copy.
+* `get(key[, default])` -- never raises a KeyError.
+* `items()` A new view (dynamic) of the dictionary’s items ((key, value) pairs).
+* `keys()` A new view (dynamic) of the dictionary’s keys.
+* `pop(key[, default])` -- If default is not given and key is not in the dictionary, a KeyError is raised.
+* `popitem()` -- Remove and return a (key, value) pair from the dictionary. Pairs are returned in LIFO order.
+* `reversed(d)` - A reverse iterator over the keys. Shortcut for reversed(d.keys()).
+* `setdefault(key[, default])` -- If key is in the dictionary, return its value. If not, add it.
+* `update([other])` -- Update the dictionary with the key/value pairs from other.
+* `values()` -- A new view (dynamic) of the dictionary’s values.
+
+
+== Bytes
+
+* bytes type == immutable string
+* bytearray type == mutable list
+
+----
+value = b'\xf0\xf1\xf2'
+value.hex('-') ==> 'f0-f1-f2'
+value.hex('_', 2) ==> 'f0_f1f2'
+b'UUDDLRLRAB'.hex(' ', -4) ==> '55554444 4c524c52 4142'
+----
+
+Instantiating:
+
+* b'' literals
+* r'' literals
+* bytes(10) -- a zero-filled bytes object of a specified length
+* bytes(range(20)) -- from an iterable of integers
+* bytes(obj) -- copying existing binary data via the buffer protocol
+* bytearray() -- an empty instance
+* bytearray(10) -- a zero-filled instance with a given length
+* bytearray(range(20)) -- from an iterable of integers
+* bytearray(b'Hi!') -- copying existing binary data via the buffer protocol
+* bytes.fromhex('FFFF FFFF FFFF')
+* bytes.hex()
+
+
+
+
+== Graphics
+
+=== Images
+
+----
+pip3 install Pillow
+from PIL import Image
+im = Image.open("kittens.jpg")
+im.show()
+(im.format, im.size, im.mode) -> JPEG (1920, 1357) RGB
+----
+
+=== Emoji
+
+`pip3 install emoji` -- https://pypi.org/project/emoji/
+
+
+
+== pathlib.Path
+
+=== Pure Path Methods
+
+* p / str -- join operator
+* p / p -- join operator
+* str(p)
+* p.parts -- tuple of the path broken down `Path('/usr/bin/python3').parts` -> `('/', 'usr', 'bin', 'python3')`
+* p.drive -- string representing the drive letter or name, if any
+* p.root -- string representing the (local or global) root, if any
+* p.anchor -- concatenation of the drive and root
+* p.parents -- immutable sequence providing access to the logical ancestors of the path
+* p.parent -- logical parent of the path
+* p.name -- string representing the final path component, excluding the drive and root, if any
+* p.suffix -- file extension of the final component, if any:
+* p.suffixes -- `Path("my/library.tar.gz").suffixes` -> `["tar","gz"]`
+* p.stem -- final path component, without its suffix
+* p.as_posix() -- string representation of the path with forward slashes (/)
+* p.as_uri() -- `Path('/etc/passwd')` -> `'file:///etc/passwd'`
+* p.is_absolute() -- `Path('/a/b').is_absolute()` -> `True`
+* p.is_reserved() -- `PureWindowsPath('nul').is_reserved()` -> `True`
+* p.joinpath(`*`other) -- same as the join operator
+* p.match(pattern) -- glob-style pattern
+* p.relative_to(`*`other) -- ValueError raised if impossible
+* p.with_name(name) -- new path with the name changed. ValueError raised if original path has no name. `Path('c:/Downloads/pathlib.tar.gz').with_name('setup.py')` -> `Path('c:/Downloads/setup.py')`
+
+=== Concrete Path Methods
+
+* Path.cwd() -- the current directory
+* Path.home() -- the user’s home directory
+* p.stat() -- os.stat_result object
+* p.chmod(mode) -- Change the file mode and permissions
+* p.exists() -- file or directory
+* p.expanduser() -- new path with expanded ~ and ~user constructs
+* p.glob(pattern) -- yields all matching files (of any kind) -> List[Path]
+* p.group() -- name of the group owning the file
+* p.is_dir() -- True if the path points to a directory (or symlink to one)
+* p.is_file() -- True if the path points to a regular file (or symlink to one)
+* p.is_mount() True if the path is a mount point
+* p.is_symlink()
+* p.is_socket()
+* p.is_fifo()
+* p.is_block_device()
+* p.is_char_device()
+* p.iterdir() -- When the path points to a directory, yields path objects of the contents (random order)
+* p.lchmod(mode) -- of the symbolic link itself
+* p.lstat() -- of the symbolic link itself
+* p.mkdir(mode=0o777, parents=False, exist_ok=False)
+* p.open(mode='r', buffering=-1, encoding=None, errors=None, newline=None)
+* p.owner()
+* p.read_bytes()
+* p.read_text(encoding=None, errors=None)
+* p.rename(target) -- rename unless target exists
+* p.replace(target) -- rename regardless (clobber any existing target)
+* p.resolve(strict=False) -- Make the path absolute, resolving any symlinks. A new path object is returned
+* p.rglob(pattern) -- glob() with `**/` prefix assumed (recursive)
+* p.rmdir() -- the directory must be empty
+* p.samefile(other_path) -- True if points to the same file
+* p.symlink_to(target, target_is_directory=False)
+* p.unlink(missing_ok=False)
+* p.link_to(target) -- create a hard link pointing to a path named target
+* p.write_bytes(data)
+* p.write_text(data, encoding=None, errors=None)
+
+[width="100%",cols="",options="header"]
+|===
+| os and os.path            | pathlib
+| os.path.abspath()         | Path.resolve()
+| os.chmod()                | Path.chmod()
+| os.mkdir()                | Path.mkdir()
+| os.rename()               | Path.rename()
+| os.replace()              | Path.replace()
+| os.rmdir()                | Path.rmdir()
+| os.remove(), os.unlink()  | Path.unlink()
+| os.getcwd()               | Path.cwd()
+| os.path.exists()          | Path.exists()
+| os.path.expanduser()      | Path.expanduser() and Path.home()
+| os.listdir()              | Path.iterdir()
+| os.path.isdir()           | Path.is_dir()
+| os.path.isfile()          | Path.is_file()
+| os.path.islink()          | Path.is_symlink()
+| os.link()                 | Path.link_to()
+| os.symlink()              | Path.symlink_to()
+| os.stat()                 | Path.stat(), Path.owner(), Path.group()
+| os.path.isabs()           | PurePath.is_absolute()
+| os.path.join()            | PurePath.joinpath()
+| os.path.basename()        | PurePath.name
+| os.path.dirname()         | PurePath.parent
+| os.path.samefile()        | Path.samefile()
+| os.path.splitext()        | PurePath.suffix
+|===
+
+NOTE: Although os.path.relpath() and PurePath.relative_to() have some overlapping use-cases, their semantics differ enough to warrant not considering them equivalent.
+
+== Internet
+
+=== Quickly Create a Web Server
+
+You can quickly start a web server, serving the contents of the current directory:
+`python3 -m http.server`
+
+
+
+
+== PyQt5
+
+=== Accelerator shortcuts (Menu &Name)
+
+Suggested wording for common menu items: https://doc.qt.io/qt-5/accelerators.html
+
+
+=== PyQt5 Styles/Themes
+
+`PyQt5.QtWidgets.QStyleFactory.keys()` -> ['Breeze', 'Oxygen', 'QtCurve', 'Windows', 'Fusion']
+
+----
+qApp.setStyle("Fusion")
+dark_palette = QPalette()
+dark_palette.setColor(QPalette.Window, QColor(53, 53, 53))
+dark_palette.setColor(QPalette.WindowText, Qt.white)
+dark_palette.setColor(QPalette.Base, QColor(25, 25, 25))
+dark_palette.setColor(QPalette.AlternateBase, QColor(53, 53, 53))
+dark_palette.setColor(QPalette.ToolTipBase, Qt.white)
+dark_palette.setColor(QPalette.ToolTipText, Qt.white)
+dark_palette.setColor(QPalette.Text, Qt.white)
+dark_palette.setColor(QPalette.Button, QColor(53, 53, 53))
+dark_palette.setColor(QPalette.ButtonText, Qt.white)
+dark_palette.setColor(QPalette.BrightText, Qt.red)
+dark_palette.setColor(QPalette.Link, QColor(42, 130, 218))
+dark_palette.setColor(QPalette.Highlight, QColor(42, 130, 218))
+dark_palette.setColor(QPalette.HighlightedText, Qt.black)
+qApp.setPalette(dark_palette)
+qApp.setStyleSheet("QToolTip { color: #ffffff; background-color: #2a82da; border: 1px solid white; }")
+----
+
+=== Window Types
+
+----
+setWindows(Qt.WindowsFlags):
+Qt.Widget: Default window, by maximizing, minimizing, closing buttons
+Qt.Window: Ordinary window with maximization, minimization and closure buttons
+Qt.Dialog: Dialog window with question mark and close button
+Qt.Popup: Pop-up window with no borders
+Qt.ToolTip: Tip window, no borders, no taskbar
+Qt.SplashScreen: Flash screen, window without borders, taskbar
+Qt.SubWindow: Subwindow, no button, but with title bar
+Qt CustomizedTopWindowAppearanceLogo:
+Qt.MSWindowsFixedSizeDialogHint: Windows cannot be resized
+Qt.FrameLessWindowsHint: Window without Borders
+Qt.CustomWinodwHint: Borders but no title bars and buttons, unable to move and drag
+Qt.WindowsTitleHint: Add a title bar and a close button
+Qt.WindowsSystemMenuHint: Add System Directory and a Close Button
+Qt.WindowsMaximizeButtonHint: Activate the MaximizeButton and Close Button, Disable the Minimization Button
+Qt.WindowsMinimizeButtonHint: Activate Minimize and Close Buttons, Disable Maximize Buttons
+Qt.WindowsMinMaxButtonsHint: Activate the Maximization, Minimization and Close buttons
+Qt.WindowsCloseButtonHint: Add a Close button
+Qt.WindowsContextHelpButtonHint: Add Question Mark and Close Button
+Qt.WindowsStaysOnTopHint: Windows are always at the top
+Qt.WindowsStaysOnBottomHint: Windows are always at the bottom
+----
+
+==== Distraction-Free
+
+----
+self.setWindowFlags(Qt.WindowMinMaxButtonsHint | Qt.WindowCloseButtonHint)
+...
+def showMaximized(self):
+    self.setGeometry(QApplication.desktop().availableGeometry())
+    self.show()
+----
+
+=== QSS Selectors
+
+. Type notation (just the name) includes subclasses: QPushButton
+. Class notation does not include subclasses: .QPushButton
+. Wildcard: *
+. Attribute selector: QPushButton[name="okButton"]
+. ID selector: objectName
+. Progeny selectors, such as QDialog QPushButton, match QPushButton contained in all QDialog containers, whether direct or indirect.
+. Child selectors: such as QDialog > QPushButton, match all QPushButton contained in the QDialog container, requiring the direct parent container of QPushButton to be QDialog.
+. Child control notation (::) is for internal controls (e.g. combo box text field)
+
+=== QKeySequence
+
+* `QKeySequence('Ctrl+O')` -- constructs a hotkey combination (of up to 4 in sequence: "Ctrl+X, Ctrl+C")
+* `QShortcut()` -- provides a way of connecting key sequences to the signals and slots mechanism. The `activated` property emits a signal to the specified slot function.
+* `QAction()` -- a common action that can be triggered in multiple ways (menu item, toolbar button, key sequence). The `triggered` property emits a signal to the specified slot function.
+
+
+=== QPalette
+
+==== QPalette.ColorGroup Constants
+
+Active (aka. QPalette.Normal) -- The window that has focus
+Inactive -- All other windows (usually the same as active)
+Disabled -- Grayed-out widgets
+
+
+==== QPalette.ColorRole Constants
+
+Note that the "Text" colors are also used for non-text elements (lines, icons).
+
+[width="100%",options="header"]
+|===
+|Possible Mapping | QT Color | QT Purpose
+|base00 |Shadow          |A very dark color. By default, the shadow color is black.
+|base00 |Window          |(formerly Background) A general background color
+|base01 |Base            |Background color for text entry widgets, comboboxes, toolbar handles, etc.
+|base01 |Dark            |Darker than Button.
+|base01 |ToolTipBase     |(From the Inactive color group!) Background color for QToolTip/QWhatsThis
+|base02 |AlternateBase   |Background color for alternating rows
+|base02 |Highlight       |Background color of highlighted text
+|base02 |Mid             |Between Button and Dark.
+|base03 |Button          |Background for buttons.
+|base04 |Midlight        |Between Button and Light.
+|base04 |PlaceholderText |Used as the placeholder color for various text input widgets.
+|base04 |ToolTipText     |(From the Inactive color group!) Foreground color for QToolTip/QWhatsThis
+|base05 |Light           |Lighter than Button color.
+|base05 |Text            |The foreground color used with Base (usually the same as the WindowText)
+|base05 |WindowText      |(formerly Foreground) A general foreground color
+|base07 |BrightText      |A text color that is very different from WindowText, and contrasts well with e.g. Dark.
+|base0a |ButtonText      |Foreground color
+|base0c |HighlightedText |Foreground color of highlighted text
+|base0d |Link            |Unvisited hyperlinks
+|base0e |LinkVisited     |Visited hyperlinks
+|===
+
+==== The Base16 Scheme Standard
+
+[width="100%",options="header"]
+|===
+|Base16 |General Scheme   |           |When Used for Syntax Highlighting Purposes
+|base00 |darkest          |black      |Default Background
+|base01 |                 |           |Lighter Background (Used for status bars)
+|base02 |                 |dark gray  |Selection Background
+|base03 |                 |           |Comments, Invisibles, Line Highlighting
+|base04 |                 |           |Dark Foreground (Used for status bars)
+|base05 |                 |light gray |Default Foreground, Caret, Delimiters, Operators
+|base06 |                 |           |Light Foreground (Not often used)
+|base07 |lightest         |white      |Light Background (Not often used)
+|base08 |hottest          |red        |Variables, XML Tags, Markup Link Text, Markup Lists, Diff Deleted
+|base09 |hot              |orange     |Integers, Boolean, Constants, XML Attributes, Markup Link Url
+|base0A |warmer           |yellow     |Classes, Markup Bold, Search Text Background
+|base0B |warm             |green      |Strings, Inherited Class, Markup Code, Diff Inserted
+|base0C |cool             |blue       |Support, Regular Expressions, Escape Characters, Markup Quotes
+|base0D |cooler           |indigo     |Functions, Methods, Attribute IDs, Headings
+|base0E |cold             |violet     |Keywords, Storage, Selector, Markup Italic, Diff Changed
+|base0F |coldest          |brown      |Deprecated, Opening/Closing Embedded Language Tags
+|===

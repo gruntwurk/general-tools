@@ -1,0 +1,240 @@
+= A Windows OS Cheat Sheet
+polyglot-jones
+v0.01, 4/20/2021
+
+:toc:
+:toc-placement!:
+
+toc::[]
+
+
+== Useful Shortcut Keys (just the lesser known)
+
+* Win+Shift+S = Capture Snippet
+* Win = Reopen Browser Tabs
+* Ctrl+Backspace = Delete Entire Words
+* Win+arrow = Snap Windows
+* Win+I = Open Settings
+* Win+A = Open Action Center
+* Win+H = Open Speech Recognition (must be enabled in Privacy Settings and configured in Time & Speech)
+* Win+Tab = Create a New Virtual Desktop
+* Win+X = Open Hidden Quick Link Menu
+* Win+V = Cloud clipboard (with clipboard history)
+* Win+G = Open/Close Game Bar (incl. general-purpose recording modes)
+* Win+Plus = Magnify Screen (Win+=, actually)
+* Win+Minus = Un-Magnify Screen
+* Win+Esc = Close magnifier
+* Win+Period = Insert symbol or emoji 
+
+NOTE: Use properties to create custom shortcuts on executables/files/folders
+
+
+
+== Troubleshooting/Diagnostics
+
+* Reliability History Monitor (Search Bar> "reliability")
+* chkdisk c: /r
+* sfc /scannow (as Admin) -- system file scan (always restart after)
+* DISM /Online /Cleanup-Image /RestoreHealth -- (always restart after, then repeat sfc)
+* powercfg /batteryreport
+
+
+=== Booting into Safe Mode
+
+First Method:
+
+. On login screen, hold SHIFT and click the power icon, then Restart.
+. Troubleshoot
+. Advanced Options
+. See more recovery options
+. Startup Settings
+. Restart
+
+Second Method:
+
+. Interrupt the normal boot process of Windows 10 three times in a row.
+
+Third Method:
+
+. Boot from a recovery stick
+. Select lang and kb
+. Repair your computer (lower left)
+. Troubleshoot
+. Command Prompt
+. `bcdedit /set {default} safeboot minimal`
+. Close the terminal
+. Continue
+
+NOTE: This will boot safe mode every time from now on. So, ...
+
+. `bcdedit /deletevalue {default} safeboot`
+
+
+
+== Misc. Utilities (DOS Commands)
+
+=== Pre-Installed Commands
+
+* cipher /e (folder) -- turn on encryption for the given folder
+* cipher /d (folder) -- decrypt (turn off encryption)
+* cipher /w (drive) -- wipe free space
+* fc file1 file2 -- file compare
+* ipconfig /all
+* ipconfig /flushdns
+* netsh wlan show wlanreport
+* ping
+* powercfg /batteryreport
+* powercfg /energy
+* taskkill /f /t /pid nnn
+* tasklist
+* tracert
+
+=== Windows Subsystem for Linux (Ubuntu based)
+
+. Settings > Update and Security > For Developers > Developer Mode
+. Turn Windows Features On/Off > [x] Windows Subsystem for Linux (Beta)
+. (Reboot)
+. Search Bar> "bash"
+
+=== SysInternals Suite
+
+https://docs.microsoft.com/en-us/sysinternals/downloads
+
+The Suite is a bundling of the following selected Sysinternals Utilities: 
+
+* AccessChk
+* AccessEnum
+* AdExplorer
+* AdInsight
+* AdRestore
+* Autologon
+* Autoruns -- Diagnose programs that auto start
+* BgInfo
+* BlueScreen
+* CacheSet
+* ClockRes
+* Contig
+* Coreinfo
+* Ctrl2Cap
+* DebugView
+* Desktops
+* Disk2vhd
+* DiskExt
+* DiskMon
+* DiskView
+* Disk Usage (DU)
+* EFSDump
+* FindLinks
+* Handle -- Show file-in-use info
+* Hex2dec
+* Junction -- Create/Delete symbolic links
+* LDMDump
+* ListDLLs
+* LiveKd
+* LoadOrder
+* LogonSessions
+* MoveFile -- Queues files (that are currently in use) to be moved upon restart; PendMoves shows the queue
+* NotMyFault
+* NTFSInfo
+* PageDefrag
+* PendMoves -- (see MoveFile)
+* PipeList
+* PortMon
+* ProcDump
+* Process Explorer (procexp64.exe) -- Task Manager on Steroids (e.g. what resources are blocked by whom)
+* Process Monitor
+* PsExec
+* PsFile
+* PsGetSid
+* PsInfo
+* PsKill -- Kill a  process
+* PsList -- Show processes
+* PsLoggedOn
+* PsLogList
+* PsPasswd
+* PsPing
+* PsService
+* PsShutdown
+* PsSuspend
+* PsTools
+* RAMMap
+* RegDelNull
+* RegHide
+* RegJump
+* Registry Usage (RU)
+* SDelete (sdelete64.exe) -- Secure delete of files/folders/free-space
+* ShareEnum
+* ShellRunas
+* Sigcheck -- Analyzes files that aren't digitally signed (like malware)
+* Streams
+* Strings
+* Sync
+* Sysmon
+* TCPView -- Network diagnostics
+* VMMap
+* VolumeID
+* WhoIs
+* WinObj
+* ZoomIt
+
+
+
+== Windows 10 Optimization
+
+=== Windows Update
+
+* Windows Update> Advanced Settings > Delivery Optimization > (uncheck) Allow Downloads from other PCs
+
+=== De-Bloat
+
+. Download script from github.com/Sycnex/Windows10Debloater
+. Open powershell as admin
+. Set-ExecutionPolicy unrestricted
+. .\Windows10Debloater.ps1
+. R (run once)
+
+=== PC Settings
+
+. Apps > Startup -- (review)
+. Account > Sign-in Options -- (uncheck) Use my sign-in info to automatically...
+. Privacy > General -- (uncheck all)
+. Privacy > Speech -- (uncheck all)
+. Privacy > Inking/Typing -- (uncheck all)
+. Privacy > Diag/Feedback -- (all basic/off); Feedback = never
+. Privacy > Location -- (uncheck all)
+. Privacy > Background Apps -- (uncheck all)
+. Privacy > App Diagnostics -- (uncheck all)
+
+Expected Startup Apps:
+
+* AVG
+* Alps Pointing-device Driver
+* Classic Start Menu (IvoSoft)
+* Delayed Launcher (Intel)
+* Dropbox
+* HD Audio Background Process
+* Realteck HD Audio Manager
+* Windows Security Notify
+
+=== Indexing
+
+. C-Drive properties > (uncheck) Allows files...indexed
+
+=== Restore Points
+
+. Control Panel > System Properties > System Protection
+. Highlight the "system" drive
+. Click the Configure button
+. (check) System protection and set the maximum disk space to 3%
+
+=== Uninstall IE, etc.
+
+Control Panel > Programs and Features > Windows Features
+
+* (uncheck) IE 11
+* (uncheck) Windows Media Player
+
+Click OK
+
+
+

@@ -1,0 +1,317 @@
+= A BASH Cheat Sheet
+polyglot-jones
+v0.01, 9/14/2020
+
+:toc:
+:toc-placement!:
+
+toc::[]
+
+
+[[misc]]
+== misc
+
+=== Here Documents (multi-line string constants)
+Generally,
+
+    mycommand-that-takes-stdin <<SomeUniqueString
+    foo
+    bar
+    baz
+    SomeUniqueString
+
+Most often, EOF is uses as the unique string (unless EOF appears within the body).
+
+There is a variant with a hyphen `<<-SomeUniqueString` that tells bash to ignore leading \t's (but not leading spaces).
+
+To load the text into a bash variable...
+
+    read -d '' myvariable <<EOF ...
+
+
+
+[[logic]]
+== Logic
+
+=== Flow Control
+
+    if [ ... ]; then
+        ...
+    elif [ ... ]; then
+        ...
+    else
+        ...
+    fi
+
+
+    source include-file
+
+
+=== General Comparison Operators
+
+(See also the comparison operators under <<numbers,Numbers>>, <<strings,Strings>>, <<files,Files>>, and <<dates,Dates>>, below.)
+
+[width="100%"]
+|===
+| if [ -v varname ] | varname defined (unary) 
+|===
+
+
+=== Functions
+
+    log() {
+        echo $* &>> /vagrant/bootstrap.log
+    }
+
+[width="100%"]
+|===
+|$1 .. $n | single argument
+|$*       | all arguments
+|$@       | all arguments
+|"$*"     | all arguments as a single string ("foo bar baz")
+|"$@"     | all arguments as separate strings ("foo" "bar" "baz")
+|===
+
+
+[[in-line]]
+== In-Line Processing
+
+=== String Delimiters
+
+Double quotes -- contents are processed
+Single quotes -- contents are NOT processed
+
+Processing includes
+* dollar-sign expansion
+* back-slash escaping
+
+=== Command Substitution
+
+Original way: 
+	back-tics \`...\` -- backslashes are literals, not escapes
+
+Alternative way: 
+	$(...) -- backslashes are escapes
+
+=== Arithmetic
+
+	$((...)) -- double parens
+
+Note: Division truncates to integer values
+
+=== Parameter Expansion
+
+[width="100%"]
+|===
+| `${param:-foo}`                | uses foo as *default* if param is undefined/null
+| `${param:=foo}`                | same, but also sets param to that value
+| `${param:offset}`              | *substring (0-based)* to EOL
+| `${param:offset:len}`          | substring (0-based) for length
+| `${param: -offset}`            | substring starting at offset from EOL
+| `${param: -offset:len}`        | substring starting at offset from EOL for len
+| `${:#param}`                   | *length* of param's string value
+| `${:#*}`                       | *number of arguments*
+| `${param/pattern/substitute}`  | replaces first match (greedy)
+| `${param//pattern/substitute}` | *replaces all matches*
+| `${param/#pattern/substitute}` | replaces only a starts-with match
+| `${param/%pattern/substitute}` | replaces only an ends-with match
+| `${param#pattern}`             | delete a starts-with match
+| `${param##pattern}`            | delete a starts-with match (greedy)
+| `${param%pattern}`             | delete an ends-with match
+| `${param%%pattern}`            | delete an ends-with match (greedy)
+| `${param@U}` or `${param^^}`   | uppercase all letters
+| `${param@u}` or `${param^}`    | capitalize first letter only
+| `${param@L}` or `${param,,}`   | lowercase all letters
+| `${param,}`                    | lowercase first letter only
+| `${param@Q}`                   | quoted (if not already)
+| `${param@E}`                   | escape characters expanded
+| `${param@P}`                   | expanded as a prompt format string
+| `${param@A}`                   | expanded as an assignment statement
+| `${param@a}`                   | returns the attributes of param
+|===
+
+Note: Using /pattern without specifying a /substitute is equivalent to using ##pattern.
+
+Note: This short list doesn't even begin to cover all of the variations involving arrays.
+
+Pattern matching is an odd blend of GLOB and REGEX:
+
+[width="100%"]
+|===
+| ?               | any one character    
+| *               | 0 or more characters 
+| [...]           | character list     
+| [:class:]       | alnum, alpha, ascii, blank, cntrl, digit, graph, lower, print, punct, space, upper, word, xdigit 
+| ?(pattern-list) | up to one occurrences of the pattern(s)
+| *(pattern-list) | zero or more occurrences
+| +(pattern-list) | one or more occurrences
+| @(pattern-list) | exactly one occurrence 
+| !(pattern-list) | all-but the first occurrence 
+|===
+
+pattern-list is one or more patterns separated by vertical bars.
+
+
+[[numbers]]
+== Numbers
+
+=== Numeric Comparison Operators
+
+[width="100%"]
+|===
+| -eq, -ne   | equality
+| -lt, -gt   | less/greater
+| -le, -ge   | or equals
+|===
+
+[[strings]]
+== Strings/Text
+
+=== String Comparison Operators
+
+[width="100%"]
+|===
+| ==, !=     | equality
+| <, >       | sort-order
+| -z         | zero length (unary)
+| -n         | not zero length (unary)
+|===
+
+=== Text Editing (SED)
+
+    # Std In/Out
+    sed [options] < original.txt > modified.txt
+
+    # Edit a file in place
+    sed [options] -i my_text.txt
+    sed [options] -iorig my_text.txt    # saves my_text.orig first
+
+*Command-Line Switches: *
+
+[width="100%"]
+|===
+| `-E (or -r)`         | use extended regex
+| `-e "s/foo/bar/g"`   | specify a command directly
+| `-e "s/foo/bar/g;G"` | specify multiple commands directly
+| `-f my_script.sed`   | import SED commands from a file
+| `-n`                 | don't print (to stdout) any lines unless explicitly printed via the `p` SED command
+|===
+
+Tip: repeating the -e and -f switches is allowed.
+
+*The Most Common SED Commands:*
+
+[width="100%"]
+|===
+| `s/foo/bar/`   | substitute the first occurrence 
+| `s/foo/bar/2`  | substitute the Nth occurrence 
+| `s/foo/bar/g`  | substitute all occurrences
+| `s/foo/bar/3g` | substitute all occurrences starting with the Nth
+| `d`            | delete the whole line
+| `G`            | insert a blank line after each line
+| `p`            | print (to stdout) the line (use the -n switch to suppress printing other lines)
+|===
+
+*SED Command Modifiers:*
+
+Any SED command can be preceded by a modifier that restricts the context in which it operates.
+Adding a space between the modifier and the command is optional.
+
+[width="100%"]
+|===
+| `5`              | a particular line
+| `5,8`            | a range of lines (5 thru 8)
+| `5,+2`           | a range of lines (5 thru 7)
+| `5,$`            | all lines from N to the end of the file
+| `5~2`            | every-other line starting with line N
+| `/foo/`          | all lines that contain the given pattern
+| `/start/,/stop/` | a range of lines, starting with the first line that contains the start pattern thru the first line that contains the stop pattern
+| `5,/stop/`       | a range of lines, starting with line N thru the first line that contains the stop pattern
+|===
+
+
+
+[[files]]
+== Files
+
+=== File Comparison Operators
+
+[width="100%"]
+|===
+| -a filename      | file exists; it can be empty or have some content but, so long as it exists, this will be true
+| -b filename      | file exists and is a block special file such as a hard drive like /dev/sda or /dev/sda1
+| -c filename      | file exists and is a character special file such as a TTY device like /dev/TTY1
+| -d filename      | file exists and is a directory
+| -e filename      | file exists; this is the same as -a above
+| -f filename      | file exists and is a regular file, as opposed to a directory, a device special file, or a link, among others
+| -g filename      | file exists and is set-group-id, SETGID
+| -h filename      | file exists and is a symbolic link
+| -k filename      | file exists and its "sticky'" bit is set
+| -p filename      | file exists and is a named pipe (FIFO)
+| -r filename      | file exists and is readable, i.e., has its read bit set
+| -s filename      | file exists and has a size greater than zero; a file that exists but that has a size of zero will return false
+| -t fd            | file descriptor fd is open and refers to a terminal
+| -u filename      | file exists and its set-user-id bit is set
+| -w filename      | file exists and is writable
+| -x filename      | file exists and is executable
+| -G filename      | file exists and is owned by the effective group ID
+| -L filename      | file exists and is a symbolic link
+| -N filename      | file exists and has been modified since it was last read
+| -O filename      | file exists and is owned by the effective user ID
+| -S filename      | file exists and is a socket
+| file1 -ef file2  | file1 and file2 refer to the same device and iNode numbers
+| file1 -nt file2  | file1 is newer (according to modification date) than file2, or if file1 exists and file2 does not
+| file1 -ot file2  | file1 is older than file2, or if file2 exists and file1 does not
+|===
+
+
+The `dirname` command strips off the last slash and anything after it (presumably a filename). If the result is empty, it return ".".
+${LOG_FILE%/*} 
+
+To get just the file name, use `${fully_qualified_filename##*.[/\\]}`, which greedily deletes from the start to the last slash or backslash
+
+[[dates]]
+== Dates
+
+
+=== Date Formatting (per the C89 standard)
+
+[width="100%"]
+|===
+| %a | Weekday abbr                        | Mon..Sun
+| %A | Weekday full name                   | Monday..Sunday
+| %w | Weekday as a decimal                | 0..6
+| %d | Day of month                        | 01..31
+| %b | Month abbr                          | Jan..Dec
+| %B | Month full name                     | January..December
+| %m | Month                               | 01..12
+| %y | 2-digit Year                        | 00..99
+| %Y | 4-digit Year                        | 0001..9999
+| %H | Military Hour                       | 00..23
+| %I | Civilian Hour                       | 01..12
+| %p | AM/PM                               | AM, PM
+| %M | Minute                              | 00..59
+| %S | Second                              | 00..59
+| %f | Microsecond                         | 000000..999999
+| %z | UTC offset                          | (empty), +0000, -0400, +1030, +063415, -030712.345216
+| %Z | Time zone name                      | (empty), UTC, EST, CST
+| %j | Day of the year                     | 001..366
+| %U | Week of the year Sunday based       | 00..53
+| %W | Week of the year Monday based       | 00..53
+| %c | Locale’s appropriate representation | Tue Aug 16 21:30:00 1988
+| %x | Locale’s appropriate representation | 08/16/1988
+| %X | Locale’s appropriate representation | 21:30:00
+| %% | Percent sign                        | %
+|===
+
+Additional Directives:
+
+[width="100%"]
+|===
+| %G | ISO 8601 year that contains the greater part of the ISO week (%V) | 0001..9999
+| %u | ISO 8601 weekday where 1 is Monday                                | 1..7
+| %V | ISO 8601 week Monday based where Week 01 contains Jan 4.          | 01..53
+|===
+
+
+
