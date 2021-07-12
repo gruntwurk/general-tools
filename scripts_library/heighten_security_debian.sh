@@ -49,6 +49,8 @@ dpkg-reconfigure --default-priority -u unattended-upgrades 2>> $LOG_FILE
 #                                                             LIMIT SSH ACCESS
 # ============================================================================
 
+save_backup /etc/ssh/sshd_config
+
 # This assumes that there is at least one non-root user with a working public 
 # key established in their ~/.ssh/. 
 #
@@ -59,16 +61,16 @@ dpkg-reconfigure --default-priority -u unattended-upgrades 2>> $LOG_FILE
 log_step "Denying logging in (via SSH) as root"
 conf_change /etc/ssh/sshd_config PermitRootLogin no
 
-log_step "Denying logging in (via SSH) with a password (keypair required)"
-sudo sed -r -e "s/PasswordAuthentication\s+yes/PasswordAuthentication no/g" -i /etc/ssh/sshd_config 2>> $LOG_FILE
+log_step "Denying logging in (via SSH) with a password (thus a keypair is required)"
+conf_change /etc/ssh/sshd_config PasswordAuthentication no
 
 log_step "Restricting SSH access to IPv4 (not IPv6)"
-sudo sed -r -e "s/#AddressFamily/AddressFamily inet/g" -i /etc/ssh/sshd_config 2>> $LOG_FILE
+conf_change /etc/ssh/sshd_config AddressFamily inet
 
 # Specify the (non-default) port for SSH
 if [ "$SSH_PORT" != "22" ]; then
-    log_step "Changing SSH port from 22 to $SSH_PORT"
-    sudo sed -r -e "s/#Port 22/Port $SSH_PORT/g" -i /etc/ssh/sshd_config 2>> $LOG_FILE
+    log_step "Changing SSH port to $SSH_PORT"
+    conf_change /etc/ssh/sshd_config Port $SSH_PORT
 fi
 
 # We can't restart sshd here, because vagrant needs the current SSH connection to finish the provisioning.
