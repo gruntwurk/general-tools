@@ -20,7 +20,7 @@ SESSION_ID=$( date '+%Y%m%d-%H%M%S' )
 #                                                                      LOGGING
 # ============================================================================
 start_log() {
-    $LOG_NAME=$1
+    LOG_NAME=$1
     if [ -z $LOG_FILE ]; then
         LOG_FILE="/var/log/$LOG_NAME.log"
     fi
@@ -40,7 +40,7 @@ show() {
 log_header() {
     log ""
     log "=============================================================================="
-    log "$@ -- $( date \"$TIMESTAMP_FORMAT\" )"
+    log "$@ -- `date \"$TIMESTAMP_FORMAT\"`"
     show "On $( hostname ) ($( hostname -I ))"
     log "=============================================================================="
 }
@@ -119,11 +119,11 @@ save_backup() {
 conf_uncomment() {
     local CONFIG_FILE=$1
     local OPTION=$2
-    local OPTION_COUNT=$( grep -c "^#\s*$OPTION" $CONFIG_FILE )
+    local OPTION_COUNT=$( egrep -c "^#\s*$OPTION" $CONFIG_FILE )
     if [ $OPTION_COUNT -eq 1 ]; then
-        log "Setting was: $( grep "^#\s*$OPTION" $CONFIG_FILE )"
-        sudo sed -e "s/^#\s($OPTION)/\1/" -iorig $CONFIG_FILE 2>> $LOG_FILE
-        log "Setting now: $( grep "^$OPTION" $CONFIG_FILE )"
+        log "Setting was: $( egrep "^#\s*$OPTION" $CONFIG_FILE )"
+        sudo sed -r -e "s/^#\s($OPTION)/\1/" -iorig $CONFIG_FILE 2>> $LOG_FILE
+        log "Setting now: $( egrep "^$OPTION" $CONFIG_FILE )"
     fi
 }
 
@@ -138,11 +138,11 @@ conf_change() {
     local OPTION=$2
     local NEW_VALUE=$3
     # See if such an option exists (at the start of a line)
-    local OPTION_COUNT=$( grep -c "^\s*$OPTION[=\s]" $CONFIG_FILE )
+    local OPTION_COUNT=$( egrep -c "^\s*$OPTION[= \t]" $CONFIG_FILE )
     if [ $OPTION_COUNT -lt 1 ]; then
         # Maybe it's been commented out. Try uncommenting it, then count again.
         conf_uncomment $CONFIG_FILE $OPTION
-        OPTION_COUNT=$( grep -c "^\s*$OPTION[=\s]" $CONFIG_FILE )
+        OPTION_COUNT=$( egrep -c "^\s*$OPTION[= \t]" $CONFIG_FILE )
     fi
 
     if [ $OPTION_COUNT -lt 1 ]; then
@@ -150,13 +150,11 @@ conf_change() {
     elif [ $OPTION_COUNT -gt 1 ]; then
         log_error "Multiple ambiguous $OPTION lines exist within $CONFIG_FILE -- nothing changed."
     else
-        log "Setting was: $( grep "^\s*$OPTION[=\s]" $CONFIG_FILE )"
-        sudo sed -e "s~^(\s*$OPTION)([=\s]+)\.*~\1\2$NEW_VALUE~" -iorig $CONFIG_FILE 2>> $LOG_FILE
-        log "Setting now: $( grep "^\s*$OPTION[=\s]" $CONFIG_FILE )"
+        log "Setting was: $( egrep "^\s*$OPTION[= \t]" $CONFIG_FILE )"
+        sudo sed -r -e "s~^(\s*$OPTION)([= \t]+).*~\1\2$NEW_VALUE~" -iorig $CONFIG_FILE 2>> $LOG_FILE
+        log "Setting now: $( egrep "^\s*$OPTION[= \t]" $CONFIG_FILE )"
     fi
 }
-
-
 
 # ============================================================================
 #                                                                  FILE SYSTEM
@@ -166,13 +164,16 @@ check_computer_name() {
     MACHINE_NAME=${1:-$( hostname )}
     log_step "Checking the computer name."
 
-    if [ $( hostname ) != "$MACHINE_NAME" ]; then
+    if [ $( hostname ) == "$MACHINE_NAME" ]; then
+        log "Verified that the computer name is $MACHINE_NAME"
+    else
         show "Changing the computer name from $( hostname ) to $MACHINE_NAME"
         sudo echo "$MACHINE_NAME" > /etc/hostname 
     fi
 
     LOOPBACK_COUNT=$( egrep -c "127.0.0.1\s+$MACHINE_NAME" /etc/hosts )
-    if [ LOOPBACK_COUNT -LT 1 ]; then
+    if [ $LOOPBACK_COUNT -lt 1 ]; then
+        save_backup /etc/hosts
         log "Adding a loopback for $MACHINE_NAME in /etc/hosts"
         echo "127.0.0.1          $MACHINE_NAME" >> /etc/hosts
     fi
@@ -203,7 +204,7 @@ mount_folder() {
     if [ $EXISTING_COUNT -lt 1 ]; then
         echo "$FSTAB_LINE" >> $CONFIG_FILE
     elif [ $EXISTING_COUNT -eq 1 ]; then
-        sudo sed -e "s/^$SOURCE_FOLDER .*$)/$FSTAB_LINE/" -iorig $CONFIG_FILE 2>> $LOG_FILE
+        sudo sed -r -e "s/^$SOURCE_FOLDER .*$)/$FSTAB_LINE/" -iorig $CONFIG_FILE 2>> $LOG_FILE
     else
         log_error "Duplicate existing FSTAB entries found for $MOUNT_POINT."
     fi

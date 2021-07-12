@@ -60,15 +60,15 @@ log_step "Denying logging in (via SSH) as root"
 conf_change /etc/ssh/sshd_config PermitRootLogin no
 
 log_step "Denying logging in (via SSH) with a password (keypair required)"
-sudo sed -e "s/PasswordAuthentication\s+yes/PasswordAuthentication no/g" -i /etc/ssh/sshd_config 2>> $LOG_FILE
+sudo sed -r -e "s/PasswordAuthentication\s+yes/PasswordAuthentication no/g" -i /etc/ssh/sshd_config 2>> $LOG_FILE
 
 log_step "Restricting SSH access to IPv4 (not IPv6)"
-sudo sed -e "s/#AddressFamily/AddressFamily inet/g" -i /etc/ssh/sshd_config 2>> $LOG_FILE
+sudo sed -r -e "s/#AddressFamily/AddressFamily inet/g" -i /etc/ssh/sshd_config 2>> $LOG_FILE
 
 # Specify the (non-default) port for SSH
 if [ "$SSH_PORT" != "22" ]; then
     log_step "Changing SSH port from 22 to $SSH_PORT"
-    sudo sed -e "s/#Port 22/Port $SSH_PORT/g" -i /etc/ssh/sshd_config 2>> $LOG_FILE
+    sudo sed -r -e "s/#Port 22/Port $SSH_PORT/g" -i /etc/ssh/sshd_config 2>> $LOG_FILE
 fi
 
 # We can't restart sshd here, because vagrant needs the current SSH connection to finish the provisioning.

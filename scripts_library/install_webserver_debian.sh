@@ -74,9 +74,9 @@ sudo openssl req -x509 -nodes -days 365 -newkey rsa:4096 \
   -out /etc/apache2/ssl/apache.crt \
   -subj "$SSL_CERT_INFO" 
 sudo a2enmod ssl
-sudo sed -e "s%/etc/ssl/certs/ssl-cert-snakeoil.pem%/etc/apache2/ssl/apache.crt%" \
+sudo sed -r -e "s%/etc/ssl/certs/ssl-cert-snakeoil.pem%/etc/apache2/ssl/apache.crt%" \
   -ibak /etc/apache2/sites-available/default-ssl.conf
-sudo sed -e "s%/etc/ssl/private/ssl-cert-snakeoil.key%/etc/apache2/ssl/apache.key%" \
+sudo sed -r -e "s%/etc/ssl/private/ssl-cert-snakeoil.key%/etc/apache2/ssl/apache.key%" \
   -ibak /etc/apache2/sites-available/default-ssl.conf
 sudo a2ensite default-ssl.conf
 sudo service apache2 restart
