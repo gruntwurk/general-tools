@@ -1,0 +1,9 @@
+# installer-config.txt -- to automate the installation of Raspberry Pi OS
+# See: https://github.com/debian-pi/raspbian-ua-netinst
+
+rootpw=pi
+username=pi
+userpw=pi
+user_is_admin=1
+locales=en_US.UTF-8
+system_default_locale=en_US.UTF-8

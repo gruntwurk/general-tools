@@ -1,0 +1,8 @@
+pi:pi  755  /etc/wpa_supplicant/wpa_supplicant.conf
+pi:pi  755  /home/pi/.bashrc
+pi:pi  755  /home/pi/.bash_aliases
+pi:pi  755  /home/pi/.ssh/authorized_keys
+pi:pi  755  /home/pi/helper_functions_debian.sh
+pi:pi  755  /home/pi/heighten_security_debian.sh
+pi:pi  755  /home/pi/install_webserver_debian.sh
+pi:pi  755  /home/pi/install_simple_nas_debian.sh

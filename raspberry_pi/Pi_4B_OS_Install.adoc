@@ -1,0 +1,59 @@
+= Installing Debian on a Raspberry Pi Model 4B 
+
+NOTE: Raspberry Pi can now boot from USB, if desired.
+Newer versions of Model 4B (since April 2020) do this automatically.
+Older Pi's need a firmware update.
+
+
+== Initial Setup
+
+The following steps only need to be performed once, no matter how many Pis you need to (re)configure.
+
+. Alongside these instructions is a folder called `rpi_config` which contains several subfolders and files. 
+They are laid out as intended for configuring a Pi 3 or earlier, but we'll cherry-pick some of the files for how we'll configure a Pi 4.
+
+. In your working folder environment, create a project called `rpi4_config`.
+Anything you place in this folder will eventually end up in the home folder for the `pi` user.
+
+. Start with copying all of the files that are in `...\general-tools\raspberry_pi\rpi_config\config\files\home\pi` to `rpi4_config`.
+(At the time of this writing, it's just `.bashrc` and `.bash_aliases`). 
+
+. Next, copy into `rpi4_config` the `basics_debian.sh` and `helper_functions_debian.sh` scripts from `...\general-tools\scripts_library` -- along with any other desired scripts (e.g. `install_simple_nas_debian.sh` or `install_webserver_debian.sh`).
+
+. Edit each script (except `helper_functions_debian.sh`) to verify/change the various option settings at the top.
+
+. Commit this `C:\work\rpi4_config` project to version control.
+
+
+== To Actually Configure a Pi
+
+. Download the IMG file (compressed as an XZ file) for the Debian release of your choice from https://raspi.debian.net/tested-images.
+FYI: These images include: the bare Debian base install, `raspi3-firmware`, partition management tools (`parted` and `dosfstools`), and network connectivity tools (`wpasupplicant`, `wireless-tools`, and `ssh`).
+
+. Run the Raspberry Pi Imager (or balenaEtcher) to burn the IMG to an SD card or USB stick.
+This will create two partitions: a 300MB FAT32 partition for the boot firmware, and a 1GB Linux partition, which Windows won't be able to read. 
+NOTE: On the Raspberry, the firmware partition will be mounted under `/boot/firmware`.
+Also, the Linux partition will be expanded to use up the full SD card's capacity upon first boot.
+
+. In the boot firmware partition, edit the settings in `config.txt` and/or `cmdline.txt` as desired. 
+`config.txt` approximately maps to what you would expect on a PC’s BIOS/UEFI, settings that are applied before Linux is booted.
+It includes settings for `root_pw`, `root_authorized_key`, and `hostname`.
+At a minimum, set the `root_authorized_key` to your public SSH key.
+`cmdline.txt` sets the Linux boot parameters, but you probably won't need to change any of those.
+
+. Copy the `rpi4_config` folder to the boot firmware partition.
+
+. Transfer the SD card to the Pi and boot it up. (You'll need a monitor, mouse, and keyboard.)
+
+. `cd /boot/firmware/rpi4_config` 	
+. `chmod 777 *.sh`
+. `./basics_debian.sh`
+. At the end, `basics_debian.sh` will show you the DHCP-assigned IP address (e.g. 192.168.0.26). Make a note of it.
+. Inspect the log: `cat /var/log/basics_debian.sh.log`
+
+. From Windows, SSH in using the created sudo user's credentials e.g. `ssh pi@192.168.0.26` 
+You might also want to set up WinSCP to log in the same. 
+(You'll need to tell WinSCP where your private key file is and it will want to convert it from OpenSSH format to Putty. Let it.)
+
+. At this point, everything in `/boot/firmware/rpi4_config` will have been copied to the home folder for the created sudo user.
+So, if you included any of the other scripts from `general-tools\scripts_library`, you can run them from there.

@@ -1,0 +1,30 @@
+= Using the Unattended Raspberry Pi OS Installer ("raspbian-ua-netinst")
+
+Herein are some shortcuts for using https://github.com/debian-pi/raspbian-ua-netinst to automate the installation of Raspberry Pi OS.
+
+NOTE: "Raspian" is now officially called "Raspberry Pi OS".
+IMPORTANT: This method only works for Raspberry Pi Model 1B to 3B+." It does not work for Model 4B.
+
+== Initial Setup
+
+The following steps only need to be performed once, no matter how many Pis you need to (re)configure.
+
+. Alongside these instructions is a folder called `rpi_config` which contains several subfolders and files. Make of copy the entire `rpi_config` tree as its own project within your working folder environment. For example, say you cloned this `general-tools` project to `C:\forks\gruntwurk` and your main working folder is `C:\work`, then you would copy `C:\forks\gruntwurk\general-tools\raspberry_pi\rpi_config` to `C:\work\rpi_config`. 
+. Edit `C:\work\rpi_config\installer-config.txt` to specify better passwords for the root account and the "pi" account.
+. Edit `C:\work\rpi_config\config\files\etc\wpa_supplicant\wpa_supplicant.conf` to configure the wi-fi for your router name and password.
+. To allow yourself to SHH into the Pi, copy your public key file (probably `~\.ssh\id_rsa.pub`) to `C:\work\rpi_config\config\files\home\pi\.ssh\authorized_keys` (no extension), replacing the empty file that is already there.
+. Review `C:\work\rpi_config\config\files\home\pi\.bashrc` and `.\.bash_aliases`. If they are not to your liking, either edit them or remove them altogether.
+. If you want to use any of the scripts in `...\general-tools\scripts_library` (e.g. `install_simple_nas_debian.sh` or `install_webserver_debian.sh`) then copy them to `C:\work\rpi_config\config\files\home\pi`. IMPORTANT: Don't forget to copy `helper_functions_debian.sh` as well, as all of the other scripts rely on it. Also, make sure you edit each script to verify/change any settings at the top.
+. Finally, edit `C:\work\rpi_config\config\my-files.list` to reflect exactly which files you want copied to the Pi.
+. (Optional) commit this `C:\work\rpi_config` project to version control.
+
+== To Actually Configure a Pi
+
+. Download the ZIP file for the latest release from https://github.com/debian-pi/raspbian-ua-netinst (under "Releases" in the sidebar).
+. Format a 1GB (or larger) (micro)SD card as FAT32 (not exFAT).
+. Extract the ZIP files onto the SD card.
+. Copy the contents of your `C:\work\rpi_config` project to the SD card at the root. (Answer "Yes" to overwriting `my-files.list`.)
+. Transfer the SD card to the Pi. Connect a monitor, if available. Boot the Pi. This will load the contents of the SD card into memory and run the installer. (That, in turn, will wipe the SD card, download the latest Raspberry Pi OS distro to the SD card, fire it up, and then copy your configuration files back to the SD card from memory). It may take a while.
+. At this point you should be able to SSH into the Pi (as the user `pi`).
+. Consult `/var/log/raspbian-ua-netinst.log` to see how the install went.
+. Finally, if you included any of the `general-tools\scripts_library` scripts, run those.
