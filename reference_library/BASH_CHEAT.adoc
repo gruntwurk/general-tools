@@ -8,6 +8,7 @@ v0.01, 9/14/2020
 toc::[]
 
 
+
 [[misc]]
 == misc
 
@@ -71,6 +72,7 @@ To load the text into a bash variable...
 |"$*"     | all arguments as a single string ("foo bar baz")
 |"$@"     | all arguments as separate strings ("foo" "bar" "baz")
 |===
+
 
 
 [[in-line]]
@@ -152,6 +154,7 @@ Pattern matching is an odd blend of GLOB and REGEX:
 pattern-list is one or more patterns separated by vertical bars.
 
 
+
 [[numbers]]
 == Numbers
 
@@ -163,6 +166,8 @@ pattern-list is one or more patterns separated by vertical bars.
 | -lt, -gt   | less/greater
 | -le, -ge   | or equals
 |===
+
+
 
 [[strings]]
 == Strings/Text
@@ -264,15 +269,21 @@ Adding a space between the modifier and the command is optional.
 | file1 -ot file2  | file1 is older than file2, or if file2 exists and file1 does not
 |===
 
+Use ! to invert the logic, e.g. `if [ ! -f filename ]; then...` for if file does not exist.
 
 The `dirname` command strips off the last slash and anything after it (presumably a filename). If the result is empty, it return ".".
 ${LOG_FILE%/*} 
 
 To get just the file name, use `${fully_qualified_filename##*.[/\\]}`, which greedily deletes from the start to the last slash or backslash
 
+
+
 [[dates]]
 == Dates
 
+declare IT_IS_NOW=$( date '+<format>' )
+
+Where <format> is...
 
 === Date Formatting (per the C89 standard)
 
