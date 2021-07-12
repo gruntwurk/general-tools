@@ -4,7 +4,7 @@
 #          Heighten Security on a (Debian-Based) Linux Server
 # ----------------------------------------------------------------------------
 
-# PARAMETERS:   $1 (optional) the log file to use (fully qualified)
+# PARAMETERS:   (none)
 # INSPIRATION:  NetworkChuck's video: https://www.youtube.com/watch?v=ZhMw53Ud2tY
 # AUTHOR:       polygot-jones -- 6/3/2021
 # LINE ENDINGS: Be sure this file is saved with Unix line-endings.
@@ -18,34 +18,37 @@ SSH_PORT=22
 # HTTPS_PORT=8080/tcp
 BLOCK_PINGS="YES" # Anything but YES means no
 
+# --------  You should not have to change anything below this line  ----------
+
+
 # ============================================================================
-#                                                      IMPORT HELPER FUNCTIONS
+#                                    IMPORT HELPER FUNCTIONS AND START LOGGING
 # ============================================================================
 FULLY_QUALIFIED_SCRIPT_NAME="${BASH_SOURCE[0]}"
 SCRIPT_NAME=${FULLY_QUALIFIED_SCRIPT_NAME##*.[/\\]}
 SCRIPT_DIR="$( cd "$( dirname "$FULLY_QUALIFIED_SCRIPT_NAME" )" &> /dev/null && pwd )"
 source $SCRIPT_DIR/helper_functions_debian.sh
+start_log "$SCRIPT_NAME"
 
 # ============================================================================
-#                                                                        BEGIN
+#                                                    INSTALL MISC. SYSTEM CODE
 # ============================================================================
-LOG_FILE="${1:="/var/logs/$SCRIPT_NAME.log"}"
-log_header "Start of $SCRIPT_NAME"
 
+apt_update
+apt_dist_upgrade
 
 # ============================================================================
 #                                                     ENABLE AUTOMATIC UPDATES
 # ============================================================================
 
 log_step "Enabling automatic updates"
-apt_update
-apt_dist_upgrade
 apt_install unattended-upgrades "Standard Debian package for automatic updates"
 dpkg-reconfigure --default-priority -u unattended-upgrades 2>> $LOG_FILE
 
 # ============================================================================
 #                                                             LIMIT SSH ACCESS
 # ============================================================================
+
 # This assumes that there is at least one non-root user with a working public 
 # key established in their ~/.ssh/. 
 #
@@ -74,6 +77,7 @@ fi
 # ============================================================================
 #                                                           CONFIGURE FIREWALL
 # ============================================================================
+
 # If you are not sure what ports to leave open, this will show you what ports 
 # have been used to connect thus far...
 #
@@ -104,10 +108,12 @@ if [ "$BLOCK_PINGS" == "YES" ]; then
         >> /etc/ufw/before.rules 2>> $LOG_FILE
 fi
 
-log_header "Done (Security Heightened)"
+# ============================================================================
+#                                                                      CLEANUP
+# ============================================================================
 
+log_header "Done (Security Heightened)"
 log ""
-log "NOTE: SSH restrictions will not be applied until after a reboot."
-log ""
-log "NOTE: The firewall will not be active until the following command is entered: sudo wfw enable."
+show "NOTE: SSH restrictions will not be applied until after a reboot."
+show "NOTE: The firewall will not be active until the following command is entered: sudo wfw enable."
 log ""

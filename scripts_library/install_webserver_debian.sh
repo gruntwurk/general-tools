@@ -24,29 +24,25 @@ SSL_CERT_INFO="/C=US/ST=MyState/L=MyLocality/O=MyCompanyName/CN=MyDomainName"
 
 
 # ============================================================================
-#                                                      IMPORT HELPER FUNCTIONS
+#                                    IMPORT HELPER FUNCTIONS AND START LOGGING
 # ============================================================================
+
 FULLY_QUALIFIED_SCRIPT_NAME="${BASH_SOURCE[0]}"
 SCRIPT_NAME=${FULLY_QUALIFIED_SCRIPT_NAME##*.[/\\]}
 SCRIPT_DIR="$( cd "$( dirname "$FULLY_QUALIFIED_SCRIPT_NAME" )" &> /dev/null && pwd )"
 source $SCRIPT_DIR/helper_functions_debian.sh
+start_log "$SCRIPT_NAME"
 
 # ============================================================================
-#                                                                        BEGIN
+#                                                    INSTALL MISC. SYSTEM CODE
 # ============================================================================
-LOG_FILE="${1:="/var/logs/$SCRIPT_NAME.log"}"
-log_header "Start of $SCRIPT_NAME"
 
 apt_update
 sudo apt-get -y upgrade
 
-# ============================================================================
-#                                      INSTALL MISC. SYSTEM CODE/PREREQUISITES
-# ============================================================================
 apt_install curl "Command-line tool for making http requests"
 apt_install ca-certificates "Certificate authorities for checking for the authenticity of SSL connections"
 apt_install apt-transport-https "Adds https protocol support to the APT package manager"
-apt_install ntfs-3g "NTFS file system driver"
 # // apt_install software-properties-common "Part of extending the APT package manager to allow for custom repositories"
 # // apt_install dirmngr "A server for managing and downloading OpenPGP and X.509 certificates"
 # // sudo reboot
@@ -63,12 +59,14 @@ apt_install "mariadb-server mariadb-client mariadb-backup" "MariaDB is a fork of
 # ============================================================================
 #                                                        INSTALL APACHE SERVER
 # ============================================================================
+
 apt_install apache2 "Web server"
 
 
 # ============================================================================
 #                                                                   SET UP SSL 
 # ============================================================================
+
 # Use a self-signed certificate (-x509) w/o passphrase (-nodes)
 sudo mkdir -p /etc/apache2/ssl
 sudo openssl req -x509 -nodes -days 365 -newkey rsa:4096 \
@@ -86,6 +84,7 @@ sudo service apache2 restart
 # ============================================================================
 #                                                   REDIRECT ALL HTTP TO HTTPS
 # ============================================================================
+
 sudo cat > /etc/apache2/sites-available/000-default.conf <<-EOF
 <VirtualHost *:80>
 	ServerAdmin example@example
@@ -103,6 +102,7 @@ sudo service apache2 restart
 # ============================================================================
 #                                                                  INSTALL PHP
 # ============================================================================
+
 apt_install php "PHP itself"
 apt_install libapache2-mod-php "The Apache module that supports serving PHP pages"
 apt_install php-mysql "The MySQL connector for PHP"
@@ -117,5 +117,5 @@ echo "<?php echo "hello world. It is"; echo date('Y-m-d H:i:s'); phpinfo() ?>" >
 sudo service apache2 restart 
 
 
-log "Try browsing to http://$( hostname -I )"
+show "Try browsing to http://$( hostname -I )"
 
