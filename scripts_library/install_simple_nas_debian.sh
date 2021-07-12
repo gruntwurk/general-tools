@@ -6,14 +6,12 @@
 #                           SIMPLE FILE SERVER (NAS)
 # ----------------------------------------------------------------------------
 
+# TARGET OS:    Debian-Based Linux
 # PARAMETERS:   (none)
 # INSPIRATION:  https://pimylifeup.com/raspberry-pi-samba/
 # AUTHOR:       polygot-jones -- 6/28/2021
 # LINE ENDINGS: Be sure this file is saved with Unix line-endings.
-# IDEMPOTENT?   No. Only run this once.
-# PREREQUISITE: This assumes we're using the Raspbian operating system.
-#               - It supports network discovery (mDNS) via Avahi
-#               - It automatically mounts external USB drives (as /media/pi/something)
+# IDEMPOTENT:   There is no harm is running this script multiple times.
 # References:   https://www.raspberrypi.org/documentation/configuration/nfs.md
 
 
