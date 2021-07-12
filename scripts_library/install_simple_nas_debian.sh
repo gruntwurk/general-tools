@@ -75,7 +75,7 @@ apt_install ntfs-3g "NTFS file system driver"
 
 log_step "Auto-detecting the external drive device"
 # FIXME -- this assumes that there is one, and only one, device with this partition type
-DEVICE_NAME="$( blkid | egrep -i 'type="$PARTITION_TYPE"' | egrep -o '/dev/\w+' )"
+DEVICE_NAME="$( blkid | egrep -i "type=\"$PARTITION_TYPE\"" | egrep -o '/dev/\w+' )"
 # DEVICE_NAME is now something like /dev/sda1
 
 mount_folder $DEVICE_NAME $SHARE_PATH $PARTITION_TYPE
@@ -84,12 +84,13 @@ mount_folder $DEVICE_NAME $SHARE_PATH $PARTITION_TYPE
 # ============================================================================
 #                                        INSTALL SAMBA (File-sharing Protocol)
 # ============================================================================
-if [ SUPPORT_SAMBA == "YES" ]; then
+if [ $SUPPORT_SAMBA == "YES" ]; then
 	apt_install "samba samba-common-bin" "SAMBA file sharing protocol (Windows style)"
 
 	SHARE_COUNT=$( egrep -c "^\[$SHARE_DRIVE_AS\]" /etc/samba/smb.conf )
-	if [ $SHARE_COUNT -LT 1 ]; then
+	if [ $SHARE_COUNT -lt 1 ]; then
 		log_step "Configuring SAMBA for equating $SHARE_DRIVE_AS with $SHARE_PATH"
+		save_backup /etc/samba/smb.conf
 		sudo cat >> /etc/samba/smb.conf <<-EOF
 
 			[$SHARE_DRIVE_AS]
@@ -111,7 +112,7 @@ fi
 # ============================================================================
 #                                          INSTALL NFS (File-sharing Protocol)
 # ============================================================================
-if [ SUPPORT_NFS == "YES" ]; then
+if [ $SUPPORT_NFS == "YES" ]; then
 	apt_install nfs-kernel-server "NFS file sharing protocol (Linux/Mac style)"
 
 	log_step "Configuring NFS for equating $SHARE_DRIVE_AS with $SHARE_PATH"
@@ -122,8 +123,9 @@ if [ SUPPORT_NFS == "YES" ]; then
 
 
 	log_step "Configuring NFS for insecure guest access"
+	save_backup /etc/idmapd.conf
 	NOBODY_COUNT=$( grep -c Nobody /etc/idmapd.conf )
-	if [ $NOBODY_COUNT -LT 1 ]; then
+	if [ $NOBODY_COUNT -lt 1 ]; then
 		sudo cat >> /etc/idmapd.conf <<-EOF
 
 			[Mapping]
@@ -133,12 +135,13 @@ if [ SUPPORT_NFS == "YES" ]; then
 	fi
 	
 	log_step "Configuring NFS to share '$SHARE_DRIVE_AS'"
+	save_backup /etc/exports
 	PARENT_COUNT=$( grep -c "^/export " /etc/exports )
-	if [ $PARENT_COUNT -LT 1 ]; then
+	if [ $PARENT_COUNT -lt 1 ]; then
 		sudo echo "/export 192.168.1.0/24(rw,fsid=0,insecure,no_subtree_check,async)" >> /etc/exports
 	fi
 	SHARE_COUNT=$( grep -c "^/export/$SHARE_DRIVE_AS " /etc/exports )
-	if [ $SHARE_COUNT -LT 1 ]; then
+	if [ $SHARE_COUNT -lt 1 ]; then
 		sudo echo "/export/$SHARE_DRIVE_AS 192.168.1.0/24(rw,nohide,insecure,no_subtree_check,async)" >> /etc/exports
 	fi
 
@@ -149,12 +152,13 @@ fi
 # ============================================================================
 #                                                                 INSTALL DLNA
 # ============================================================================
-if [ SUPPORT_DLNA == "YES" ]; then
+if [ $SUPPORT_DLNA == "YES" ]; then
 	apt_install minidlna "Mini-DLNA for serving video streams"
 
 	sudo mkdir -p $SHARE_PATH/$DLNA_SUBFOLDER
 	
-	config_change /etc/minidlna.conf media_dir "$SHARE_PATH/$DLNA_SUBFOLDER"
+	save_backup /etc/minidlna.conf
+	conf_change /etc/minidlna.conf media_dir "$SHARE_PATH/$DLNA_SUBFOLDER"
 	
 	sudo service minidlna start
 fi
@@ -164,18 +168,17 @@ fi
 # ============================================================================
 #                                                                  INSTALL MPD
 # ============================================================================
-if [ SUPPORT_MPD == "YES" ]; then
+if [ $SUPPORT_MPD == "YES" ]; then
 	apt_install mpd "Music Player Daemon"
 	apt_install mpc "Music Player Client (command line)"
 	
-	conf_uncomment /etc/mpd.conf zeroconf_enabled
-
 	sudo mkdir -p $SHARE_PATH/$MPD_SUBFOLDER
-	
 	sudo ln -s $SHARE_PATH/$MPD_SUBFOLDER /var/lib/mpd/music
 	
-	mpc update
+	save_backup /etc/mpd.conf
+	conf_uncomment /etc/mpd.conf zeroconf_enabled
 	
+	mpc update
 fi
 
 
@@ -184,5 +187,5 @@ fi
 #                                                                      CLEANUP
 # ============================================================================
 
-sudo service avahi daemon restart
+sudo service avahi-daemon restart
 

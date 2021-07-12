@@ -129,7 +129,7 @@ fi
 # ============================================================================
 
 apt_autoremove
-sudo service avahi daemon restart
+sudo service avahi-daemon restart 2>> $LOG_FILE
 
 
 log_header "RECAP"      # this shows the time zone and the hostname/IP address

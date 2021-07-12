@@ -119,11 +119,11 @@ save_backup() {
 conf_uncomment() {
     local CONFIG_FILE=$1
     local OPTION=$2
-    local OPTION_COUNT=$( egrep -c "^#\s*$OPTION" $CONFIG_FILE )
+    local OPTION_COUNT=$( egrep -c "^#\s*$OPTION[= \t]" $CONFIG_FILE )
     if [ $OPTION_COUNT -eq 1 ]; then
-        log "Setting was: $( egrep "^#\s*$OPTION" $CONFIG_FILE )"
-        sudo sed -r -e "s/^#\s($OPTION)/\1/" -iorig $CONFIG_FILE 2>> $LOG_FILE
-        log "Setting now: $( egrep "^$OPTION" $CONFIG_FILE )"
+        log "Setting was: $( egrep "^#\s*$OPTION[= \t]" $CONFIG_FILE )"
+        sudo sed -r -e "s/^#\s*($OPTION[= \t].*)/\1/" -iorig $CONFIG_FILE 2>> $LOG_FILE
+        log "Setting now: $( egrep "^$OPTION[= \t]" $CONFIG_FILE )"
     fi
 }
 
@@ -188,25 +188,28 @@ mount_folder() {
     local PARTITION_TYPE=$3
     local CREDENTIALS=$4
     local MOUNT_OPTIONS=
+    save_backup $CONFIG_FILE
 
-    if [ $PARTITION_TYPE == "bind" ]; then
+    if [ "$PARTITION_TYPE" == "bind" ]; then
         PARTITION_TYPE=none
-        MOUNT_OPTIONS="bind"
-    elif [ $CREDENTIALS != "" ]; then
-        MOUNT_OPTIONS="$CREDENTIALS,uid=1000,gid=1000,iocharset=utf8"
-    else
+        MOUNT_OPTIONS=bind
+    elif [ -z "$CREDENTIALS" ]; then
         MOUNT_OPTIONS="uid=1000,gid=1000,iocharset=utf8"
+    else
+        MOUNT_OPTIONS="$CREDENTIALS,uid=1000,gid=1000,iocharset=utf8"
     fi
+    show "Mounting $SOURCE_FOLDER ($PARTITION_TYPE) as $MOUNT_POINT with $MOUNT_OPTIONS"
     sudo mkdir -p $MOUNT_POINT && sudo chmod -R 777 $MOUNT_POINT && sudo chown -R $USER:$USER $MOUNT_POINT 
 
     local FSTAB_LINE="$SOURCE_FOLDER $MOUNT_POINT $PARTITION_TYPE $MOUNT_OPTIONS 0 0" 
-    local EXISTING_COUNT=$( grep -c '^[^ ]* $MOUNT_POINT' )
+    show "FSTAB line: $FSTAB_LINE"
+    local EXISTING_COUNT=$( egrep -c "^[^ ]* $MOUNT_POINT" $CONFIG_FILE )
     if [ $EXISTING_COUNT -lt 1 ]; then
         echo "$FSTAB_LINE" >> $CONFIG_FILE
     elif [ $EXISTING_COUNT -eq 1 ]; then
-        sudo sed -r -e "s/^$SOURCE_FOLDER .*$)/$FSTAB_LINE/" -iorig $CONFIG_FILE 2>> $LOG_FILE
+        sudo sed -r -e "s~^$SOURCE_FOLDER .*$~$FSTAB_LINE~" -iorig $CONFIG_FILE 2>> $LOG_FILE
     else
-        log_error "Duplicate existing FSTAB entries found for $MOUNT_POINT."
+        log_error "Duplicate existing FSTAB entries found for $SOURCE_FOLDER."
     fi
     sudo mount -a
 }
