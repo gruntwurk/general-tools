@@ -51,7 +51,7 @@ apt_install apt-transport-https "Adds https protocol support to the APT package 
 #                                                       INSTALL MARIADB SERVER 
 # ============================================================================
 
-# Download and run the script that MariaDB provides for point APT to their special package repository
+# Download and run the script that MariaDB provides for pointing APT to their special package repository
 curl -LsS https://downloads.mariadb.com/MariaDB/mariadb_repo_setup | sudo bash
 
 apt_install "mariadb-server mariadb-client mariadb-backup" "MariaDB is a fork of MySQL."
