@@ -1,0 +1,86 @@
+= general-tools
+
+:imagesdir: doc/_static
+
+image::gruntwurk-logo.png[alt="GruntWurk logo",height="64",width="64",align="right"]
+
+The GruntWurk `general-tools` repository is a collection of various tools to help with software development --
+particularly in the area of automating the setup of development environments and servers --
+on virtual machines and/or on Raspberry Pi's.
+
+[width="100%",cols="2,5"]
+|===
+| Project site        | https://github.com/gruntwurk/general-tools
+| Issues              | https://github.com/gruntwurk/general-tools/issues/
+| Authors             | polyglot-jones
+| Status              | This is still a work in progress, but definitely usable.
+|===
+
+== Contents
+
+Here is what each subfolder in this collection is for:
+
+* *develop_via_vagrant* -- Automation for setting up a Python (or other) development environment "`back-end`" as a pre-configured virtual machine. This allows every developer to consistently compile, test, debug, and deploy code using the exact same compiler/interpreter with the exact same dependencies -- yet the "`front-end`" can be completely different (e.g. one developer using the VS Code IDE on a Windows machine, while another is using PyCharm on a Mac).
+* *raspberry_pi* -- Automation for setting up a Raspberry Pi machine (e.g. as Network Attached Storage server, or as a web server, etc.)
+* *scripts_library* -- Linux BASH scripts (and corresponding helper functions) common to `develop_via_vagrant` and `raspberry_pi`.
+* *reference_library* -- Misc. developer notes (cheat sheets).
+* *doc* -- Documentation for the above.
+
+
+== Documentation
+
+=== Python Development
+
+* link:/doc/DEVELOP_VIA_VAGRANT.adoc[Using Vagrant to manage a virtual machine development environment back-end.]
+* link:/doc/VISUAL_STUDIO_CODE.adoc[Using the Visual Studio Code IDE as the front-end to accomplish remote development/debugging with the Vagrant back-end].
+* link:/doc/PYTHON_VIRTUAL_ENVIRONMENTS.adoc[Some notes on isolating your Python project's dependencies via VENV.] No matter whether you are developing via Vagrant or not.
+
+
+
+=== Raspberry Pi Setup Scripts
+
+To set up a Raspberry Pi box to be a server, it depends on which model of Pi is being used.
+
+* link:/doc/Pi_4B_OS_Install.adoc[Raspberry Pi Model 4B.]
+* link:/doc/Pi_3B_OS_Install.adoc[Raspberry Pi Model 3B (or earlier).]
+
+
+
+=== The Scripts Library
+
+Once you have Linux installed (on a Raspberry Pi, in a virtual machine, or any other type of box), you can take advantage of the following scripts to further configure the box.
+Note: These scripts all assume that it's a Debian-based distribution of Linux (which uses the APT package manager).
+
+* `basics_debian.sh` -- Slightly elevates a bare-minimum Debian install to a higher baseline. (Used by the Raspberry Pi Model 4B instructions, above.)
+* `helper_functions_debian.sh` -- Common BASH functions that all of the other scripts rely on (logging, APT packages, editing config files, etc.)
+* `heighten_security_debian.sh` -- Be sure to run this for any server that will be accessible from the Internet.
+* `install_simple_nas_debian.sh` -- Creates a simple file-sharing NAS, with options for installing SAMBA, NFS, video streaming, and music streaming.
+* `install_webserver_debian.sh` -- Install an Apache2 web server with MySQL (MariaDB, actually) and PHP.
+* `install_jukebox_server.sh` -- Sets up a dedicated music streaming server (for when it's not on the same box as the simple NAS).
+* `install_jukebox_client.sh` -- (Work in progress). Installs a bare-bones command-line client for music streaming. For example, use it to test the server.
+* `install_nextcloud.sh` -- (Work in progress) Setting up a personal cloud (i.e. more sophisticated than a simple NAS).
+
+
+
+=== Reference Library
+
+* link:/reference_library/BASH_CHEAT.adoc[BASH_CHEAT.adoc.]
+* link:/reference_library/JAVASCRIPT_CHEAT.adoc[JAVASCRIPT_CHEAT.adoc.]
+* link:/reference_library/LINUX_CHEAT.adoc[LINUX_CHEAT.adoc.]
+* link:/reference_library/PYTHON_CHEAT.adoc[PYTHON_CHEAT.adoc.]
+* link:/reference_library/WINDOWS_CHEAT.adoc[WINDOWS_CHEAT.adoc.]
+
+
+
+=== Contributing or Providing Feedback
+
+* link:/doc/CONTRIBUTING.adoc[Contributing]
+
+
+== License
+
+See link::LICENSE[]
+
+
+Next Topic: link:/doc/INSTALL.adoc[Installation/Getting Started]
+

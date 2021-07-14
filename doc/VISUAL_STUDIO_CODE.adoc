@@ -1,0 +1,42 @@
+= Visual Studio Code (IDE)
+
+Microsoft's (free) Visual Studio Code is an integrated development environment (IDE) that has excellent support for working the "Vagrant way."
+Most every feature of VSCode is modular (supported via "extensions").
+One particular extension ("Remote - SSH") transforms the entire VSCode ecosystem into a client/server setup.
+When you work with a remote machine, the VSCode app on your host machine acts only as a front-end GUI, while all of the heavy-lifting is moved to a server that VSCode automatically installs on the remote machine (in `~/.vscode-server`).
+Thereafter, other extensions are selectively installed locally on the host or remotely on the VM, depending on the purpose of the extension.
+(If an extension is already installed locally, a single button click can transfer it.)
+
+You get the best of both worlds.
+When you open a source folder locally on the host machine, VSCode continues to work entirely locally.
+When you open a source folder remotely, VSCode switches to client-server mode.
+
+CAUTION: Since your "working" folder is shared between the host and the guest, don't get confused about how VSCode wants to work with it.
+Do not open the projects in your working folder directly (D:\work\myproject).
+Always open them remotely (/work/myproject), so that all of the compiling, running, unit testing, debugging, etc. happens on the VM (Linux), not on the host (Windows).
+
+== Setup
+
+To enable *remote development/debugging* into the `pydev` box from VSCode running on the host machine: 
+
+. Open a terminal window and issue the command `vagrant up` (if not already running). 
+Then, issue `vagrant ssh-config` and copy the output to the clipboard.
+
+. Start VSCode and install the "Remote - SSH" extension (note the spaces around the dash). 
+
+. In the status bar at the bottom, you'll notice a new button at the very left that shows two overlapping arrowheads. 
+Click that and select "Remote-ssh: Open configuration file."
+That should create a new config file with three lines (Host, Hostname, and User).
+
+. Change Host from `alias` to `pydev`
+. Delete the other two lines and replace them what the settings you copied to the paste buffer.
+
+This will establish a connection by logging in as `vagrant`.
+If you'd rather be logged in as your developer account, then simply change the User line from `vagrant` to your developer account id.
+Verify that the IdentityFile line points to your private key (e.g. `~/.ssh/id_rsa` -- yes, the tilde works here even if you are on a Window host).
+
+Reference: https://medium.com/@lopezgand/connect-visual-studio-code-with-vagrant-in-your-local-machine-24903fb4a9de
+
+
+
+Next Topic: link:/doc/PYTHON_VIRTUAL_ENVIRONMENTS.adoc[Isolating your Python project's dependencies via VENV.]

@@ -1,0 +1,12 @@
+#!/usr/bin/env bash
+export WORKPATH='/work'
+
+alias python='python3'
+alias py='python3'
+alias venv='source .venv/bin/activate'
+alias cdw='cd ${WORKPATH}'
+alias h='history'
+alias df='df -h'
+alias du='du -h'
+alias l='ls -hA --color=auto'
+alias ll='ls -lhA --color=auto'

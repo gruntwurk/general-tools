@@ -1,0 +1,34 @@
+# -*- mode: ruby -*-
+# vi: set ft=ruby :
+
+# What the virtual machine will be called (it's network computer name).
+MACHINE_NAME = "pydev"
+
+# The base image must be a Debian-flavored Linux (Ubuntu, Mint, etc.) since we rely on the APT package manager.
+# https://app.vagrantup.com/boxes/search
+# (There's nothing wrong with leaving it as generic Debian.)
+BASE_IMAGE = "generic/debian10"
+HEADLESS = true
+
+# By default, Vagrant creates two user accounts: `root` and `vagrant`.
+# We'll be creating a third account for daily use (whatever you set as DEVELOPER_ID in `bootstrap_local`).
+# This setting tells the `vagrant ssh` command which account to use to log in.
+# Feel free to change it to be the same as bootstrap_local's DEVELOPER_ID.
+SSH_USER_ACCOUNT = "vagrant"
+# If your ssh keys are named something other than `id_rsa`, then change this accordingly.
+# (Note: "~" works here even on a Windows host.)
+SSH_PUBLIC_KEY = "~/.ssh/id_rsa.pub"
+SSH_PRIVATE_KEY = "~/.ssh/id_rsa"
+
+# This is the folder on your host machine where your Python projects reside.
+# It will be shared with the virtual machine.
+# (This folder must already exist on the host machine.)
+WORK_FOLDER = "C:\\work"
+# This is how the virtual machine will refer to it.
+WORK_FOLDER_SHARED_AS = "/work"
+
+# This is a second, general-purpose, shared folder.
+# (This folder will be created on the host machine if it does not already exist.)
+DROP_FOLDER = "C:\\"+MACHINE_NAME+"_drop"
+DROP_FOLDER_SHARED_AS = "/drop"
+

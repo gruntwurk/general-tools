@@ -1,0 +1,8 @@
+= Contributing
+
+
+== The GitHub Repository
+
+The source, documentation, issues (bug reports, feature requests) are all in the GitHub repository: https://github.com/gruntwurk/pydev_vagrant
+
+If you are new to Git and GitHub, see https://guides.github.com/activities/hello-world/.

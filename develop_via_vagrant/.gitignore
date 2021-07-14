@@ -1,0 +1,8 @@
+*.exe
+/bootstrap_local.sh
+/.vagrant
+/README.html
+/bootstrap.log
+/Vagrantfile_local
+/id_rsa.pub
+/bash_aliases

@@ -1,0 +1,140 @@
+= Installation 
+
+
+== Prerequisites
+
+* Install *Vagrant* from https://www.vagrantup.com/downloads.html (per https://docs.vagrantup.com/v2/installation/index.html).
+
+* Install *Oracle VirtualBox* from https://www.virtualbox.org/wiki/Downloads 
+(or VMWare, *or any other virtual machine "provider"* that is supported by Vagrant). 
+For VirtualBox, selecting all the defaults should be fine. 
+Just be sure that the folder that will house the VM files is on a partition with plenty of free space.
+
+* For VirtualBox, we need to tell Vagrant to automatically install the VirtualBox Guest Additions every time it builds a new VM.
+Open a terminal window and issue this command: 
+`vagrant plugin install vagrant-vbguest` 
+It should fetch two Ruby gems and then report that `vagrant-vbguest` is installed.
+(For other providers, you may need to do something similar.)
+
+*From now on, we'll assume you're using VirtualBox.*
+
+* Generate a *GitHub application token* for seamless access to your private repositories. 
+See https://help.github.com/articles/creating-an-access-token-for-command-line-use/
+
+* Ensure that `ssh` is available from the command line on your host machine (not putty). 
+For Windows, Openssh is available on the Windows store and is typically installed at C:\Windows\System32\OpenSSH\ssh.exe).
+
+
+
+== Setup
+
+(The following instructions *assume a Windows host machine*. Adjust accordingly.)
+
+. Git clone this project to any appropriate folder on the host machine (e.g. `D:\work\pydev`). 
+*From now on, we'll assume it's `D:\work\pydev`.*
+
+. If you don't already have an OpenSSH public/private keypair in your `$HOME\.ssh` folder (probably called `id_rsa.pub` and `id_rsa`), then generate a pair now. (See https://www.ssh.com/academy/ssh/keygen.)
+
+. Copy `Vagrantfile_local.example` as `Vagrantfile_local` and edit it to suit your needs.
+
+. Copy `bootstrap_local.sh.example` as `bootstrap_local.sh` and edit it to fill in the blanks (`Your Name Here`, `your@email.here`, `your-app-token-here`, etc.).
+`bootstrap_local.sh` is also where you can specify whether or not to install various programs (Mercurial, PosgreSQL, etc.) and various Python packages that are common to all projects (pytest, black, isort, flake8)
+
+// TODO document why it was important to create a second user account besides vagrant
+
+. Copy `bash_aliases.example` as `bash_aliases` (no leading dot here) and edit it as desired. 
+It is predefined with a few command-line aliases you might find helpful. 
+
+
+== Fire It Up
+
+. We'll use our *`up.bat`* file to start up a terminal window, but you have to run it *as the administrator*. 
+So, copy the file to the desktop *as a shortcut,* and then edit the shortcut's properties.
+Under the Shortcut tab, click the Advanced button, and then check Run as Administrator.
+
+When you execute the shortcut...
+.. It issues `cd D:\work\pydev` (or wherever the `up.bat` file resides).
+.. It opens a *terminal window*. Note: up.bat just uses the basic Windows command terminal (`cmd` on line 2), but if you want to switch it to CygWin, GitBash or PowerShell, that'll work, too. (The `/k` switch on line 2 tells `cmd` to keep the terminal window open.) 
+.. It issues `vagrant up` to fire up the pydev virtual machine. 
+(If the VM is already running, `vagrant up` does nothing.)
+
+The first time you execute `vagrant up` (via the shortcut), it will take several minutes for Vagrant to build the `pydev` VM:
+(a) it has to download and cache the base machine image (`generic/debian10`) to `~/.vagrant.d/boxes`, 
+(b) it start up VirtualBox, 
+(c) it creates a new machine using that base, 
+(d) it runs all of the installation scripts specified by `Vagrantfile`,
+(e) which may include rebuilding Python from source (upwards of 5 minutes by itself).
+
+. You should now find a `bootstrap.log` file in `D:\work\pydev`.
+If the log looks right, then you are good to go.
+
+
+== Usage
+
+At this point, you have a fully functional Linux virtual machine.
+The next step is to configure an IDE that can take advantage of it, such as <<vscode,Visual Studio Code>> or <<pycharm,PyCharm>>.
+
+But first, here are some things to note about working with the VM directly:
+
+=== Vagrant Commands
+
+. Use `vagrant ssh` (in the terminal window that `up.bat` left open) to shell into the running guest machine.
+. Use `alias` to find out what command aliases have been defined.
+. Use `exit` to return to the host machine command line.
+. Use `vagrant ssh-config` to print the settings that `vagrant ssh` uses to connect (if you want to know how to ssh in manually).
+. Use `vagrant halt` to stop the guest machine and then `vagrant up` to reboot it.
+. Use `vagrant suspend` to hibernate the guest machine and `vagrant resume` to wake it up.
+. Use `vagrant destroy` (after halt) to wipe out the guest machine (if you want the next `vagrant up` to start over).
+
+=== Additional Linux Commands/Aliases
+
+* dos2unix -- converts line-endings
+* htop     -- system stats
+* ncdu     -- manages disk usage
+* h        -- alias for `history`
+* cdw      -- alias for `cd /work`
+* l, ll    -- aliases for `ls -hA --color=auto` and `ls -lhA --color=auto`, respectively
+* fname    -- find files in the current folder/subfolders that match a given name/pattern, ignoring folders with denied permissions
+
+Use `alias` to find out exactly how these are defined, and what other aliases might also be defined.
+
+
+=== Shared Folders
+
+In this setup, there are three folders that are shared between the guest and host machines. 
+Any changes that you make to them in one environment will automatically be reflected in the other environment.
+
+* `/vagrant` (in the guest) == whatever folder you were in on the host when you issued the `vagrant up` command (which must be the one that has the `Vangrantfile` file). 
+You shouldn't need to work with this folder from within the guest, but be aware of its existence, and be careful not to affect it.
+
+* `/work` (in the guest) == the root folder of your programming work on the host.
+In this way, you can use your favorite IDE or text editor on the host machine to edit your Python source files, but then compile and run them from within the guest machine.
+
+* `/drop` (in the guest) == `C:\pydev_drop` on the host -- to transfer files that should be kept out of the working-folder tree (e.g. to avoid them being accidentally committed to version control).
+
+*REMEMBER: Any data/files that are not located in a shared folder will disappear* whenever you issue `vagrant destroy` (or manually destroy the VM via the VirtualBox GUI).
+
+=== Taking Snapshots, Backups, etc.
+
+TBD
+
+
+
+[[vscode]]
+== Visual Studio Code (IDE)
+
+Microsoft's (free) Visual Studio Code is an integrated development environment (IDE) that has excellent support for working the "Vagrant way."
+
+For complete instruction on how to set that up, see link:/doc/VISUAL_STUDIO_CODE.adoc[Remote development/debugging via the Visual Studio Code IDE].
+
+
+
+[[pycharm]]
+== PyCharm (IDE)
+
+If you prefer PyCharm over VS Code, then this might help...
+
+Reference: https://medium.com/@krishna.yerramsetty/remote-python-development-environment-using-pycharm-and-vagrant-32f1ac3c66b8
+
+
+Next Topic: link:/doc/VISUAL_STUDIO_CODE.adoc[Remote development/debugging via the Visual Studio Code IDE]
