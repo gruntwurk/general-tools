@@ -152,7 +152,7 @@ Charset detection with chardet -- pip install chardet
 * str.*encode*(encoding="utf-8", errors="strict")
 * str.*expandtabs*(tabsize=8)
 * str.*find*/*rfind*(sub[, start[, end]]) -- Only use to determine the position; otherwise use the `in` operator.
-* str.*format*(`*`args, `**`kwargs)
+* str.*format*(``*``args, ``**``kwargs)
 * str.*format_map*(mapping)
 * str.*index*/*rindex*(sub[, start[, end]]) -- Like find(), but raise ValueError when the substring is not found.
 * str.*isidentifier*() -- Also: Call keyword.iskeyword(str) to test if is a reserved identifier.
@@ -180,7 +180,7 @@ Charset detection with chardet -- pip install chardet
 * string.*digits* == '0123456789'
 * string.*hexdigits* == '0123456789abcdefABCDEF'
 * string.*octdigits* == '01234567'
-* string.*punctuation* == `!"#$%&'()*+,-./:;<=>?@[\]^_`{|}~.
+* string.*punctuation* == ``!"#$%&'()*+,-./:;<=>?@[\]^_`{|}~``
 * string.*printable* == digits `+` ascii_letters `+` punctuation + whitespace.
 * string.*whitespace* == space, tab, linefeed, return, formfeed, and vertical tab.
 
@@ -307,9 +307,9 @@ im.show()
 * p.as_uri() -- `Path('/etc/passwd')` -> `'file:///etc/passwd'`
 * p.is_absolute() -- `Path('/a/b').is_absolute()` -> `True`
 * p.is_reserved() -- `PureWindowsPath('nul').is_reserved()` -> `True`
-* p.joinpath(`*`other) -- same as the join operator
+* p.joinpath(``*``other) -- same as the join operator
 * p.match(pattern) -- glob-style pattern
-* p.relative_to(`*`other) -- ValueError raised if impossible
+* p.relative_to(``*``other) -- ValueError raised if impossible
 * p.with_name(name) -- new path with the name changed. ValueError raised if original path has no name. `Path('c:/Downloads/pathlib.tar.gz').with_name('setup.py')` -> `Path('c:/Downloads/setup.py')`
 
 === Concrete Path Methods
@@ -519,7 +519,7 @@ Note that the "Text" colors are also used for non-text elements (lines, icons).
 |===
 |Base16 |General Scheme   |           |When Used for Syntax Highlighting Purposes
 |base00 |darkest          |black      |Default Background
-|base01 |                 |           |Lighter Background (Used for status bars)
+|base01 |                 |           |Slightly lighter Background (Used for status bars)
 |base02 |                 |dark gray  |Selection Background
 |base03 |                 |           |Comments, Invisibles, Line Highlighting
 |base04 |                 |           |Dark Foreground (Used for status bars)
