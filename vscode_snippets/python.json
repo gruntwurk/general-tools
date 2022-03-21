@@ -1,0 +1,251 @@
+{
+	// Python Snippets contributed by Craig Jones (craig@k6nnl.com)
+
+	"LOG declaration": {
+		"prefix": "logdecl",
+		"body": [
+		"import logging",
+		"",
+		"LOG = logging.getLogger(\"main\")",
+		"",
+		],
+		"description": "get the logger"
+	},
+	"Class": {
+		"prefix": "cla",
+		"body":["class ${1:Class}():",
+			"\t\"\"\"${1/(.*)/${1:/downcase}/}\"\"\"",
+			"",
+			"\tdef __init__(self) -> None:",
+			"\t\tpass",
+			"",
+			"\tdef ${2: method}(self, ${3: arg1}: str) -> str:",
+			"\t\t\"\"\"${2}\"\"\"",
+			"\t\tif ${3} == \"${4:input}\":",
+			"\t\t\treturn \"${5:expected}\"",
+			"",
+			"## For the unit test:",
+			"from ${TM_DIRECTORY/(.*)\\\\(.*)\\\\(.*)/$2.$3/}.${TM_FILENAME_BASE} import *",
+			"",
+			"${1/(.*)/${1:/downcase}/} = ${1}()",
+			"",
+			"def test_${1/(.*)/${1:/downcase}/}_${2}():",
+			"\tassert ${1/(.*)/${1:/downcase}/}.${2}(${3}=\"${4}\") == \"${5}\"",
+		],
+		"description": "Create a new class"
+	},
+	"__all__": {
+		"prefix":"all",
+		"body":[
+			"__all__ = (\"${1:method}\")",
+		],
+		"description": ""
+	},
+	"Try Except": {
+		"prefix":"te",
+		"body":[
+			"try:",
+			"\t$0",
+			"except Exception as e:",
+			"\tpass"
+		],
+		"description": "Try/Except"
+	},
+	"LOG.trace": {
+		"prefix":"lt",
+		"body":[
+			"LOG.trace(\"Enter: $0\")"
+		],
+		"description": "LOG.trace"
+	},
+	"LOG.debug": {
+		"prefix":"ld",
+		"body":[
+			"LOG.debug(f\"$1 = {${1:variable}}\")"
+		],
+		"description": "LOG.debug"
+	},
+	"LOG.info": {
+		"prefix":"li",
+		"body":[
+			"LOG.info(f\"{$0}\")"
+		],
+		"description": "LOG.info"
+	},
+	"LOG.warn": {
+		"prefix":"lw",
+		"body":[
+			"LOG.warning(\"{}\".format($0))"
+		],
+		"description": "LOG.warn"
+	},
+	"LOG.error": {
+		"prefix":"le",
+		"body":[
+			"LOG.error(\"{}\".format($0))"
+		],
+		"description": "LOG.error"
+	},
+	"Issues Encountered": {
+		"prefix": "iss",
+		"body": [
+			"issues = []",
+			"issues.append(\"${1:issue}\")",
+			"GUI.informUser(GUI.ICON_WARN,\"Warning\",\"Issues encountered: {}\".format(\"\\n\".join(issues)))"
+		],
+		"description": "Issues encountered, inform user."
+	},
+	"For List Index": {
+		"prefix": "forlist",
+		"body": [
+			"for i, ${1:element} in enumerate(${2:list}):",
+			"\t$0"
+		],
+		"description": "For each item in a list with index (enumerate)"
+	},
+	"For Dict Keys": {
+		"prefix": "fordict",
+		"body": [
+			"for ${1:key}, ${2:value} in ${3:dict}.iteritems():",
+    		"\t$0"
+		],
+		"description": "For each item in a dictionary with the key"
+	},
+
+
+	"Do-While-Until Sentinel": {
+		"prefix": "dosentinel",
+		"body": [
+			"for x in iter(${1:partial(f.read, 32)}, ''):"
+		],
+		"description": "Loop until a sentinel (terminating) value is encountered."
+	},
+	"Ignore Error": {
+		"prefix": "ignore",
+		"body": [
+			"with ignored(${1:Exception}):",
+			"\t$0"
+		],
+		"description": "As opposed to try...except pass"
+	},
+	"Main": {
+		"prefix": "main",
+		"body": [
+			"import logging",
+			"import ${TM_FILENAME_BASE}lib",
+			"",
+			"# ctrl-space...",
+			"argsparse",
+			"configparser",
+			"",
+			"def main():",
+			"\tlogging.basicConfig(level=logging.WARNING,format='%(msg)s')",
+			"\tif ARGS.verbose:",
+			"\t\tlogging.getLogger().setLevel(logging.DEBUG)",
+			"\tLOG = logging.getLogger('${TM_FILENAME_BASE}')",
+			"\ttry:",
+			"\t\t${TM_FILENAME_BASE}lib.${TM_FILENAME_BASE}()",
+    		"\texcept KeyboardInterrupt:",
+    		"\t\tpass",
+    		"",
+    		"if __name__ == '__main__':",
+    		"\tmain()"
+		],
+		"description": "Standard main launcher (with KeyboardInterrupt)"
+	},
+	"ExitCodes": {
+		"prefix": "exitcodes",
+		"body": [
+			"EX_OK = 0",
+			"EX_USAGE = 64 # The command was used incorrectly (bad arguments, bad flag, etc.)",
+			"EX_DATAERR = 65 # Bad input data",
+			"EX_NOINPUT = 66 # Input file doesn't exist/unreadable.",
+			"EX_NOUSER = 67",
+			"EX_NOHOST = 68",
+			"EX_UNAVAILABLE = 69 # A service is unavailable.",
+			"EX_SOFTWARE = 70 # An internal software error has been detected.",
+			"EX_OSERR = 71 # An operating system error has been detected.",
+			"EX_OSFILE = 72 # Some system file does not exist/unreadable/has syntax error.",
+			"EX_CANTCREAT = 73 # A (user specified) output file cannot be created.",
+			"EX_IOERR = 74 # An error occurred while doing I/O on some file.",
+			"EX_TEMPFAIL = 75 # Temporary failure, indicating something that is not really an error.",
+			"EX_PROTOCOL = 76 # The remote system returned something that was not possible during a protocol exchange.",
+			"EX_NOPERM = 77 # Insufficient permission.",
+			"EX_CONFIG = 78 # Something was found in an unconfigured or miscon­figured state."
+		],
+		"description": "BSD's list of standard exit codes."
+	},
+	"ArgsParse": {
+		"prefix": "argsparse",
+		"body": [
+			"from argparse import ArgumentParser",
+			"ap = ArgumentParser()",
+			"ap.add_argument('-v', '--verbose', default=False, action='store_true', help='Increase verbosity')",
+			"ap.add_argument('-x', '--max', type=int, default=1, help='The maximum number of times to...')",
+			"ap.add_argument('-f', '--format', default='csv', help='How to format the output')",
+			"ap.add_argument('source', help='The name of the source file (required)')",
+			"",
+			"ARGS = ap.parse_args()",
+		],
+		"description": "Typical usage for ArgumentParser()"
+	},
+	"ConfigParser": {
+		"prefix": "configparser",
+		"body": [
+			"from ConfigParser import SafeConfigParser",
+			"from os.path import dirname, join",
+			"",
+			"INSTALL_DIR = dirname(__file__)",
+			"CONFIG = SafeConfigParser()",
+			"CONFIG.read([join(INSTALL_DIR, 'defaults.ini'),'home_config.ini','config.ini'])",
+		],
+		"description": "Basic usage for ConfigParser()"
+	},
+	"colorama": {
+		"prefix": "colorama",
+		"body": [
+			"import colorama",
+			"",
+			"if not sys.stdout.isatty():",
+			"\tcolorama.init(strip=True)",
+			"# print Fore.RED + 'some red text'",
+			"# print Back.GREEN + ‘and a green background'",
+			"\t$0"
+		],
+		"description": "Colorizing console output"
+	},
+	"CmdProgress": {
+		"prefix": "cmdprogress",
+		"body": [
+			"# pip install progressbar2",
+			"from progressbar import *",
+			"import time",
+			"widgets = ['Loading: ', Percentage(), ' ', Bar(),' ', ETA(), ' ', FileTransferSpeed()]",
+			"pbar = ProgressBar(widgets=widgets, maxval=20000).start()",
+			"for i in range(20000):",
+			"\tpbar.update(i)",
+			"\ttime.sleep(.005)",
+			"pbar.finish()",
+			"",
+			"\t$0"
+		],
+		"description": "Progress bar (for a console app)."
+	},
+	"EnumClass": {
+		"prefix": "enum",
+		"body": [
+			"from enum import Enum, IntEnum",
+			"class ${1:ClassName}(Enum):",
+			"    ${2} = '${2:member}'",
+			"    ${3} = '${3:member}'",
+			"    $0",
+			"",
+			"    @classmethod",
+			"    def possibleValues(cls) -> str:",
+			"        return ', '.join([e.name for e in cls])",
+			"",
+			"    def is_something_allowed(self):",
+        	"        return self in [$1.$2, $1.$3]"
+		]
+	}
+}

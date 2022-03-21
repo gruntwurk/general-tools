@@ -25,10 +25,8 @@ VSCode has an internal system for working with snippets that is very much the sa
 
 	File > Preferences > User Snippets > Python
 
-Some snippet files are included here (in doc_technical/VSCode_Snippets).
+Some snippet files are included here (in vscode_snippets).
 
 There is also built-in support for Emmet, a unique snippet processor for generating HTML and CSS code based on CSS syntax. See http://emmet.io for an explanation.
 
-
-Next Topic: link:/doc_technical/VIRTUAL_ENVIRONMENTS.adoc[Using Python Virtual Environments]
 

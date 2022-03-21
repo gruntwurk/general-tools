@@ -1,0 +1,61 @@
+{
+    // Kivy Snippets (for .kv files) contributed by Craig Jones (craig@k6nnl.com)
+
+    "Horizontal Box": {
+        "prefix": "horiz",
+        "body": [
+            "BoxLayout:",
+            "    orientation: 'horizontal'",
+            "    $0",
+        ],
+        "description": "Horizontal Box"
+    },
+
+    "Vertical Box": {
+        "prefix": "horiz",
+        "body": [
+            "BoxLayout:",
+            "    orientation: 'vertical'",
+            "    $0",
+        ],
+        "description": "Vertical Box"
+    },
+
+    "Action Screen": {
+        "prefix": "screen",
+        "body": ["",
+			"$0################            Move this to the .py file...",
+			"class ${1:Action}Screen(Screen):",
+			"    \"\"\"",
+			"    \"\"\"",
+			"    def ${1/(.)/${1:/downcase}/}(self):",
+			"        '''",
+			"        '''",
+			"        pass",
+			"",
+			"################            Move this to the .py file (where the ScreenManager is declared)...",
+			"sm.add_widget($1Screen(name='${1/(.)/${1:/downcase}/}_screen'))",
+			"",
+			"################            Move this to the menu screen (above)",
+			"Button:",
+            "    text: '$1'",
+            "    size_hint: 1,0.1",
+            "    on_press: app.root.current = '${1/(.)/${1:/downcase}/}_screen'",
+			"",
+			"################            Leave here (in the KV file)...",
+            "<$1Screen>:",
+            "    BoxLayout:",
+            "        orientation: 'vertical'",
+            "        BoxLayout:",
+            "            orientation: 'horizontal'",
+            "            Button:",
+            "                text: '$1'",
+            "                size_hint: 1,0.1",
+            "                on_press: root.$1()",
+            "            Button:",
+            "                text: 'Done'",
+            "                on_press: app.root.current = 'menu_screen'",
+        ],
+        "description": "Vertical Box"
+    }
+}
