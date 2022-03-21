@@ -8,19 +8,16 @@ v0.01, 4/20/2021
 toc::[]
 
 
+
+
 == Useful Shortcut Keys (just the lesser known)
 
-* Win+Shift+S = Capture Snippet
-* Win = Reopen Browser Tabs
+* Win+Shift+S = Capture Screen Snippet
 * Ctrl+Backspace = Delete Entire Words
 * Win+arrow = Snap Windows
-* Win+I = Open Settings
-* Win+A = Open Action Center
+* Win+A = Open Action Center (e.g. brightness)
 * Win+H = Open Speech Recognition (must be enabled in Privacy Settings and configured in Time & Speech)
-* Win+Tab = Create a New Virtual Desktop
-* Win+X = Open Hidden Quick Link Menu
 * Win+V = Cloud clipboard (with clipboard history)
-* Win+G = Open/Close Game Bar (incl. general-purpose recording modes)
 * Win+Plus = Magnify Screen (Win+=, actually)
 * Win+Minus = Un-Magnify Screen
 * Win+Esc = Close magnifier
@@ -28,20 +25,34 @@ toc::[]
 
 NOTE: Use properties to create custom shortcuts on executables/files/folders
 
+* Win+G = Open/Close Game Bar (incl. general-purpose recording modes)
+* Win+I = Open Settings
+* Win+X = Open Hidden Quick Link Menu
+* Win = Reopen Browser Tabs
+* Win+Tab = Create a New Virtual Desktop
 
 
 == Troubleshooting/Diagnostics
 
-* Reliability History Monitor (Search Bar> "reliability")
-* chkdisk c: /r
-* sfc /scannow (as Admin) -- system file scan (always restart after)
-* DISM /Online /Cleanup-Image /RestoreHealth -- (always restart after, then repeat sfc)
-* powercfg /batteryreport
+=== Checking for File Corruption
+
+* `chkdisk c: /r`
+* System File Checker: `sfc /scannow` (as Admin) -- Adds to `C:\Windows\Logs\CBS\CBS.log`; Always restart after.
+* Deployment, Imaging, Servicing and Management command: `DISM /Online /Cleanup-Image /RestoreHealth` --  Adds to `C:\Windows\Logs\CBS\CBS.log`; Always restart after, then repeat sfc.
+
+=== Other Diagnostics
+
+* Reliability History Monitor: (Search Bar> "reliability")
+* `powercfg /batteryreport`
 
 
 === Booting into Safe Mode
 
 First Method:
+
+. Press F8 repeatedly while booting to get the Advanced Boot Options Screen
+
+Second Method:
 
 . On login screen, hold SHIFT and click the power icon, then Restart.
 . Troubleshoot
@@ -50,11 +61,11 @@ First Method:
 . Startup Settings
 . Restart
 
-Second Method:
+Third Method:
 
 . Interrupt the normal boot process of Windows 10 three times in a row.
 
-Third Method:
+Fourth Method:
 
 . Boot from a recovery stick
 . Select lang and kb
@@ -65,9 +76,145 @@ Third Method:
 . Close the terminal
 . Continue
 
-NOTE: This will boot safe mode every time from now on. So, ...
+Note: This will boot safe mode every time until countered... `bcdedit /deletevalue {default} safeboot`
 
-. `bcdedit /deletevalue {default} safeboot`
+
+=== Using the Windows Media Creation Tool to Obtain the Install Media
+
+. Download the Windows Media Creation Tool.
+. The version number will be in the filename. Verify that WMCT >= Windows.
+. Run the tool and have it create installation media.
+. Make sure the specific language, edition, and architecture are selected (not "Both" or whatever).
+. Create an ISO file.
+. Burn the ISO file to USB memory.
+
+
+=== Launching the Recovery Environment
+
+. Boot from the installation media.
+. Select a language, keyboard, etc.
+. Click "Repair your computer" (far lower left corner)
+. Select the operating system that you want to repair, and then click Next.
+. In the System Recovery Options dialog box, click "Command Prompt."
+
+
+
+== Diagnosing Boot Problems
+
+=== Disabling Bad Software that Auto-Executes
+
+If Windows won’t start because of a recently added program that runs at startup, you can use the msconfig utility to disable startup services or software applications:
+
+. Run `msconfig` (in Safe Mode)
+. Disable any/all suspect entries under the "Startup" tab and/or "Services" tab
+. Reboot
+
+
+=== Using the Install Media to Repair In Situ
+
+(Per ThioJoe https://www.youtube.com/watch?v=yidWdy-Xwdk)
+
+. DO NOT boot from the burned media. Instead, while Windows is still running, just mount the ISO file (right click > mount).
+. Run setup.exe
+. Click "Change how Windows Setup downloads updates" > "Not right now."
+. DOUBLE CHECK the "Ready to Install" screen: Is it installing the correct version of Windows? Is it keeping personal files and apps?
+. It will reboot several times.
+
+
+=== Using Bootrec.exe
+
+The Bootrec.exe tool runs within the Recovery Environment (Windows RE).
+
+It operates on the following items:
+
+* A master boot record (MBR)
+* A boot sector
+* A Boot Configuration Data (BCD) store
+* You can also use the Bootrec.exe tool to troubleshoot a "Windows Boot Configuration Data file is missing required information" error.
+
+. Run each of the four bootrec variants, as follows, in order:
+
+* `Bootrec.exe /FixMbr` -- writes a Windows-compatible MBR to the system partition. It does not overwrite the existing partition table. This may resolve MBR corruption issues. It can also remove nonstandard code from the MBR.
+
+* `Bootrec.exe /FixBoot` -- writes a new boot sector to the system partition by using a boot sector that's compatible with Windows. This can resolve the following situations: (a) the boot sector was replaced with a nonstandard boot sector, or (b) the boot sector is damaged, or (c) an earlier Windows operating system was installed over a newer one. In this situation, the computer starts by using Windows NT Loader (NTLDR) instead of Windows Boot Manager (Bootmgr.exe).
+
+* `Bootrec.exe /ScanOs` -- scans all disks for installations that are compatible with Windows. It also displays the entries that are currently not in the BCD store. Use this option when there are Windows installations that the Boot Manager menu does not list.
+
+* `Bootrec.exe /RebuildBcd` -- scans all disks for installations that are compatible with Windows. Additionally, it lets you select the installations that you want to add to the BCD store. Use this option when you must completely rebuild the BCD store.
+
+
+
+[[hard-rebuild-bcd]]
+=== Doing a Hard-Rebuild of the BCD
+
+Running `bootrec /RebuildBcd` alone may not work (i.e. the system still won't boot).
+Try doing a hard rebuild, as follows:
+----
+bcdedit /export C:\BCD_Backup
+c:
+cd boot
+attrib bcd -s -h -r
+ren c:\boot\bcd bcd.old
+bootrec /RebuildBcd
+----
+
+
+[[activate-partition]]
+=== Making Sure the Partition is Active
+
+----
+diskpart
+list disk
+select disk 0   (where 0 is the number of your disk)
+list partition
+select partition 0   (where 0 is the number of your partition number)
+active
+exit
+----
+
+
+[[fix-efi-bootloader]]
+=== Fixing the EFI bootloader (Windows 8+)
+
+----
+diskpart
+sel disk 0
+list vol
+sel vol 2   (where 2 is the volume number that has FAT32 under the FS column)
+assign letter=x:   (where x is an unused drive letter)
+exit
+cd /d x:\EFI\Microsoft\Boot\
+bootrec /fixboot
+ren BCD BCD.Backup
+bcdboot c:\Windows /l en-us /s x: /f ALL
+exit
+----
+Remove the media and reboot.
+
+
+
+
+=== Specific Boot Issues
+
+[qanda]
+`bootrec /ScanOs` reports 0 installations of Windows found::
+----
+ren c:\bootmgr bootmgrbackup
+bootrec /RebuildBcd
+bootrec /FixBoot
+----
+
+[qanda]
+"Bootmgr Is Missing" error::
+Try doing a <<hard-rebuild-bcd,hard-rebuild>>.
+
+[qanda]
+"Element not found" error::
+Try doing a <<hard-rebuild-bcd,hard-rebuild>>.
+If you have a SATA cable, move it to another port.
+Make sure the <<activate-partition,partition is active>>.
+
+
 
 
 

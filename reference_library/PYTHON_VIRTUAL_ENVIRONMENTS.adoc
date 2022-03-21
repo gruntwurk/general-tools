@@ -1,0 +1,83 @@
+= Using Python Virtual Environments on Windows
+
+Python has a feature that allows you to set up multiple virtual environments on a single computer.
+Each environment has its own copy of Python (e.g. Python 3.6.5 64-bit in one, Python 2.7 32-bit in another).
+Each environment has its own site-packages folder containing only the modules needed for that environment.
+Each environment has its own Scripts folder containing any executables that are installed by pip that go along with a module that is installed.
+And so on.
+
+(Don't worry, each virtual environment that you create only uses up 20-50MB of disk space, depending on the number of modules needed.)
+
+== Preparing to Create the Virtual Environment
+
+First, install the version of Python that you'll want to use with that environment (e.g. C:\Python38\python.exe), if not already.
+
+Next, make sure each of your projects have a `requirements.txt` file that names the modules needed for that project.
+
+. Navigate to the project's root folder.
+. `pip freeze > requirements.txt`
+. Edit the `requirements.txt` file, paring it down to only the modules that you care about.
+. You'll probably want to change all of the version specs from `==` to `>=`, unless you have a particular reason to keep one or more frozen.
+. Commit the `requirements.txt` file to version control.
+
+Then, identify the best place to install the virtual environment.
+If you only have one project, then use the root folder for that project.
+If you have multiple projects that you want to share the same virtual environment, and the project folders have a common parent folder, then set up the virtual environment in the parent folder.
+For example, say you have `C:\work\web-crawlers\craigslist` and `C:\work\web-crawlers\nextdoor`).
+The `craigslist` project and the `nextdoor` project can each have their own virtual environment (`C:\work\web-crawlers\craigslist\.venv` and `C:\work\web-crawlers\nextdoor\.venv`), or they can have a common one (`C:\work\web-crawlers\.venv`).
+
+. Open a terminal window (CMD or PowerShell).
+. Navigate to the root folder.
+. Invoke the `venv` command to create a new virtual environment, as follows:
+
+[source,bash]
+----
+CD c:\work\web-crawlers
+C:\Python38\python -m venv .venv
+----
+
+What this does, specifically:
+
+* Creates the target directory (naming it `.venv` is the common convention). If an existing directory is specified, it will be re-used.
+* Creates `pyvenv.cfg` that points to the Python installation from which the command was run (among other things).
+* Copies the Python executable into the virtual environment. (Whichever version of Python you used to run the `venv` command.)
+* Installs `pip` into the environment.
+* Creates an (initially empty) `Lib\site-packages` for `pip` to use.
+* Creates a `Scripts` subdirectory containing a copy (or symlink) of the Python binaries.
+* When pip installs a module that includes command-line executables, it places them in the environment's `Scripts` folder. If that executable is a Python script, then the she-bang line is automatically tweaked to point to the Python executable for that virtual environment.
+
+== Activate the Environment
+
+When `venv` creates the `.venv\Scripts folder`, it places an activate batch file in there.
+(Two actually, `activate.bat` and `activate.ps1` for PowerShell.)
+Running the activate script ensures that the virtual environment controls how Python operates.
+(That's why we made sure to run the `pip freeze > requirements.txt` command before activating the virtual environment; otherwise, we would have gotten an empty list.)
+
+TIP: If you are using the VSCode IDE, you can select an environment using the `Python: Select Interpreter` command in the command palette.
+Now, when you open the terminal pane (ctrl-`), you'll see that the command prompt starts with "(.venv)".
+That selection is then saved in the VSCode workspace settings (in the `.vscode` folder in the root of your workspace).
+So, any time thereafter, when you open that project folder, VSCode will know to use the corresponding virtual environment.
+Again, when you open the terminal pane (ctrl-`), you should see that the command prompt starts with "(.venv)".
+
+Activate it now.
+
+. `.\.venv\Scripts\activate`
+. Use `python --version` to verify that the correct version of Python is tied to the environment.
+. `python -m pip install --upgrade pip`
+. At this point, if you run `pip freeze`, it'll come back empty.
+. `pip install -r requirements.txt`
+. Now, if you run `pip freeze`, it'll come back with a list of all of the modules you have listed in `requirements.txt`, plus their automatically-installed dependencies.
+
+
+== Notes
+
+* `venv` used to be called `pyvenv` until Python 3.6.
+* On Windows, it may be required to enable the Activate.ps1 script by setting the execution policy for the user. You can do this by issuing the following PowerShell command: PS C:> `Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope CurrentUser`
+
+== References
+
+* See https://docs.python.org/3/library/venv.html
+* Python virtual environments were defined in PEP 405 (https://www.python.org/dev/peps/pep-0405/)
+
+
+Next Topic: link:/doc_technical/DESIGN_NOTES.adoc[Design Notes]

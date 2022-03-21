@@ -1,0 +1,252 @@
+= A Sublime Text Plugin Development Cheat Sheet
+polyglot-jones
+v0.01, 7/23/2021
+
+:toc:
+:toc-placement!:
+
+toc::[]
+
+== Snippet RegEx
+
+Case-conversion works in the PERL RE replacement syntax used in snippets.
+For example, with an initial field of `${1:Some Title}`, the following mirrored field will echo whatever is typed as a lower-case version:  `${1/(.*)/\L$1/g}`.
+Besides \L (convert everything that follows to lowercase), there is \U (uppercase), and \E (leave everything that follows alone).
+
+== Build Systems
+
+=== Build System Variables
+
+https://www.sublimetext.com/docs/build_systems.html#variables[]
+
+* By default, variables are only expanded in `cmd`, `shell_cmd`, and `working_dir`. A plugin is required for other places.
+* Variables are case sensitive.
+* For a literal dollar sign, escape it with a double backslash.
+* The same default-value mechanism for snippet variables works here (`${name:default}`). Thus, variable chaining is possible:
+-----
+"working_dir": "${folder:${project_path:${file_path}}}
+-----
+
+The pre-defined variable are:
+
+* *packages* -- The path to the Packages/ folder.
+* *platform* -- The platform Sublime Text is running on: "windows", "osx" or "linux".
+* *file* -- The full path, including folder, to the file in the active view.
+* *file_path* -- The path to the folder that contains the file in the active view.
+* *file_name* -- The file name (sans folder path) of the file in the active view.
+* *file_base_name* -- The file name, exluding the extension, of the file in the active view.
+* *file_extension* -- The extension of the file name of the file in the active view.
+* *folder* -- The full path to the first folder open in the side bar.
+* *project* -- The full path to the current project file.
+* *project_path* -- The path to the folder containing the current project file.
+* *project_name* -- The file name (sans folder path) of the current project file.
+* *project_base_name* -- The file name, excluding the extension, of the current project file.
+* *project_extension* -- The extension of the current project file.
+
+
+
+== Python Package Dependencies
+
+Details: https://packagecontrol.io/docs/dependencies[]
+
+== The Python Modules included in SublimeText
+
+Search on https://pypi.org/ for more info.
+
+=== Official Python Modules:
+
+For some reason, these 4 are called out specifically, but the others are certainly available (e.g. re).
+
+* crypt: Function to check Unix passwords
+* *enum*: Support for enumerations
+* *pathlib*: Object-oriented filesystem paths
+* *typing*: Support for type hints
+
+=== The most interesting ones:
+
+* better_settings: Easily implement OS, Host and OS/Host-level settings aside the normal user-level settings for any plugin.
+* *bs4*: *Beautiful Soup* is a Python library for pulling data out of HTML and XML files - https://www.crummy.com/software/BeautifulSoup/
+* coloraide: A color library. (This must be used by the color scheme code.)
+* dateutil: The dateutil module provides powerful extensions to the datetime module available in the Python standard library
+* debugtools: Alternate simplified logging support and general utilities functions
+* dicttoxml: Converts a Python dictionary or other native data type into a valid XML string - https://github.com/idleberg/sublime-dicttoxml
+* diff-match-patch: a high-performance library in multiple languages that manipulates plain text
+* newterm: Open a terminal to a specific folder and optionally set environment variables
+* numpy: Python numpy module
+* pathtools: Path utilities for Python https://pypi.python.org/pypi/pathtools
+* pushdownparser: A modern parsing library for Python, implementing Earley & LALR(1) and an easy interface
+* PyCrypto: Python Cryptography Toolkit - https://www.dlitz.net/software/pycrypto/
+* pygments: Syntax highlighting
+* *python-docx*: Python DOCX Module
+* regex: Regex Module
+* *requests*: Python HTTP for Humans.
+* screeninfo: Fetch location and size of physical screens - https://github.com/rr-/screeninfo
+* *shellenv*: Access a user's environmental variables as defined in their shell https://github.com/codexns/shellenv
+* *sqlite3*: Python \_sqlite3 module - https://docs.python.org/3/library/sqlite3.html
+* StyledPopup: Pyton module for Sublime Text to automatically style popups based on active color scheme.
+* sublime_lib: Utility library for frequently used functionality in Sublime Text library and convenience functions or classes - https://github.com/SublimeText/sublime_lib
+* *watchdog*: Python library to monitor filesystem events http://packages.python.org/watchdog/
+
+=== Others
+
+* anytree: Python Anytree module - https://github.com/c0fec0de/anytree
+* arrow: Python arrow module - https://github.com/crsmithdev/arrow
+* backports_lzma: lzma modules for sublime text 2 and 3
+* backrefs: Backrefs regular expression wrapper.
+* boto3: Python boto3 module for Amazon Web Services
+* bracex: Bracex creates arbitrary strings via brace expansion much like Bash's.
+* bson: Independent BSON codec for Python that doesn’t depend on MongoDB - https://github.com/py-bson/bson
+* bz2: Python bz2 module
+* channelmanager: Manages packages installed as git submodules
+* chardet: Universal encoding detector for Python 2 and 3 https://github.com/chardet/chardet
+* concurrentloghandler: An additional concurrent file log handler for Python's standard logging package
+* coverage: coverage.py - http://coverage.readthedocs.org/en/latest/
+* cson: A Coffescript Object Notation (CSON) parser for Python - https://github.com/avakar/pycson
+* ctypes: Python \_ctypes module
+* emojitations: A library for using Unicode emoji annotations - https://github.com/kcsaff/emojitations
+* fileio: Python \_fileio module
+* gateone-terminal: GateOne terminal
+* gntp: Growl Notification Transport Protocol library.
+* golangconfig: A library for Go environment configuration
+* jsonschema: An(other) implementation of JSON Schema for Python
+* lxml: lxml
+* lzma: Python lzma module
+* markupsafe: Python MarkupSafe module
+* mdpopups: Markdown Popups for Sublime
+* multiprocessing: Python \_multiprocessing module
+* natsort: Python natsort package
+* oauthlib: Python oauthlib module
+* ordereddict: Python ordereddict module
+* package_events: Allows Sublime Text packages to emit and listen for events
+* package_setting_context: Allow final user to disable key bindings with very few changes needed from the dev
+* paramiko: Python implementation of the SSHv2 protocol - http://paramiko-www.readthedocs.org/en/latest/index.html
+* pexpect: Python pexpect module
+* plantumlconnection: Python interface to a plantuml web service instead of having to run Java locally
+* portalockerfile: An extended version of portalocker to lock files in Python using the with statement
+* psutil: Python psutil module
+* ptyprocess: Python ptyprocess module
+* pyfispip:  Python FIS MTM/PIP SQL/RPC Interface
+* pymdownx: PyMdown Extensions for Python Markdown
+* pyte: Python pyte module
+* python-jinja2: Python Jinja2 module
+* python-markdown: Python Markdown module
+* python-pywin32: Pywin32 module
+* python-six: Python six library https://github.com/benjaminp/six
+* python-toml: Python lib for TOML
+* pytz: Python pytz module
+* pywinpty: Python winpty module
+* pyyaml: Python PyYAML module
+* pyzmq: Python ZMQ module
+* requests-oauthlib: Python requests-oauthlib module
+* resumeback: Python resumeback module
+* ruamel-yaml: Python ruamel.yaml module
+* rx: Reactive extensions for Python
+* sassc: Sassc binaries
+* select-windows: Python select module for Sublime Text 2 on Windows
+* serial: Python serial port access library
+* speg: A PEG-based parser interpreter with memoization - https://github.com/avakar/speg
+* ssl-linux: Python \_ssl module for Linux
+* ssl-windows: Python \_ssl module for Sublime Text 2 on Windows
+* SublimeP4Python: Python module for the Perforce API, extracted from https://pypi.python.org/pypi/P4Python.
+* tabulate: Python tabulate module
+* TM1py: Python module for interfacing with IBM TM1 Planning Analytics
+* wcmatch: Python wcmatch module which provides enhanced file globbing and matching
+* wcwidth: Python wcwidth module
+* websocket-client: Python websocket client library https://github.com/websocket-client/websocket-client
+* xdotool: Automation tool on Linux
+* xmltodict: Makes working with XML feel like you are working with JSON - https://github.com/martinblech/xmltodict
+* yaml_macros_engine: Engine for YAML Macros
+
+== Used/Available Key Bindings
+
+This is from *Default (Windows).sublime-keymap*!
+
+|===
+| Key | (Plain)     | SHIFT         | CTRL             |ALT                 |CTRL+SHIFT            |CTRL+ALT       |ALT+SHIFT           |CTRL+ALT+SHIFT | CTRL+K CTRL| CTRL+J CTRL
+| 1   | -           | -             | focus grp 1      |sel index 0         |moveto grp 1          |               |layout  2 col       |               | fold lvl 1 |
+| 2   | -           | -             | focus grp 2      |sel index 1         |moveto grp 2          |               |layout  3 col       |               | fold lvl 2 |
+| 3   | -           | -             | focus grp 3      |sel index 2         |moveto grp 3          |               |layout  4 col       |               | fold lvl 3 |
+| 4   | -           | -             | focus grp 4      |sel index 3         |moveto grp 4          |               |layout  5 col       |               | fold lvl 4 |
+| 5   | -           | -             | focus grp 5      |sel index 4         |moveto grp 5          |               |layout  2 x 2       |               | fold lvl 5 |
+| 6   | -           | -             | focus grp 6      |sel index 5         |moveto grp 6          |               |                    |               | fold lvl 6 |
+| 7   | -           | -             | focus grp 7      |sel index 6         |moveto grp 7          |               |                    |               | fold lvl 7 |
+| 8   | -           | -             | focus grp 8      |sel index 7         |moveto grp 8          |               |layout  2 row       |               | fold lvl 8 |
+| 9   | -           | -             | focus grp 9      |sel index 8         |moveto grp 9          |               |layout 3 row        |               | fold lvl 9 |
+| 0   | -           | -             | focus side bar   |sel index 9         |                      |               |                    |               | unfold all |
+| a   | -           | -             | select all       |                    |expand selection smart|               |                    |               |select to mark|
+| b   | -           | -             | build            |                    |select build          |               |tog side bar        |               |            |
+| c   | -           | -             | copy             |                    |                      |               |                    |               |            |
+| d   | -           | -             | find under expand|                    |dup line              |               |                    |               |find under expand skip |
+| e   | -           | -             | slurp find string|                    |slurp replace string  |               |                    |               |            |
+| f   | -           | -             | find             |                    |find in files         |               |                    |               |            |
+| g   | -           | -             | goto             |                    |                      |               |                    |               |clear bkmarks|
+| h   | -           | -             | replace          |                    |replace next          |               |                    |               |            |
+| i   | -           | -             | incremental find |                    |incremental find rev  |               |                    |               |            |
+| j   | -           | -             |                  |                    |join lines            |               |unfold all          |               | unfold all |primary_j_changed
+| k   | -           | -             |                  |                    |del Line.macro        |               |                    |               | del to Hard EOL.macro|
+| l   | -           | -             | sel whole line   |split sel into lines|                      |               |                    |               | lower case |
+| m   | -           | -             | move to brackets |                    |sel to brackets       |               |                    |               |            |
+| n   | -           | -             | new file         |                    |new window            |               |                    |               |            |
+| o   | -           | -             | open file        |switch file         |                      |switch file SxS|                    |               |            |
+| p   | -           | -             | goto file        |                    |command palette       |               |                    |show scope name|            |
+| q   | -           | -             | tog record macro |wrap lines (hard)   |                      |               |                    |               |            |
+| r   | -           | -             | goto @           |                    |goto symbol in project|               |                    |               |            |
+| s   | -           | -             | save             |                    |save as               |               |                    |               |            |
+| t   | -           | -             | transpose        |                    |reopen last file      |               |                    |               |fold tag attributes|
+| u   | -           | -             | soft undo        |                    |soft redo             |               |                    |               | upper case |
+| v   | -           | -             | paste            |                    |paste and indent      |               |                    |               | paste from history |
+| w   | -           | -             | close            | *(See below)*      |close window          |               |xml-long-tag.snippet|               | del to mark |
+| x   | -           | -             | cut              |                    |                      |               |                    |               | swap with mark |
+| y   | -           | -             | redo or repeat   |                    |                      |               |                    |               | yank       |
+| z   | -           | -             | undo             |                    |redo                  |               |                    |               | revert hunk|
+| +   | -           | -             | inc font size    |                    |                      |               |                    |               |            |
+| -   | -           | -             | dec font size    |jump back           |                      |               |jump forward        |               |            |
+| .   | -           | -             | next mod         |close tag           |                      |               |                    |               |            |
+| /   | -           | -             | tog comment      |tog comment blk     |                      |               |                    |               |tog inline diff|
+| ;   | -           | -             | goto             |                    |                      |               |                    |               |tog inline diff|
+| =   | -           | -             | incr font size   |                    |decrease font size    |               |                    |               |            |
+| [   | -           | -             | unindent         |                    |fold                  |               |                    |               |            |
+| ]   | -           | -             | indent           |                    |unfold                |               |                    |               |            |
+| `   | -           | -             | show console     |                    |                      |               |                    |               |            |
+|space| -           |               | auto complete    |                    |sel to scope          |               |                    |               | set mark   |
+|break| -           |               | cancel build     |                    |                      |               |                    |               |            |
+|bksp | -           | left del      | del word         |                    |left del              |               |                    |               |del to Hard BOL.macro|
+|del  | -           | cut           | del word         |                    |del to Hard EOL.macro |               |                    |               |            |
+|home | -           | sel to BOL    | move to BOF      |                    |sel to BOF            |               |                    |               |            |
+|end  | -           | sel to EOL    | move to EOF      |                    |sel to EOF            |               |                    |               |            |
+|up   | -           | sel line      | scroll line      |sel line            |swap line up          |sel line       |                    |               | new pane   | unsel others
+|down | -           | sel line      | scroll line      |sel line            |swap line down        |sel line       |                    |               | close pane |
+|left | -           | sel char      | move word        |move subword        |sel word              |               |sel subword         |               |focus neighbor grp| sel to left
+|right| -           | sel char      | move word        |move subword        |sel word              |               |sel subword         |               |focus neighbor grp| sel to right
+|pgup | -           | sel page      | prev view        |                    |show also prev view   |               |                    |               |            | focus to left
+|pgdn | -           | sel page      | next view        |                    |show also next view   |               |                    |               |            | focus to right
+|ins  | -           | paste         | copy             |                    |                      |               |                    |               |            |
+|tab  | -           | tab           | next view        |                    |prev view in stack    |               |                    |               |            |
+|esc  | -           |               |                  |                    |                      |               |                    |               |            |
+| f2  |next bkmark  |prev bkmark    | tog bkmark       |sel all bkmarks     |clear bkmarks         |               |                    |               |            |
+| f3  |find next    |find all under | find under       |find under prev     |find prev             |               |                    |               |            |
+| f4  |close file   |prev result    | next result      |                    |                      |               |                    |               |            |
+| f6  |tog spell chk|*(See below)*  | next misspell    |                    |prev misspell         |               |                    |               |            |
+| f7  |build        |               |                  |                    |                      |               |                    |               |            |
+| f9  |sort insens  |*(See below)*  | sort lines sens  |*(See below)*       |                      |               |                    |               |            |
+| f10 |context menu |               |                  |                    |                      |               |                    |               |            |
+| f11 |tog full scrn|               | tog distract     |                    |                      |               |                    |               |            |
+| f12 |goto def     |               | goto ref         |goto ref SxS        |                      |               |                    |               |            |
+|padE | -           | CRLF          |                  |                    |Add Line Before.macro |               |                    |               |            |
+|pad+ | -           |               | inc font size    |                    |decrease font size    |               |                    |               |            |
+|pad- | -           | jump back     | dec font size    |                    |                      |               |jump forward        |               |            |
+|===
+
+
+== Suggested Additional Key Bindings
+
+Toggle View Word Wrap:: `{ "keys": ["alt+w"], "command": "toggle_setting", "args": {"setting": "word_wrap"} },`
+
+Title Case:: `{ "keys": ["ctrl+k", "ctrl+t"], "command": "title_case" },` (Overrides fold tag attributes)
+
+Select All Spelling Errors:: `{ "keys": ["shift+f6"], "command": "select_all_spelling_errors" },`
+
+Permute Lines: Reverse:: `{ "keys": ["shift+f9"], "command": "permute_lines", "args": {"operation": "reverse"} },`
+
+Permute Lines: Unique:: `{ "keys": ["alt+f9"], "command": "permute_lines", "args": {"operation": "unique"} },`
+

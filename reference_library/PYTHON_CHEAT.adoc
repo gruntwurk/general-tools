@@ -7,16 +7,88 @@ v0.01, 9/14/2020
 
 toc::[]
 
+== Quick Start
+
+=== Sublime Plugin
+
+=== Stand-Alone Script
+
+=== Any Larger Project (GUI, CLI, library)
+
+In the following, replace PROJECT_NAME (twice):
+
+[source,bat]
+----
+pip install virtualenv
+pip install cookiecutter
+# pip install pyscaffold pyscaffoldext-cookiecutter
+cd {root folder}
+putup -i PROJECT_NAME
+cd PROJECT_NAME
+mkdir src\models
+mkdir src\utils
+mkdir tools
+echo "-e /proj/proj_gruntwurk/gwpycore" > requirements.txt
+----
+
+=== GUI Project
+
+[source,bat]
+----
+echo "kivy # GUI " >> requirements.txt
+echo "# kivymd # GUI extensions" >> requirements.txt
+echo "reportlab # for printing" >> requirements.txt
+mkdir src\gui
+mkdir src\print
+----
+
+=== CLI Project
+
+
+=== Library Project
+
+[source,bat]
+----
+cookiecutter https://github.com/audreyfeldroy/cookiecutter-pypackage.git
+----
+
+. Edit `setup.cfg` as necessary
+. Edit `docs/conf.py` as necessary (for using sphinx to generate API docs).
+
+
 == Lint
 
 * For imports that appear to be unused but actually are, add `# noqa: F401` to the end of the line.
 
 
+
+== Logic Flow
+
+*Ternary* syntax: var = expression if expression else expression
+Else-if syntax: *elif*
+For/While ... *Else*: The else clause is suppressed if we explicitly break out of the loop
+----
+(as of 3.10)
+match value:
+    case condition:
+        action(s)
+----
+
+== Typing
+
+----
+type([]) is list
+type({}) is dict
+type('') is str
+type(0) is int
+----
+
 == Numbers
 
-Integer division operator: `//`
+*Integer division* operator: `//`
+*Modulo* operator: `%`
 
-Chaining comparison operators: `if 5 < x < 15:`
+*Chaining comparison operators*: `if 5 < x < 15:`
 
 
 
@@ -24,7 +96,7 @@ Chaining comparison operators: `if 5 < x < 15:`
 
 === DateUtils
 
-https://pypi.org/project/python-dateutil/
+Details: https://pypi.org/project/python-dateutil/[]
 
 * Relative deltas (next month, next year, next Monday, last week of month, etc) -- both ways
 * Flexible recurrence rules
@@ -180,7 +252,7 @@ Charset detection with chardet -- pip install chardet
 * string.*digits* == '0123456789'
 * string.*hexdigits* == '0123456789abcdefABCDEF'
 * string.*octdigits* == '01234567'
-* string.*punctuation* == ``!"#$%&'()*+,-./:;<=>?@[\]^_`{|}~``
+* string.*punctuation* == ``!"#$%&'()*+,-./:;<=>?@[\]^_`{|}~`  (plus back tic)
 * string.*printable* == digits `+` ascii_letters `+` punctuation + whitespace.
 * string.*whitespace* == space, tab, linefeed, return, formfeed, and vertical tab.
 
@@ -191,12 +263,22 @@ TODO: Multi-Line Strings vs. """
 
 == RegEx
 
-https://docs.python.org/3/library/re.html
+Details: https://docs.python.org/3/library/re.html[]
 
+=== Replacement Backref Modifiers
 
-== Containers
+----
+  \l : first character to lower case
+  \u : first character to upper case
+  \L : start of lower case conversion
+  \U : start of upper case conversion
+  \E : end lower/upper case conversion
+----
 
-* List Comprehensions: `[ expression for item in list if conditional ]`
+== Containers/Collections
+
+* List Comprehension: `[ expression for item in list if conditional ]`
+* List Comprehension via Generator: `g = (item for item in "hello")` then `print(list(g))`
 * Merging dictionaries (Python 3.5+): `merged = { **dict1, **dict2 }`
 * Reversing strings and lists: `revstring = "abcdefg"[::-1]`
 * Map: `map(function, something_iterable)`
@@ -205,6 +287,37 @@ https://docs.python.org/3/library/re.html
 * Counting occurrences: `from collections import Counter`
 * List.append(single item)
 * List.extend(another list)
+* Size: `len(container)`
+* Unpacking: a, b, c = (1,2,3)
+* Repeat: `two_by_two_array = [[0]*2]*2`
+* Zipper: `list_of_tuples = zip(list1, list2, list3)`
+
+=== Sorting
+
+* `lst.sort()` or `sorted(lst)`
+* `lst.sort(reverse=True)` or `sorted(lst, reverse=True)`
+* `lst.sort(key=lambda x: x[1])` or `sorted(lst, key=fn)`
+* For case-insensitive, use `key=str.lower`
+
+=== itertools
+
+`import itertools`
+
+* `iterator = itertools.accumulate(list1, list2)` -- runnning totals
+* `iterator = itertools.chain(list1, list2)` -- logical List.extend()
+* `iterator = itertools.compress(list1, list2)` -- list1[i] if list2[i]
+
+
+
+=== Data Classes
+
+The `@dataclass` decorator automatically adds special methods to a class (only if the method has not been explicitly declared).
+
+`from dataclasses import dataclass`
+
+`@dataclass(init=True, repr=True, eq=True, order=False, unsafe_hash=False, frozen=False)`
+
+Details: https://docs.python.org/3/library/dataclasses.html[]
 
 
 === Tuples
@@ -304,7 +417,7 @@ im.show()
 * p.suffixes -- `Path("my/library.tar.gz").suffixes` -> `["tar","gz"]`
 * p.stem -- final path component, without its suffix
 * p.as_posix() -- string representation of the path with forward slashes (/)
-* p.as_uri() -- `Path('/etc/passwd')` -> `'file:///etc/passwd'`
+* p.as_uri() -- `Path('/etc/passwd')` -> `file:///etc/passwd`
 * p.is_absolute() -- `Path('/a/b').is_absolute()` -> `True`
 * p.is_reserved() -- `PureWindowsPath('nul').is_reserved()` -> `True`
 * p.joinpath(``*``other) -- same as the join operator
@@ -388,150 +501,19 @@ You can quickly start a web server, serving the contents of the current director
 `python3 -m http.server`
 
 
+=== Beautiful Soup
+
+Details: https://beautiful-soup-4.readthedocs.io/en/latest/[]
 
 
-== PyQt5
-
-=== Accelerator shortcuts (Menu &Name)
-
-Suggested wording for common menu items: https://doc.qt.io/qt-5/accelerators.html
 
 
-=== PyQt5 Styles/Themes
 
-`PyQt5.QtWidgets.QStyleFactory.keys()` -> ['Breeze', 'Oxygen', 'QtCurve', 'Windows', 'Fusion']
+== SublimeText Plugins
 
-----
-qApp.setStyle("Fusion")
-dark_palette = QPalette()
-dark_palette.setColor(QPalette.Window, QColor(53, 53, 53))
-dark_palette.setColor(QPalette.WindowText, Qt.white)
-dark_palette.setColor(QPalette.Base, QColor(25, 25, 25))
-dark_palette.setColor(QPalette.AlternateBase, QColor(53, 53, 53))
-dark_palette.setColor(QPalette.ToolTipBase, Qt.white)
-dark_palette.setColor(QPalette.ToolTipText, Qt.white)
-dark_palette.setColor(QPalette.Text, Qt.white)
-dark_palette.setColor(QPalette.Button, QColor(53, 53, 53))
-dark_palette.setColor(QPalette.ButtonText, Qt.white)
-dark_palette.setColor(QPalette.BrightText, Qt.red)
-dark_palette.setColor(QPalette.Link, QColor(42, 130, 218))
-dark_palette.setColor(QPalette.Highlight, QColor(42, 130, 218))
-dark_palette.setColor(QPalette.HighlightedText, Qt.black)
-qApp.setPalette(dark_palette)
-qApp.setStyleSheet("QToolTip { color: #ffffff; background-color: #2a82da; border: 1px solid white; }")
-----
+Manually adding Python packages:
 
-=== Window Types
+`cd "C:\Program Files\Sublime Text 3\Lib\python3"`  # Sublime 3
+`cd "C:\Program Files\Sublime Text\Lib\python3"`    # Sublime 4
+`pip install ...`
 
-----
-setWindows(Qt.WindowsFlags):
-Qt.Widget: Default window, by maximizing, minimizing, closing buttons
-Qt.Window: Ordinary window with maximization, minimization and closure buttons
-Qt.Dialog: Dialog window with question mark and close button
-Qt.Popup: Pop-up window with no borders
-Qt.ToolTip: Tip window, no borders, no taskbar
-Qt.SplashScreen: Flash screen, window without borders, taskbar
-Qt.SubWindow: Subwindow, no button, but with title bar
-Qt CustomizedTopWindowAppearanceLogo:
-Qt.MSWindowsFixedSizeDialogHint: Windows cannot be resized
-Qt.FrameLessWindowsHint: Window without Borders
-Qt.CustomWinodwHint: Borders but no title bars and buttons, unable to move and drag
-Qt.WindowsTitleHint: Add a title bar and a close button
-Qt.WindowsSystemMenuHint: Add System Directory and a Close Button
-Qt.WindowsMaximizeButtonHint: Activate the MaximizeButton and Close Button, Disable the Minimization Button
-Qt.WindowsMinimizeButtonHint: Activate Minimize and Close Buttons, Disable Maximize Buttons
-Qt.WindowsMinMaxButtonsHint: Activate the Maximization, Minimization and Close buttons
-Qt.WindowsCloseButtonHint: Add a Close button
-Qt.WindowsContextHelpButtonHint: Add Question Mark and Close Button
-Qt.WindowsStaysOnTopHint: Windows are always at the top
-Qt.WindowsStaysOnBottomHint: Windows are always at the bottom
-----
-
-==== Distraction-Free
-
-----
-self.setWindowFlags(Qt.WindowMinMaxButtonsHint | Qt.WindowCloseButtonHint)
-...
-def showMaximized(self):
-    self.setGeometry(QApplication.desktop().availableGeometry())
-    self.show()
-----
-
-=== QSS Selectors
-
-. Type notation (just the name) includes subclasses: QPushButton
-. Class notation does not include subclasses: .QPushButton
-. Wildcard: *
-. Attribute selector: QPushButton[name="okButton"]
-. ID selector: objectName
-. Progeny selectors, such as QDialog QPushButton, match QPushButton contained in all QDialog containers, whether direct or indirect.
-. Child selectors: such as QDialog > QPushButton, match all QPushButton contained in the QDialog container, requiring the direct parent container of QPushButton to be QDialog.
-. Child control notation (::) is for internal controls (e.g. combo box text field)
-
-=== QKeySequence
-
-* `QKeySequence('Ctrl+O')` -- constructs a hotkey combination (of up to 4 in sequence: "Ctrl+X, Ctrl+C")
-* `QShortcut()` -- provides a way of connecting key sequences to the signals and slots mechanism. The `activated` property emits a signal to the specified slot function.
-* `QAction()` -- a common action that can be triggered in multiple ways (menu item, toolbar button, key sequence). The `triggered` property emits a signal to the specified slot function.
-
-
-=== QPalette
-
-==== QPalette.ColorGroup Constants
-
-Active (aka. QPalette.Normal) -- The window that has focus
-Inactive -- All other windows (usually the same as active)
-Disabled -- Grayed-out widgets
-
-
-==== QPalette.ColorRole Constants
-
-Note that the "Text" colors are also used for non-text elements (lines, icons).
-
-[width="100%",options="header"]
-|===
-|Possible Mapping | QT Color | QT Purpose
-|base00 |Shadow          |A very dark color. By default, the shadow color is black.
-|base00 |Window          |(formerly Background) A general background color
-|base01 |Base            |Background color for text entry widgets, comboboxes, toolbar handles, etc.
-|base01 |Dark            |Darker than Button.
-|base01 |ToolTipBase     |(From the Inactive color group!) Background color for QToolTip/QWhatsThis
-|base02 |AlternateBase   |Background color for alternating rows
-|base02 |Highlight       |Background color of highlighted text
-|base02 |Mid             |Between Button and Dark.
-|base03 |Button          |Background for buttons.
-|base04 |Midlight        |Between Button and Light.
-|base04 |PlaceholderText |Used as the placeholder color for various text input widgets.
-|base04 |ToolTipText     |(From the Inactive color group!) Foreground color for QToolTip/QWhatsThis
-|base05 |Light           |Lighter than Button color.
-|base05 |Text            |The foreground color used with Base (usually the same as the WindowText)
-|base05 |WindowText      |(formerly Foreground) A general foreground color
-|base07 |BrightText      |A text color that is very different from WindowText, and contrasts well with e.g. Dark.
-|base0a |ButtonText      |Foreground color
-|base0c |HighlightedText |Foreground color of highlighted text
-|base0d |Link            |Unvisited hyperlinks
-|base0e |LinkVisited     |Visited hyperlinks
-|===
-
-==== The Base16 Scheme Standard
-
-[width="100%",options="header"]
-|===
-|Base16 |General Scheme   |           |When Used for Syntax Highlighting Purposes
-|base00 |darkest          |black      |Default Background
-|base01 |                 |           |Slightly lighter Background (Used for status bars)
-|base02 |                 |dark gray  |Selection Background
-|base03 |                 |           |Comments, Invisibles, Line Highlighting
-|base04 |                 |           |Dark Foreground (Used for status bars)
-|base05 |                 |light gray |Default Foreground, Caret, Delimiters, Operators
-|base06 |                 |           |Light Foreground (Not often used)
-|base07 |lightest         |white      |Light Background (Not often used)
-|base08 |hottest          |red        |Variables, XML Tags, Markup Link Text, Markup Lists, Diff Deleted
-|base09 |hot              |orange     |Integers, Boolean, Constants, XML Attributes, Markup Link Url
-|base0A |warmer           |yellow     |Classes, Markup Bold, Search Text Background
-|base0B |warm             |green      |Strings, Inherited Class, Markup Code, Diff Inserted
-|base0C |cool             |blue       |Support, Regular Expressions, Escape Characters, Markup Quotes
-|base0D |cooler           |indigo     |Functions, Methods, Attribute IDs, Headings
-|base0E |cold             |violet     |Keywords, Storage, Selector, Markup Italic, Diff Changed
-|base0F |coldest          |brown      |Deprecated, Opening/Closing Embedded Language Tags
-|===
