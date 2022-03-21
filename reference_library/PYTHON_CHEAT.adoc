@@ -11,6 +11,8 @@ toc::[]
 
 === Sublime Plugin
 
+See link:SUBLIME_PLUGIN_CHEAT.adoc[]
+
 === Stand-Alone Script
 
 === Any Larger Project (GUI, CLI, library)
@@ -504,16 +506,3 @@ You can quickly start a web server, serving the contents of the current director
 === Beautiful Soup
 
 Details: https://beautiful-soup-4.readthedocs.io/en/latest/[]
-
-
-
-
-
-== SublimeText Plugins
-
-Manually adding Python packages:
-
-`cd "C:\Program Files\Sublime Text 3\Lib\python3"`  # Sublime 3
-`cd "C:\Program Files\Sublime Text\Lib\python3"`    # Sublime 4
-`pip install ...`
-

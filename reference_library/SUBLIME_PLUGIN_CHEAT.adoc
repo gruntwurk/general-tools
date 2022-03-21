@@ -53,6 +53,12 @@ Details: https://packagecontrol.io/docs/dependencies[]
 
 Search on https://pypi.org/ for more info.
 
+=== Manually Adding Other Python Modules:
+
+`cd "C:\Program Files\Sublime Text 3\Lib\python3"`  # Sublime 3
+`cd "C:\Program Files\Sublime Text\Lib\python3"`    # Sublime 4
+`pip install ...`
+
 === Official Python Modules:
 
 For some reason, these 4 are called out specifically, but the others are certainly available (e.g. re).

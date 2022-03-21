@@ -12,7 +12,7 @@ And so on.
 
 First, install the version of Python that you'll want to use with that environment (e.g. C:\Python38\python.exe), if not already.
 
-Next, make sure each of your projects have a `requirements.txt` file that names the modules needed for that project.
+Next, make sure each of your projects have a `requirements.txt` file that names the modules needed for that project, as follows:
 
 . Navigate to the project's root folder.
 . `pip freeze > requirements.txt`
@@ -23,20 +23,30 @@ Next, make sure each of your projects have a `requirements.txt` file that names 
 Then, identify the best place to install the virtual environment.
 If you only have one project, then use the root folder for that project.
 If you have multiple projects that you want to share the same virtual environment, and the project folders have a common parent folder, then set up the virtual environment in the parent folder.
-For example, say you have `C:\work\web-crawlers\craigslist` and `C:\work\web-crawlers\nextdoor`).
-The `craigslist` project and the `nextdoor` project can each have their own virtual environment (`C:\work\web-crawlers\craigslist\.venv` and `C:\work\web-crawlers\nextdoor\.venv`), or they can have a common one (`C:\work\web-crawlers\.venv`).
+For example, say you have `C:\work\web-crawlers\craigslist` and `C:\work\web-crawlers\nextdoor`,
+the `craigslist` project and the `nextdoor` project can each have their own virtual environment (`C:\work\web-crawlers\craigslist\.venv` and `C:\work\web-crawlers\nextdoor\.venv`), or they can have a common one (`C:\work\web-crawlers\.venv`).
 
 . Open a terminal window (CMD or PowerShell).
 . Navigate to the root folder.
-. Invoke the `venv` command to create a new virtual environment, as follows:
+. Invoke either the `venv` or `virtualenv` command to create a new virtual environment, as follows:
 
 [source,bash]
 ----
+pip install virtualenv
 CD c:\work\web-crawlers
-C:\Python38\python -m venv .venv
+C:\Python38\python -m virtualenv .venv
 ----
 
-What this does, specifically:
+== The Difference Between `venv` and `virtualenv`
+
+`venv` is a subset of `virtualenv`.
+`venv` is (usually) preinstalled with Python.
+`virtualenv` is installed explicitly: `pip install virtualenv`.
+`virtualenv` is speedier.
+See https://pypi.org/project/virtualenv[] for details.
+
+
+What these both do, specifically:
 
 * Creates the target directory (naming it `.venv` is the common convention). If an existing directory is specified, it will be re-used.
 * Creates `pyvenv.cfg` that points to the Python installation from which the command was run (among other things).
@@ -48,16 +58,16 @@ What this does, specifically:
 
 == Activate the Environment
 
-When `venv` creates the `.venv\Scripts folder`, it places an activate batch file in there.
+When `venv` creates the `.venv\Scripts` folder, it places an `activate` batch file in there.
 (Two actually, `activate.bat` and `activate.ps1` for PowerShell.)
 Running the activate script ensures that the virtual environment controls how Python operates.
 (That's why we made sure to run the `pip freeze > requirements.txt` command before activating the virtual environment; otherwise, we would have gotten an empty list.)
 
 TIP: If you are using the VSCode IDE, you can select an environment using the `Python: Select Interpreter` command in the command palette.
-Now, when you open the terminal pane (ctrl-`), you'll see that the command prompt starts with "(.venv)".
+Now, when you open the terminal pane (ctrl-\`), you'll see that the command prompt starts with "(.venv)".
 That selection is then saved in the VSCode workspace settings (in the `.vscode` folder in the root of your workspace).
 So, any time thereafter, when you open that project folder, VSCode will know to use the corresponding virtual environment.
-Again, when you open the terminal pane (ctrl-`), you should see that the command prompt starts with "(.venv)".
+Again, when you open the terminal pane (ctrl-\`), you should see that the command prompt starts with "(.venv)".
 
 Activate it now.
 
@@ -76,8 +86,5 @@ Activate it now.
 
 == References
 
-* See https://docs.python.org/3/library/venv.html
-* Python virtual environments were defined in PEP 405 (https://www.python.org/dev/peps/pep-0405/)
-
-
-Next Topic: link:/doc_technical/DESIGN_NOTES.adoc[Design Notes]
+* See https://docs.python.org/3/library/venv.html[]
+* Python virtual environments were defined in PEP 405 (https://www.python.org/dev/peps/pep-0405/[])
