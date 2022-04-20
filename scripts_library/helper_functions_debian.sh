@@ -5,7 +5,9 @@
 
 # Assumes global variable LOG_FILE
 
-# BASH function parameters are not declared in the ().
+# Notes:
+#
+# BASH function parameters are not declared within the parenthesis. Instead...
 # $0 = the name of the function
 # $1 = the first parameter
 # $n = the nth parameter
@@ -22,7 +24,7 @@ SESSION_ID=$( date '+%Y%m%d-%H%M%S' )
 start_log() {
     LOG_NAME=$1
     if [ -z $LOG_FILE ]; then
-        LOG_FILE="/var/log/$LOG_NAME.log"
+        LOG_FILE="$LOG_NAME.log"
     fi
     log_header "Start of $LOG_NAME"
 }
@@ -30,6 +32,16 @@ start_log() {
 
 log() {
     echo "$@" &>> $LOG_FILE
+}
+debug() {
+    VAR=$1
+    if [ "$VAR" != "" ]; then
+        VAL=${!VAR}
+        echo "$VAR = $VAL"
+        echo "$VAR = $VAL" &>> $LOG_FILE
+    else
+        log
+    fi
 }
 show() {
     echo "------------------------------------------------------------------------------"
@@ -72,7 +84,7 @@ apt_dist_upgrade() {
 
 # Cleans up orphaned packages
 apt_autoremove() {
-    sudo apt-get autoremove 2>> $LOG_FILE
+    sudo apt-get -yq autoremove 2>> $LOG_FILE
 
 }
 

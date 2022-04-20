@@ -1,19 +1,25 @@
-= Visual Studio Code (IDE)
+= Visual Studio Code (IDE) via Vagrant
 
-Microsoft's (free) Visual Studio Code is an integrated development environment (IDE) that has excellent support for working the "Vagrant way."
+== Developing the "Vagrant way"
+
+Microsoft's (free) Visual Studio Code is an integrated development environment (IDE) that has excellent support for working the *"Vagrant way."*
 Most every feature of VSCode is modular (supported via "extensions").
 One particular extension ("Remote - SSH") transforms the entire VSCode ecosystem into a client/server setup.
 When you work with a remote machine, the VSCode app on your host machine acts only as a front-end GUI, while all of the heavy-lifting is moved to a server that VSCode automatically installs on the remote machine (in `~/.vscode-server`).
-Thereafter, other extensions are selectively installed locally on the host or remotely on the VM, depending on the purpose of the extension.
-(If an extension is already installed locally, a single button click can transfer it.)
 
 You get the best of both worlds.
-When you open a source folder locally on the host machine, VSCode continues to work entirely locally.
-When you open a source folder remotely, VSCode switches to client-server mode.
+When you tell VSCode to connect to the virtyual machine, it spawns a second GUI window as a client to the VM.
+When you open a source folder locally (in the original VSCode GUI window), VSCode continues to work entirely locally.
+When you open a source folder remotely (in the spawned VSCode GUI client window), VSCode operates in client-server mode.
 
 CAUTION: Since your "working" folder is shared between the host and the guest, don't get confused about how VSCode wants to work with it.
 Do not open the projects in your working folder directly (D:\work\myproject).
 Always open them remotely (/work/myproject), so that all of the compiling, running, unit testing, debugging, etc. happens on the VM (Linux), not on the host (Windows).
+
+== How Other Extensions Collaborate
+
+Thereafter, other extensions are selectively installed locally on the host or remotely on the VM, depending on the purpose of the extension.
+(If an extension is already installed locally, a single button click can transfer it. Note: Each transfer can take several minutes.)
 
 == Setup
 

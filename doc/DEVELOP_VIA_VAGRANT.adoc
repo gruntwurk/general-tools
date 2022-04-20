@@ -27,6 +27,33 @@ This is especially useful for open source projects where it's important to get v
 * *Automation scripts* (e.g. Makefile) only need to worry about the OS of the virtual machine (Linux). No need to manage a separate set of Windows BAT/PS1 files, even if the host machine is Windows.
 
 
+== Multiple Configurations
+
+Different projects can require different server configurations.
+That's easy to accomplish.
+Just clone this git repo as many times as you need (e.g. `/dev/py39`, `/dev/py310`, `/dev/py2only`, or even `/dev/my-completely-unique-project`).
+Then, for each one, create "local" config files as appropriate.
+(Details on how to do that are below.)
+
+
+== Daily Use
+
+Once everything is set up (per below), daily usage goes like this:
+
+. Launch `VirtualBox` (or whatever provider you prefer)
+. cd to the desired folder in which you cloned and configured this Vagrant specification according to the needs of the project to be worked on.
+. Run `up.bat` (This will gen up the virtual machine, as you've specified it, and boot it)
+. Use `vagrant ssh` (in the terminal window that `up.bat` left open) to shell into the running guest machine.
+. (FYI: To reference the three shared folders from within the guest, use: `/work`, `/drop`, and `/vagrant` -- which, on the host, are: the root of your projects folder, `C:\pydev_drop`, and the folder that contains the `Vangrantfile` file, respectively.) NOTE: You can change `/work` and `/drop` to something else (e.g. `/proj` and `/suitcase`).
+. Fire up your favorite IDE (e.g. VSCode), if not already running.
+. In the case of VSCode, click the double-arrow icon in the lower left corner, select "Connect to remote host" and select `pydev` (or whatever you named the virtual machine). This will open a new VSCode window as a client with pydev as the server.
+. Thereafter, the IDE will work with the source files (edit, compile, run tests, etc.) as if they reside on the server, even though they are in a shared folder and actually reside on the host.
+
+== The Next Day
+
+. Launch `VirtualBox` (or whatever provider you prefer)
+. Restart the virtual machine.
+. Carry on with development.
 
 == What's Installed
 
@@ -34,12 +61,13 @@ This set of Vagrant configuration files is designed to support Python developmen
 As defined, this is what will be automatically installed:
 
 * Python
-** Python 3 (installed via apt-get or optionally built from source)
-** Python 2 (installed w/Debian)
-** PIP 3
+** Python 2 (already installed w/Debian)
+** PIP 2 (optional)
+** Python 3 (optional -- installed via apt-get or optionally built from source)
+** PIP 3 and venv (if Python3 is installed)
 
 * Version Control
-** Git
+** Git (optional)
 ** Hg (optional)
 ** Bazaar (optional)
 
@@ -135,12 +163,12 @@ But first, here are some things to note about working with the VM directly:
 === Vagrant Commands
 
 . Use `vagrant ssh` (in the terminal window that `up.bat` left open) to shell into the running guest machine.
-. Use `alias` to find out what command aliases have been defined.
-. Use `exit` to return to the host machine command line.
+. Use `alias` (on the guest machine) to find out what command aliases have been defined.
+. Use `exit` (on the guest machine) to return to the host machine command line.
 . Use `vagrant ssh-config` to print the settings that `vagrant ssh` uses to connect (if you want to know how to ssh in manually).
 . Use `vagrant halt` to stop the guest machine and then `vagrant up` to reboot it.
 . Use `vagrant suspend` to hibernate the guest machine and `vagrant resume` to wake it up.
-. Use `vagrant destroy` (after halt) to wipe out the guest machine (if you want the next `vagrant up` to start over).
+. Use `vagrant destroy` (after halt) to wipe out the guest machine (if you want the next `vagrant up` to start over from scratch).
 
 === Additional Linux Commands/Aliases
 

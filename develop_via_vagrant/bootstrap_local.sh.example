@@ -1,12 +1,19 @@
 #!/usr/bin/env bash
-# local_config.sh -- DO NOT COMIT TO VERSION CONTROL (other than as an example)
-#
+# bootstrap_local.sh -- DO NOT COMIT TO VERSION CONTROL (other than as an example)
+
+# Generally, anything other than YES means no.
+
+# ------------------------------------------------------------------- System
 declare SYSTEM_TIMEZONE="America/Los_Angeles" # per: timedatectl list-timezones
 
 # Credentials to create (in addition the the "vagrant" user account that is automatically created)
 declare DEVELOPER_ID=your-username-here
 declare DEVELOPER_NAME="Your Full Name Here"
 declare DEVELOPER_EMAIL="your@email.here"
+# ------------------------------------------------------------------- Version Control
+declare INSTALL_GIT=YES
+declare INSTALL_MERCURIAL=NO
+declare INSTALL_BAZAAR=NO
 
 
 declare GITHUB_USER_ID=your-github-username-here
@@ -15,21 +22,30 @@ declare GITHUB_APP_TOKEN="your-app-token-here"
 # Anything other than "HIGH" means low.
 # (For a development VM running locally, you'll certainly want to leave this as LOW.
 # The option is here just to be thorough.)
-declare SECURITY_LEVEL="LOW" 
+declare SECURITY_LEVEL=LOW
 
+# ------------------------------------------------------------------- Python 2 & 3
+# (Python 2 is included with the base Debian appliance, but not PIP2)
+declare INSTALL_PIP2=YES
+# A space-separated list of packages to install
+declare PYTHON2_PACKAGES="pytest isort flake8"
+
+
+declare INSTALL_PYTHON3=YES # (incl. PIP3, and venv)
 # To build Python from source, specify the desired version number.
 # Otherwise, "NO" means just apt-get whatever the latest python3 package 
 # that's available in the Debian repository.
 # WARNING: Building from source takes upwards of 5 minutes
-declare BUILD_PYTHON_FROM_SOURCE="3.9.5"
+declare BUILD_PYTHON3_FROM_SOURCE=NO
+# declare BUILD_PYTHON_FROM_SOURCE="3.9.5"
+declare PYTHON3_PACKAGES="$PYTHON2_PACKAGES black kivy"
 
-# A space-separated list of packages to install (system-wide, common to all venv's)
-declare PYTHON_PACKAGES="pytest black isort flake8"
+# ------------------------------------------------------------------- SQL
+declare INSTALL_POSTGRES=NO
+declare INSTALL_MYSQL=NO
 
-# Anything other than "YES" means no.
-declare INSTALL_MERCURIAL="NO"
-declare INSTALL_BAZAAR="NO"
-declare INSTALL_POSTGRES="NO"
-declare INSTALL_MYSQL="NO"
-declare INSTALL_ASCIIDOC="NO"
-declare INSTALL_ASCIIDOCTOR="YES"
+
+# ------------------------------------------------------------------- Document Markup
+declare INSTALL_ASCIIDOC=NO
+declare INSTALL_ASCIIDOCTOR=YES
+

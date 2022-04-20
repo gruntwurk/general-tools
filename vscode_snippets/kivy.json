@@ -1,6 +1,5 @@
 {
-    // Kivy Snippets (for .kv files) contributed by Craig Jones (craig@k6nnl.com)
-
+    // Kivy Snippets contributed by Craig Jones (craig@k6nnl.com)
     "Horizontal Box": {
         "prefix": "horiz",
         "body": [
@@ -10,9 +9,8 @@
         ],
         "description": "Horizontal Box"
     },
-
     "Vertical Box": {
-        "prefix": "horiz",
+        "prefix": "vert",
         "body": [
             "BoxLayout:",
             "    orientation: 'vertical'",
@@ -20,29 +18,79 @@
         ],
         "description": "Vertical Box"
     },
-
+    "Label": {
+        "prefix": "label",
+        "body": [
+            "$0################            Move this to the .py file...",
+            "$1_label: ObjectProperty()",
+            "",
+            "################            Leave here (in the KV file)...",
+            "$1_label: _$1_label",
+            "Label:",
+            "    id: _$1_label",
+            "    text: \"\"",
+            "    size_hint_x: .2",
+        ],
+        "description": "Label"
+    },
+    "Progress Bar": {
+        "prefix": "prog",
+        "body": [
+            "$0################            Move this to the .py file...",
+            "$1_progress: ObjectProperty()",
+            "",
+            "def show_progress(self, value):",
+            "    self.$1_progress.value = value",
+            "",
+            "################            Leave here (in the KV file)...",
+            "$1_progress: _$1_progress",
+            "ProgressBar:",
+            "    id: _$1_progress",
+            "    value: 0",
+            "    min: 0",
+            "    max: 100",
+            "    pos_hint",
+            "    size_hint_x: 0.8",
+            "    $0",
+        ],
+        "description": "Progress Bar"
+    },
     "Action Screen": {
         "prefix": "screen",
-        "body": ["",
-			"$0################            Move this to the .py file...",
-			"class ${1:Action}Screen(Screen):",
-			"    \"\"\"",
-			"    \"\"\"",
-			"    def ${1/(.)/${1:/downcase}/}(self):",
-			"        '''",
-			"        '''",
-			"        pass",
-			"",
-			"################            Move this to the .py file (where the ScreenManager is declared)...",
-			"sm.add_widget($1Screen(name='${1/(.)/${1:/downcase}/}_screen'))",
-			"",
-			"################            Move this to the menu screen (above)",
-			"Button:",
+        "body": [
+            "",
+            "$0################            Move this to the .py file...",
+            "class ${1:Action}Screen(Screen):",
+            "    \"\"\"",
+            "    \"\"\"",
+            "    def __init__(self, **kw):",
+            "        super().__init__(**kw)",
+            "        self.app: App = App.get_running_app()",
+            "",
+            "    def ${1/(.)/${1:/downcase}/}(self):",
+            "        '''",
+            "        '''",
+            "        pass",
+            "",
+            "    def on_enter(self, *args):",
+            "        return super().on_enter(*args)",
+            "",
+            "    def cancel(self):",
+            "        self.done()",
+            "",
+            "    def done(self):",
+            "        self.app.switch_to_screen('main_screen')",
+            "",
+            "################            Move this to the .py file (where the ScreenManager is declared)...",
+            "sm.add_widget($1Screen(name='${1/(.)/${1:/downcase}/}_screen'))",
+            "",
+            "################            Move this to the menu screen (above)",
+            "Button:",
             "    text: '$1'",
             "    size_hint: 1,0.1",
             "    on_press: app.root.current = '${1/(.)/${1:/downcase}/}_screen'",
-			"",
-			"################            Leave here (in the KV file)...",
+            "",
+            "################            Leave here (in the KV file)...",
             "<$1Screen>:",
             "    BoxLayout:",
             "        orientation: 'vertical'",
@@ -51,11 +99,11 @@
             "            Button:",
             "                text: '$1'",
             "                size_hint: 1,0.1",
-            "                on_press: root.$1()",
+            "                on_press: root.${1/(.)/${1:/downcase}/}()",
             "            Button:",
             "                text: 'Done'",
             "                on_press: app.root.current = 'menu_screen'",
         ],
-        "description": "Vertical Box"
+        "description": "Action Screen"
     }
 }

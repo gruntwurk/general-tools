@@ -14,17 +14,17 @@
 #               script therefore avoids using ~ and $HOME altogether (except 
 #               as a temp folder for wget).
 LOG_FILE="/vagrant/bootstrap.log"
-SCRIPT_DIR="/vagrant/scripts_library"
+SCRIPT_DIR="/scripts_library"
 
 # ============================================================================
 #                                                             Helper Functions
 # ============================================================================
 
 # Import the common helper functions
-if [ -f $SCRIPT_DIR/helper_functions.sh ]; then 
-	source $SCRIPT_DIR/helper_functions.sh
+if [ -f $SCRIPT_DIR/helper_functions_debian.sh ]; then
+	source $SCRIPT_DIR/helper_functions_debian.sh
 else
-	echo "$SCRIPT_DIR/helper_functions.sh does not exist! Aborting." >> $LOG_FILE
+	echo "$SCRIPT_DIR/helper_functions_debian.sh does not exist! Aborting." >> $LOG_FILE
 	exit
 fi
 
@@ -58,24 +58,31 @@ else
 	log "Required bootstrap_local.sh not found! -- Aborting"
 	exit
 fi
-log "Configuration settings to be used:"
-log ""
-log "SYSTEM_TIMEZONE          = $SYSTEM_TIMEZONE"
-log "DEVELOPER_ID             = $DEVELOPER_ID" 
-log "DEVELOPER_NAME           = $DEVELOPER_NAME" 
-log "DEVELOPER_EMAIL          = $DEVELOPER_EMAIL" 
-log "GITHUB_USER_ID           = $GITHUB_USER_ID" 
-log "GITHUB_APP_TOKEN         = $GITHUB_APP_TOKEN" 
-log "SECURITY_LEVEL           = $SECURITY_LEVEL" 
-log ""  
-log "BUILD_PYTHON_FROM_SOURCE = $BUILD_PYTHON_FROM_SOURCE"
-log "PYTHON_PACKAGES          = $PYTHON_PACKAGES"
-log "INSTALL_MERCURIAL        = $INSTALL_MERCURIAL"
-log "INSTALL_BAZAAR           = $INSTALL_BAZAAR"
-log "INSTALL_POSTGRES         = $INSTALL_POSTGRES" 
-log "INSTALL_MYSQL            = $INSTALL_MYSQL" 
-log "INSTALL_ASCIIDOCTOR      = $INSTALL_ASCIIDOCTOR" 
-log "---------------------------------------------" 
+
+debug
+debug SYSTEM_TIMEZONE
+debug DEVELOPER_ID
+debug DEVELOPER_NAME
+debug DEVELOPER_EMAIL
+debug GITHUB_USER_ID
+debug GITHUB_APP_TOKEN
+debug SECURITY_LEVEL
+debug
+debug INSTALL_PIP2
+debug PYTHON2_PACKAGES
+debug INSTALL_PYTHON3
+debug BUILD_PYTHON3_FROM_SOURCE
+debug PYTHON3_PACKAGES
+debug
+debug INSTALL_GIT
+debug INSTALL_MERCURIAL
+debug INSTALL_BAZAAR
+debug
+debug INSTALL_POSTGRES
+debug INSTALL_MYSQL
+debug
+debug INSTALL_ASCIIDOCTOR
+debug
 
 DEV_HOME="/home/$DEVELOPER_ID"
 
@@ -102,9 +109,8 @@ if [ "$INSTALL_POSTGRES" == "YES" ]; then
 	wget --quiet -O - https://www.postgresql.org/media/keys/ACCC4CF8.asc | sudo apt-key add -
 fi
 log_step "Updating apt" 
-sudo apt-get update 2>> $LOG_FILE
-sudo apt-get -yq upgrade 2>> $LOG_FILE
-
+apt_update
+apt_dist_upgrade
 
 
 # ============================================================================
@@ -112,59 +118,81 @@ sudo apt-get -yq upgrade 2>> $LOG_FILE
 # ============================================================================
 
 # ##############################################   VERSION CONTROL (Git, Mercury, and Bazaar)
-log_step "Installing Git version-control" 
-sudo apt-get -yq install git  2>> $LOG_FILE
-GIT_VER=`git --version`
+GIT_VER="(not installed)"
+if [ "$INSTALL_GIT" == "YES" ]; then
+	apt_install git "Git version-control"
+	sudo apt-get -yq install git  2>> $LOG_FILE
+	GIT_VER=`git --version`
+fi
 
 HG_VER="(not installed)"
 if [ "$INSTALL_MERCURIAL" == "YES" ]; then
-	log_step "Installing Mercurial version-control" 
-    sudo apt-get -yq install mercurial 2>> $LOG_FILE
+	apt_install mercurial "Mercurial version-control"
 	HG_VER=`hg --version`
 fi
 
 BZR_VER="(not installed)"
 if [ "$INSTALL_BAZAAR" == "YES" ]; then
-	log_step "Installing Bazaar version-control" 
-    sudo apt-get -yq install bzr 2>> $LOG_FILE
+	apt_install bzr "Bazaar version-control"
 	BZR_VER=`bzr --version`
 fi
 
-# ##############################################   Python 3, Pip, Pytest, venv
-PY3_VER=`python3 -c 'import sys; print(f"{sys.version_info[0]}.{sys.version_info[1]}.{sys.version_info[2]}")'`
-
-if [ "$BUILD_PYTHON_FROM_SOURCE" == "NO" ]; then
-	sudo apt-get -yq install python3 2>> $LOG_FILE
-	sudo apt-get -yq install python3-pip 2>> $LOG_FILE
-else if [ "$PY3_VER" != "$BUILD_PYTHON_FROM_SOURCE" ]; then
-	log_step "Preparing to build Python $BUILD_PYTHON_FROM_SOURCE from source"
-	sudo apt-get -yq install build-essential zlib1g-dev libncurses5-dev libgdbm-dev libnss3-dev libssl-dev libsqlite3-dev libreadline-dev libffi-dev curl libbz2-dev 2>> $LOG_FILE
-	wget https://www.python.org/ftp/python/$BUILD_PYTHON_FROM_SOURCE/Python-$BUILD_PYTHON_FROM_SOURCE.tgz
-	tar -xf Python-$BUILD_PYTHON_FROM_SOURCE.tgz
-	log_step "Compiling Python"
-	cd Python-$BUILD_PYTHON_FROM_SOURCE
-	./configure --enable-optimizations
-	make -j 2
-	log_step "Installing as Python3"
-	sudo make install # overwrites the python3 binary with python3.9
-	# // sudo make altinstall # leaves python3 and just creates python3.9
-else 
-	log "Python $BUILD_PYTHON_FROM_SOURCE already installed. No need to build from source."
-fi
-fi
-
-# This will install an older version of python3-venv than the version of python3 we just built, but it seems to work.
-sudo apt-get -yq install python3-venv 2>> $LOG_FILE
-
-pip3 install --upgrade pip 2>> $LOG_FILE
-if [-n "$PYTHON_PACKAGES" ]; then
-	log_step "Installing Python packages (system-wide): $PYTHON_PACKAGES"
-	sudo -u $DEVELOPER_ID pip3 install $PYTHON_PACKAGES &>> $LOG_FILE
-fi
-
-PY3_VER=`python3 -c 'import sys; print(f"{sys.version_info[0]}.{sys.version_info[1]}.{sys.version_info[2]}")'`
+# ##############################################   Python 2, Pip
+# Python 2 is pre-installed (but not PIP2)
 PY2_VER=`python -c 'import sys; print("%s.%s.%s" % (sys.version_info[0],sys.version_info[1],sys.version_info[2]))'`
-PIP_VER=`pip --version`
+
+PIP2_VER="(not installed)"
+if [ "$INSTALL_PIP2" == "YES" ]; then
+	wget https://bootstrap.pypa.io/pip/2.7/get-pip.py 2>> $LOG_FILE
+	sudo python get-pip.py 2>> $LOG_FILE
+	PIP2_VER=`pip2 --version`
+fi
+
+if [ -n "$PYTHON2_PACKAGES" ]; then
+	log_step "Installing Python2 packages (system-wide): $PYTHON2_PACKAGES"
+	sudo pip2 install $PYTHON2_PACKAGES &>> $LOG_FILE
+fi
+
+
+# ##############################################   Python 3, Pip, venv
+PY3_VER="(not installed)"
+PIP3_VER="(not installed)"
+if [ "$INSTALL_PYTHON3" == "YES" ]; then
+	if [ "$BUILD_PYTHON3_FROM_SOURCE" == "NO" ]; then
+		apt_install python3 "Python3"
+		apt_install python3-pip "Python3 package installer"
+	else
+		if [ "$PY3_VER" != "$BUILD_PYTHON3_FROM_SOURCE" ]; then
+			log_step "Preparing to build Python $BUILD_PYTHON3_FROM_SOURCE from source"
+			sudo apt-get -yq install build-essential zlib1g-dev libncurses5-dev libgdbm-dev libnss3-dev libssl-dev libsqlite3-dev libreadline-dev libffi-dev curl libbz2-dev 2>> $LOG_FILE
+			wget https://www.python.org/ftp/python/$BUILD_PYTHON3_FROM_SOURCE/Python-$BUILD_PYTHON3_FROM_SOURCE.tgz
+			tar -xf Python-$BUILD_PYTHON3_FROM_SOURCE.tgz
+			log_step "Compiling Python"
+			cd Python-$BUILD_PYTHON3_FROM_SOURCE
+			./configure --enable-optimizations
+			make -j 2
+			log_step "Installing as Python3"
+			sudo make install # overwrites the python3 binary with python3.9
+			# // sudo make altinstall # leaves python3 and just creates python3.9
+		else
+			log "Python $BUILD_PYTHON3_FROM_SOURCE already installed. No need to build from source."
+		fi
+	fi
+	PY3_VER=`python3 -c 'import sys; print(f"{sys.version_info[0]}.{sys.version_info[1]}.{sys.version_info[2]}")'`
+
+	pip3 install --upgrade pip 2>> $LOG_FILE
+	PIP3_VER=`pip3 --version`
+
+	# This will install an older version of python3-venv than the version of python3 we potentially just built, but it seems to work.
+	apt_install python3-venv "Python3 Virtual Environments"
+
+	if [ -n "$PYTHON3_PACKAGES" ]; then
+		log_step "Installing Python3 packages (system-wide): $PYTHON3_PACKAGES"
+		sudo pip3 install $PYTHON3_PACKAGES &>> $LOG_FILE
+	fi
+fi
+
+
 
 # ##############################################   MySQL
 MYSQL_VER="(not installed)"
@@ -173,7 +201,8 @@ MYSQL_VER="(not installed)"
 PG_VER="(not installed)"
 if [ "$INSTALL_POSTGRES" == "YES" ]; then
 	log_step "Installing PostgreSQL" 
-	sudo apt-get -yq install postgresql postgresql-contrib 2>> $LOG_FILE
+	apt_install postgresql "Postgres SQL server"
+	apt_install postgresql-contrib "Postgres add-ons"
 	log_step "Changing Postgre to trust mode (/etc/postgresql/main/pg_hba.conf)" 
 	sed -i "s/local\s*all\s*all\s*peer/local all all trust/" /etc/postgresql/main/pg_hba.conf 2>> $LOG_FILE
 	sudo /etc/init.d/postgresql restart 2>> $LOG_FILE
@@ -186,16 +215,16 @@ fi
 DOCTOR_VER="(not installed)"
 if [ "$INSTALL_ASCIIDOCTOR" == "YES" ]; then
 	log_step "Installing AsciiDoctor" 
-	sudo apt-get -yq install asciidoctor 2>> $LOG_FILE
+	apt_install asciidoctor "AsciiDoctor markup compiler"
 	DOCTOR_VER=`asciidoctor --version`
 fi
 
 # ##############################################   Misc. Tools
 log_step "Installing misc. command lines tools (dos2unix, etc.)"
-sudo apt-get -yq install dos2unix  2>> $LOG_FILE # converts line-endings
-sudo apt-get -yq install htop      2>> $LOG_FILE # system stats
-sudo apt-get -yq install ncdu      2>> $LOG_FILE # manages disk usage
-sudo apt-get -yq install ufw       2>> $LOG_FILE # simplified firewall configuring
+apt_install dos2unix  "Command-line tool that converts line-endings"
+apt_install htop      "Command-line tool that shows system stats"
+apt_install ncdu      "Command-line tool to manage disk usage"
+apt_install ufw       "Command-line tool for simplified firewall configuring"
 
 
 
@@ -241,12 +270,14 @@ if [ -f "/vagrant/bash_aliases" ]; then
 fi
 
 # ##############################################   Version Control Configuration
-log_step "Configuring Git (Version Control)"
-echo "https://$GITHUB_USER_ID:$GITHUB_APP_TOKEN@github.com" > $DEV_HOME/.git-api
-chown_dev $DEV_HOME/.git-api
-sudo -u $DEVELOPER_ID git config --global user.name "$DEVELOPER_NAME" 2>> $LOG_FILE
-sudo -u $DEVELOPER_ID git config --global user.email "$DEVELOPER_EMAIL" 2>> $LOG_FILE
-sudo -u $DEVELOPER_ID git config --global --add credential.helper "store --file ~/.git-api" &>> $LOG_FILE
+if [ "$INSTALL_GIT" == "YES" ]; then
+	log_step "Configuring Git (Version Control)"
+	echo "https://$GITHUB_USER_ID:$GITHUB_APP_TOKEN@github.com" > $DEV_HOME/.git-api
+	chown_dev $DEV_HOME/.git-api
+	sudo -u $DEVELOPER_ID git config --global user.name "$DEVELOPER_NAME" 2>> $LOG_FILE
+	sudo -u $DEVELOPER_ID git config --global user.email "$DEVELOPER_EMAIL" 2>> $LOG_FILE
+	sudo -u $DEVELOPER_ID git config --global --add credential.helper "store --file ~/.git-api" &>> $LOG_FILE
+fi
 
 if [ "$INSTALL_MERCURIAL" == "YES" ]; then
 	log_step "Configuring Mercurial (Version Control)"
@@ -268,7 +299,7 @@ fi
 
 if [ "$SECURITY_LEVEL" == "HIGH" ]; then
 	log_step "Heightening security..."
-	source /vagrant/scripts_library/heighten_security.sh "$LOG_FILE" 
+	source $SCRIPT_DIR/heighten_security_debian.sh "$LOG_FILE"
 fi
 
 
@@ -277,30 +308,28 @@ fi
 #                                                                      CLEANUP
 # ============================================================================
 
-sudo apt-get autoremove 2>> $LOG_FILE
+apt_autoremove
 
 revert_to_interactive
 
 log_header "RECAP"
-log ""
-log "Python 3 = $PY3_VER"  
-log "Python 2 = $PY2_VER"  
-log "Pip = $PIP_VER"  
-log ""  
-log "Git = $GIT_VER"  
-sudo -u $DEVELOPER_ID git config -l &>> $LOG_FILE
-log ""  
-log "Mercurial = $HG_VER"  
-log ""  
-log "Bazaar = $BZR_VER"  
-log ""  
-log "Postgres = $PG_VER"  
-log ""  
-log "MySQL = $MYSQL_VER"  
-log ""  
+log
+log "Python 3  = $PY3_VER"
+log "Pip 3     = $PIP3_VER"
+log "Python 2  = $PY2_VER"
+log "Pip 2     = $PIP2_VER"
+log
+log "Git       = $GIT_VER"
+log $( sudo -u $DEVELOPER_ID git config -l )
+log "Mercurial = $HG_VER"
+log "Bazaar    = $BZR_VER"
+log
+log "Postgres  = $PG_VER"
+log "MySQL     = $MYSQL_VER"
+log
 log "AsciiDoctor = $DOCTOR_VER"  
-log ""
+log
 log "Firewall `sudo ufw status`"
-log ""
-log ""
-log ""
+log
+log
+log

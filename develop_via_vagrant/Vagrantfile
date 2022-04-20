@@ -64,6 +64,7 @@ Vagrant.configure(2) do |config|
   config.vm.synced_folder WORK_FOLDER, WORK_FOLDER_SHARED_AS 
   config.vm.synced_folder DROP_FOLDER, DROP_FOLDER_SHARED_AS, create: true
   config.vm.synced_folder ".", "/vagrant", owner: "vagrant",  group: "vagrant" 
+  config.vm.synced_folder "../scripts_library", "/scripts_library", owner: "vagrant",  group: "vagrant"
 
   config.vm.provider "virtualbox" do |vb|
     vb.gui = not(HEADLESS)

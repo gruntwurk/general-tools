@@ -1,8 +1,8 @@
 #!/usr/bin/env bash
+# bash_aliases -- DO NOT COMIT TO VERSION CONTROL (other than as an example)
+
 export WORKPATH='/work'
 
-alias python='python3'
-alias py='python3'
 alias venv='source .venv/bin/activate'
 alias cdw='cd ${WORKPATH}'
 alias h='history'

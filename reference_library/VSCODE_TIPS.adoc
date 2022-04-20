@@ -21,12 +21,13 @@ See also: https://switowski.com/blog/18-plugins-for-python-in-vscode
 
 == Snippets
 
-VSCode has an internal system for working with snippets that is very much the same as Textmate/Sublime. 
+VSCode has an internal system for working with snippets that is very much the same as Textmate/Sublime.
 
 	File > Preferences > User Snippets > Python
 
 Some snippet files are included here (in vscode_snippets).
 
-There is also built-in support for Emmet, a unique snippet processor for generating HTML and CSS code based on CSS syntax. See http://emmet.io for an explanation.
+* To repeat $1 but as lower case use: `${1/(.)/${1:/downcase}/}`
 
+There is also built-in support for Emmet, a unique snippet processor for generating HTML and CSS code based on CSS syntax. See http://emmet.io for an explanation.
 

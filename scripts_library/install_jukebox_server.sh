@@ -38,7 +38,7 @@ fi
 FULLY_QUALIFIED_SCRIPT_NAME="${BASH_SOURCE[0]}"
 SCRIPT_NAME=${FULLY_QUALIFIED_SCRIPT_NAME##*.[/\\]}
 SCRIPT_DIR="$( cd "$( dirname "$FULLY_QUALIFIED_SCRIPT_NAME" )" &> /dev/null && pwd )"
-source $SCRIPT_DIR/helper_functions.sh
+source $SCRIPT_DIR/helper_functions_debian.sh
 start_log "$SCRIPT_NAME"
 
 # ============================================================================
