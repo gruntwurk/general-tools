@@ -133,9 +133,8 @@ conf_uncomment() {
     local OPTION=$2
     local OPTION_COUNT=$( egrep -c "^#\s*$OPTION[= \t]" $CONFIG_FILE )
     if [ $OPTION_COUNT -eq 1 ]; then
-        log "Setting was: $( egrep "^#\s*$OPTION[= \t]" $CONFIG_FILE )"
         sudo sed -r -e "s/^#\s*($OPTION[= \t].*)/\1/" -iorig $CONFIG_FILE 2>> $LOG_FILE
-        log "Setting now: $( egrep "^$OPTION[= \t]" $CONFIG_FILE )"
+        log "Uncommented: $( egrep "^$OPTION[= \t]" $CONFIG_FILE )    (in $CONFIG_FILE)"
     fi
 }
 
@@ -162,9 +161,14 @@ conf_change() {
     elif [ $OPTION_COUNT -gt 1 ]; then
         log_error "Multiple ambiguous $OPTION lines exist within $CONFIG_FILE -- nothing changed."
     else
-        log "Setting was: $( egrep "^\s*$OPTION[= \t]" $CONFIG_FILE )"
-        sudo sed -r -e "s~^(\s*$OPTION)([= \t]+).*~\1\2$NEW_VALUE~" -iorig $CONFIG_FILE 2>> $LOG_FILE
-        log "Setting now: $( egrep "^\s*$OPTION[= \t]" $CONFIG_FILE )"
+        local OLD_VALUE_LINE="$( egrep "^\s*$OPTION[= \t]" $CONFIG_FILE )"
+        local OLD_VALUE="${OLD_VALUE_LINE#$OPTION[= \t]*}"
+        if [ "$OLD_VALUE" == "$NEW_VALUE" ]; then
+            log "Confirmed: $OLD_VALUE_LINE    (in $CONFIG_FILE)"
+        else
+            sudo sed -r -e "s~^(\s*$OPTION)([= \t]+).*~\1\2$NEW_VALUE~" -iorig $CONFIG_FILE 2>> $LOG_FILE
+            log "Updated: $( egrep "^\s*$OPTION[= \t]" $CONFIG_FILE )    (in $CONFIG_FILE; was: $OLD_VALUE)"
+        fi
     fi
 }
 

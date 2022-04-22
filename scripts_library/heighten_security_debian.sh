@@ -115,7 +115,7 @@ fi
 # ============================================================================
 
 log_header "Done (Security Heightened)"
-log ""
+log
 show "NOTE: SSH restrictions will not be applied until after a reboot."
 show "NOTE: The firewall will not be active until the following command is entered: sudo wfw enable."
-log ""
+log
