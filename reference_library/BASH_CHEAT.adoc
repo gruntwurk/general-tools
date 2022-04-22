@@ -132,7 +132,7 @@ Note: Division truncates to integer values
 | `${param@a}`                   | returns the attributes of param
 |===
 
-Note: Using /pattern without specifying a /substitute is equivalent to using ##pattern.
+Note: Using /pattern without specifying a /substitute is equivalent to using \#\#pattern.
 
 Note: This short list doesn't even begin to cover all of the variations involving arrays.
 
