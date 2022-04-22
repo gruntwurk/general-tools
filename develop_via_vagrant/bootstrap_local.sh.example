@@ -24,9 +24,14 @@ declare GITHUB_APP_TOKEN="your-app-token-here"
 # The option is here just to be thorough.)
 declare SECURITY_LEVEL=LOW
 
+# ------------------------------------------------------------------- Gnome
+# This takes several minutes
+declare INSTALL_GNOME=NO
+
 # ------------------------------------------------------------------- Python 2 & 3
 # (Python 2 is included with the base Debian appliance, but not PIP2)
 declare INSTALL_PIP2=YES
+declare INSTALL_PYGTK2=NO
 # A space-separated list of packages to install
 declare PYTHON2_PACKAGES="pytest isort flake8"
 

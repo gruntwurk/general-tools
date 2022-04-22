@@ -70,6 +70,7 @@ debug SECURITY_LEVEL
 debug
 debug INSTALL_PIP2
 debug PYTHON2_PACKAGES
+debug INSTALL_PYGTK2
 debug INSTALL_PYTHON3
 debug BUILD_PYTHON3_FROM_SOURCE
 debug PYTHON3_PACKAGES
@@ -81,6 +82,7 @@ debug
 debug INSTALL_POSTGRES
 debug INSTALL_MYSQL
 debug
+debug INSTALL_GNOME
 debug INSTALL_ASCIIDOCTOR
 debug
 
@@ -137,6 +139,12 @@ if [ "$INSTALL_BAZAAR" == "YES" ]; then
 	BZR_VER=`bzr --version`
 fi
 
+GNOME_VER="(not installed)"
+if [ "$INSTALL_GNOME" == "YES" ]; then
+	apt_install gnome-core "The Gnome graphics package (no apps)"
+	GNOME_VER=`gnome --version`
+fi
+
 # ##############################################   Python 2, Pip
 # Python 2 is pre-installed (but not PIP2)
 PY2_VER=`python -c 'import sys; print("%s.%s.%s" % (sys.version_info[0],sys.version_info[1],sys.version_info[2]))'`
@@ -153,6 +161,15 @@ if [ -n "$PYTHON2_PACKAGES" ]; then
 	sudo pip2 install $PYTHON2_PACKAGES &>> $LOG_FILE
 fi
 
+if [ "$INSTALL_PYGTK2" == "YES" ]; then
+	mkdir ~/pygtk
+	cd ~/pygtk
+	wget http://archive.ubuntu.com/ubuntu/pool/universe/p/pygtk/python-gtk2_2.24.0-5.1ubuntu2_amd64.deb 2>> $LOG_FILE
+	wget http://archive.ubuntu.com/ubuntu/pool/universe/p/pygtk/python-glade2_2.24.0–5.1ubuntu2_amd64.deb 2>> $LOG_FILE
+	apt_install ./python-gtk2_2.24.0-5.1ubuntu2_amd64.deb "GTK support for Python 2"
+	apt_install ./ python-glade2_2.24.0-5.1ubuntu2_amd64.deb "GTK support for Python 2"
+	sudo ldconfig
+fi
 
 # ##############################################   Python 3, Pip, venv
 PY3_VER="(not installed)"
@@ -161,22 +178,20 @@ if [ "$INSTALL_PYTHON3" == "YES" ]; then
 	if [ "$BUILD_PYTHON3_FROM_SOURCE" == "NO" ]; then
 		apt_install python3 "Python3"
 		apt_install python3-pip "Python3 package installer"
+	elif [ "$PY3_VER" != "$BUILD_PYTHON3_FROM_SOURCE" ]; then
+		log_step "Preparing to build Python $BUILD_PYTHON3_FROM_SOURCE from source"
+		sudo apt-get -yq install build-essential zlib1g-dev libncurses5-dev libgdbm-dev libnss3-dev libssl-dev libsqlite3-dev libreadline-dev libffi-dev curl libbz2-dev 2>> $LOG_FILE
+		wget https://www.python.org/ftp/python/$BUILD_PYTHON3_FROM_SOURCE/Python-$BUILD_PYTHON3_FROM_SOURCE.tgz
+		tar -xf Python-$BUILD_PYTHON3_FROM_SOURCE.tgz
+		log_step "Compiling Python"
+		cd Python-$BUILD_PYTHON3_FROM_SOURCE
+		./configure --enable-optimizations
+		make -j 2
+		log_step "Installing as Python3"
+		sudo make install # overwrites the python3 binary with python3.9
+		# // sudo make altinstall # leaves python3 and just creates python3.9
 	else
-		if [ "$PY3_VER" != "$BUILD_PYTHON3_FROM_SOURCE" ]; then
-			log_step "Preparing to build Python $BUILD_PYTHON3_FROM_SOURCE from source"
-			sudo apt-get -yq install build-essential zlib1g-dev libncurses5-dev libgdbm-dev libnss3-dev libssl-dev libsqlite3-dev libreadline-dev libffi-dev curl libbz2-dev 2>> $LOG_FILE
-			wget https://www.python.org/ftp/python/$BUILD_PYTHON3_FROM_SOURCE/Python-$BUILD_PYTHON3_FROM_SOURCE.tgz
-			tar -xf Python-$BUILD_PYTHON3_FROM_SOURCE.tgz
-			log_step "Compiling Python"
-			cd Python-$BUILD_PYTHON3_FROM_SOURCE
-			./configure --enable-optimizations
-			make -j 2
-			log_step "Installing as Python3"
-			sudo make install # overwrites the python3 binary with python3.9
-			# // sudo make altinstall # leaves python3 and just creates python3.9
-		else
-			log "Python $BUILD_PYTHON3_FROM_SOURCE already installed. No need to build from source."
-		fi
+		log "Python $BUILD_PYTHON3_FROM_SOURCE already installed. No need to build from source."
 	fi
 	PY3_VER=`python3 -c 'import sys; print(f"{sys.version_info[0]}.{sys.version_info[1]}.{sys.version_info[2]}")'`
 
@@ -291,6 +306,12 @@ if [ "$INSTALL_BAZAAR" == "YES" ]; then
 	sudo -u $DEVELOPER_ID bzr whoami "$DEVELOPER_NAME <$DEVELOPER_EMAIL>"
 fi
 
+# ##############################################   Expose X11 Graphics via SSH
+
+conf_change /etc/ssh/ssh_config ForwardAgent yes
+conf_change /etc/ssh/ssh_config ForwardX11 yes
+conf_change /etc/ssh/ssh_config ForwardX11Trusted yes
+conf_change /etc/ssh/sshd_config X11Forwarding yes
 
 
 # ============================================================================
@@ -313,6 +334,8 @@ apt_autoremove
 revert_to_interactive
 
 log_header "RECAP"
+log
+log "Gnome     = $GNOME_VER"
 log
 log "Python 3  = $PY3_VER"
 log "Pip 3     = $PIP3_VER"

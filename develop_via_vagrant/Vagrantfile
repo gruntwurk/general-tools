@@ -40,11 +40,6 @@ Vagrant.configure(2) do |config|
   config.ssh.private_key_path = [SSH_PRIVATE_KEY, "~/.vagrant.d/insecure_private_key"]
   config.vm.provision "file", source: SSH_PUBLIC_KEY, destination: "~/.ssh/authorized_keys"
 
-  # Prevent SSH access with a plaintext password
-  config.vm.provision "shell", inline: <<-EOC
-    sudo sed -i -e "\\#PasswordAuthentication yes# s#PasswordAuthentication yes#PasswordAuthentication no#g" /etc/ssh/sshd_config
-    sudo service ssh restart
-  EOC
 
   # ###########################################   HTTP
 
