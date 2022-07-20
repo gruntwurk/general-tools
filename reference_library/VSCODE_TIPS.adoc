@@ -23,7 +23,7 @@ See also: https://switowski.com/blog/18-plugins-for-python-in-vscode
 
 VSCode has an internal system for working with snippets that is very much the same as Textmate/Sublime.
 
-	File > Preferences > User Snippets > Python
+	File > Preferences > Configure User Snippets > Python
 
 Some snippet files are included here (in vscode_snippets).
 

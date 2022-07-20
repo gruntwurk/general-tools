@@ -167,7 +167,7 @@ if [ "$INSTALL_PYGTK2" == "YES" ]; then
 	wget http://archive.ubuntu.com/ubuntu/pool/universe/p/pygtk/python-gtk2_2.24.0-5.1ubuntu2_amd64.deb 2>> $LOG_FILE
 	wget http://archive.ubuntu.com/ubuntu/pool/universe/p/pygtk/python-glade2_2.24.0–5.1ubuntu2_amd64.deb 2>> $LOG_FILE
 	apt_install ./python-gtk2_2.24.0-5.1ubuntu2_amd64.deb "GTK support for Python 2"
-	apt_install ./ python-glade2_2.24.0-5.1ubuntu2_amd64.deb "GTK support for Python 2"
+	apt_install ./python-glade2_2.24.0-5.1ubuntu2_amd64.deb "GTK support for Python 2"
 	sudo ldconfig
 fi
 

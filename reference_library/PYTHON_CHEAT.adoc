@@ -67,10 +67,13 @@ cookiecutter https://github.com/audreyfeldroy/cookiecutter-pypackage.git
 == Logic Flow
 
 *Ternary* syntax: var = expression if expression else expression
+
 Else-if syntax: *elif*
+
 For/While ... *Else*: The else clause is suppressed if we explicitly break out of the loop
+
+Switch logic (as of 3.10):
 ----
-(as of 3.10)
 match value:
     case condition:
         action(s)
@@ -79,6 +82,7 @@ match value:
 == Typing
 
 ----
+isinstance(object, classinfo)
 type([]) is list
 type({}) is dict
 type('') is str
@@ -220,7 +224,7 @@ Charset detection with chardet -- pip install chardet
 
 
 * str.*capitalize*() -- copy of the string with its first character capitalized and the rest lowercased.
-* str.*casefold*() -- for caseless matching.
+* str.*casefold*() -- for caseless matching (slightly more agressive than lower())
 * str.*center*/*ljust*/*rjust*(width[, fillchar])
 * str.*count*(sub[, start[, end]]) -- number of non-overlapping occurrences of substring sub in the range [start, end].
 * str.*encode*(encoding="utf-8", errors="strict")
@@ -233,9 +237,9 @@ Charset detection with chardet -- pip install chardet
 * str.*isalnum*()
 * str.*isalpha*(), str.*isascii*(), str.*isdecimal*(), str.*isdigit*(), str.*islower*(), str.*isnumeric*(), str.*isprintable*(), str.*isspace*(), str.*istitle*(), str.*isupper*()
 * str.*join*(iterable)
-* str.*lower*()
+* str.*lower*() -- see also *casefold*()
 * str.*partition*/*rpartition*(sep) -- Split the string at the first occurrence of sep, and return a 3-tuple containing the part before the separator, the separator itself, and the part after the separator. If the separator is not found, return a 3-tuple containing the string itself, followed by two empty strings.
-* str.*replace*(old, new[, count]) -- a copy of the string with all occurrences of substring old replaced by new. If the optional argument count is given, only the first count occurrences are replaced.
+* str.*replace*(old, new[, count]) -- a copy of the string with all occurrences of substring old replaced by new. If the optional argument count is given, only the first count occurrences are replaced. (For Regex replacements, use re.sub().)
 * str.*split*/*rsplit*(sep=None, maxsplit=-1) -- breaking the string at word boundaries (sep=None means split on runs of whitespace.)
 * str.*splitlines*([keepends]) -- breaking the string at line boundaries. (Use keepend=True to keep the EOL).
 * str.*startswith*/*endswith*(prefix[, start[, end]])
@@ -254,7 +258,7 @@ Charset detection with chardet -- pip install chardet
 * string.*digits* == '0123456789'
 * string.*hexdigits* == '0123456789abcdefABCDEF'
 * string.*octdigits* == '01234567'
-* string.*punctuation* == ``!"#$%&'()*+,-./:;<=>?@[\]^_`{|}~`  (plus back tic)
+* string.*punctuation* == `!"#$%&'()*+,-./:;<=>?@[\]^_{|}~`  (plus back tic)
 * string.*printable* == digits `+` ascii_letters `+` punctuation + whitespace.
 * string.*whitespace* == space, tab, linefeed, return, formfeed, and vertical tab.
 
@@ -267,6 +271,32 @@ TODO: Multi-Line Strings vs. """
 
 Details: https://docs.python.org/3/library/re.html[]
 
+
+* re.*compile*(pattern, flags=0)
+* re.*search*(pattern, string, flags=0) -- Any one match
+* re.*match*(pattern, string, flags=0) -- Matches at the beginning of string only (regardless of any MULTILINE flag)
+* re.*fullmatch*(pattern, string, flags=0) -- Matches the whole string only
+* re.*split*(pattern, string, maxsplit=0, flags=0) -- Split using pattern as delimiters. List will include paren captures within the delimiter.
+* re.*findall*(pattern, string, flags=0) -- Returns all non-overlapping matches as a list (strings or tuples).
+* re.*finditer*(pattern, string, flags=0)
+* re.*sub*(pattern, repl, string, count=0, flags=0)
+* re.*subn*(pattern, repl, string, count=0, flags=0) -- Same as sub(), but returns a tuple (new_string, number_of_subs_made).
+* re.*escape*(pattern) -- converts a string to a pattern
+* re.*purge*() -- Clears the regular expression cache.
+* Match.*expand*(template) -- do the substitution (with backrefs).
+* Match.*group*([group1, ...]), m[group] -- Returns one or more subgroups of the match (string or tuple).
+* Match.*groups*(default=None) -- Returns all subgroups as a tuple.
+* Match.*groupdict*(default=None) -- Returns a named subgroups
+* Match.*start*([group]), Match.end([group]) -- Return the indices of the matched string
+* Match.*span*([group]) -- Returns a tuple: (m.start(group), m.end(group)).
+* Match.*pos* -- Where the RE engine started looking for a match.
+* Match.*endpos* -- Where the RE engine stopped looking for a match.
+* Match.*lastindex* -- The integer index of the last matched capturing group, or None if no group was matched at all. For example, the expressions (a)b, ((a)(b)), and ((ab)) will have lastindex == 1 if applied to the string 'ab', while the expression (a)(b) will have lastindex == 2, if applied to the same string.
+* Match.*lastgroup* --The name of the last matched capturing group, or None if the group didn’t have a name, or if no group was matched at all.
+* Match.*re* -- The regular expression object whose match() or search() method produced this match instance.
+* Match.*string* -- The string passed to match() or search().
+
+
 === Replacement Backref Modifiers
 
 ----
@@ -276,6 +306,19 @@ Details: https://docs.python.org/3/library/re.html[]
   \U : start of upper case conversion
   \E : end lower/upper case conversion
 ----
+
+=== Flags
+
+----
+re.I, re.IGNORECASE, (?i) : Performs case-insensitive matching.
+re.M, re.MULTILINE, (?m)  : Caret and dollar match line-by-line.
+re.S, re.DOTALL, (?s)     : '.' will match anything INCLUDING a newline.
+re.A, re.ASCII, (?a)      : Disables full Unicode matching.
+re.DEBUG                  : Displays debug information about compiled expression.
+re.L, re.LOCALE, (?L)     : Makes case-insensitive matching dependent on the current locale.
+re.X, re.VERBOSE, (?x)    : Allow comments and whitespace in expressions.
+----
+
 
 == Containers/Collections
 
@@ -495,6 +538,42 @@ im.show()
 
 NOTE: Although os.path.relpath() and PurePath.relative_to() have some overlapping use-cases, their semantics differ enough to warrant not considering them equivalent.
 
+=== High-Level Directory and File Operations
+
+In the following, src and dst can be a str or Path.
+
+* shutil.copyfileobj(fsrc, fdst[, length])
+* shutil.copyfile(src, dst, *, follow_symlinks=True)
+* shutil.copymode(src, dst, *, follow_symlinks=True) -- Copy the permission bits
+* shutil.copystat(src, dst, *, follow_symlinks=True) -- Copy the permission bits, timestamps, and flags
+* shutil.copy(src, dst, *, follow_symlinks=True) -- dst can be a directory
+* shutil.copy2(src, dst, *, follow_symlinks=True) -- attempts to preserve file metadata
+* shutil.ignore_patterns(*patterns) -- creates a function that can be passed in to copytree()
+* shutil.copytree(src, dst, symlinks=False, ignore=None, copy_function=copy2, ignore_dangling_symlinks=False, dirs_exist_ok=False) -- Recursively copy an entire directory tree rooted at src to a directory named dst and return the destination directory.
+* shutil.rmtree(path, ignore_errors=False, onerror=None) -- Delete a directory tree
+* shutil.move(src, dst, copy_function=copy2) = Recursively move a file or directory
+* shutil.disk_usage(path) -- disk usage statistics about the given path -> named tuple (total, used, free)
+* shutil.chown(path, user=None, group=None)
+* shutil.which(cmd, mode=os.F_OK | os.X_OK, path=None) -- executable which would be run
+
+=== Archiving (zip, tar)
+
+shutil.make_archive(base_name, format[, root_dir[, base_dir[, verbose[, dry_run[, owner[, group[, logger]]]]]]]) -- Create an archive (zip, tar...) -> name: str.
+shutil.get_archive_formats() -> List of tuples (name, description)
+shutil.register_archive_format(name, function[, extra_args[, description]])
+shutil.unregister_archive_format(name)
+shutil.unpack_archive(filename[, extract_dir[, format]])
+shutil.register_unpack_format(name, extensions, function[, extra_args[, description]])
+shutil.unregister_unpack_format(name)
+shutil.get_unpack_formats()
+
+
+== Console
+
+shutil.get_terminal_size(fallback=(columns, lines)) -> named tuple of type os.terminal_size
+
+
+
 == Internet
 
 === Quickly Create a Web Server
@@ -504,5 +583,62 @@ You can quickly start a web server, serving the contents of the current director
 
 
 === Beautiful Soup
+
+
+== Error Handling
+
+=== Built-In Error and Warning Exceptions
+
+These all descend from `Exception` (which inherits from `BaseException`).
+User-defined errors should descend from `Exception`.
+User-defined warnings should descend from `UserWarning`.
+
+* StopIteration, StopAsyncIteration
+* ArithmeticError => FloatingPointError, OverflowError, ZeroDivisionError
+* AssertionError
+* AttributeError
+* BufferError
+* EOFError
+* ImportError => ModuleNotFoundError
+* LookupError => IndexError, KeyError
+* MemoryError
+* NameError => UnboundLocalError
+* OSError =>
+** BlockingIOError
+** ChildProcessError
+** ConnectionError => BrokenPipeError, ConnectionAbortedError, ConnectionRefusedError, ConnectionResetError
+** FileExistsError
+** FileNotFoundError
+** InterruptedError
+** IsADirectoryError
+** NotADirectoryError
+** PermissionError
+** ProcessLookupError
+** TimeoutError
+* ReferenceError
+* RuntimeError => NotImplementedError, RecursionError
+* SyntaxError => IndentationError => TabError
+* SystemError
+* TypeError
+* ValueError => UnicodeError = > UnicodeDecodeError, UnicodeEncodeError, UnicodeTranslateError
+* Warning =>
+** *UserWarning* -- _base class for user-defined warnings._
+** RuntimeWarning
+** FutureWarning, DeprecationWarning, PendingDeprecationWarning
+** SyntaxWarning, ImportWarning
+** UnicodeWarning
+** BytesWarning
+** EncodingWarning
+** ResourceWarning
+
+=== Built-In Exception-like SIGNALs
+
+These all inherit directly from BaseException.
+
+* SystemExit
+* KeyboardInterrupt
+* GeneratorExit
+
+
 
 Details: https://beautiful-soup-4.readthedocs.io/en/latest/[]

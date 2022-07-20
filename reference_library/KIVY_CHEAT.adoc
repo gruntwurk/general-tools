@@ -1,0 +1,29 @@
+= A Kivy Cheat Sheet
+
+== Snippets (all starting in the KV file)
+
+* screen = Action Screen
+* horiz = Horizontal Box
+* vert = Vertical Box
+* prog = Progress Bar
+
+== Debugging the GUI
+
+----
+<MyWidget>:
+    canvas.after:
+        # Outline the widget in a dashed black line (for debugging purposes)
+        Line:
+            rectangle: self.x+1,self.y+1,self.width-1,self.height-1
+            dash_offset: 5
+            dash_length: 3
+
+    canvas.after:
+        # Outline the widget in red (for debugging purposes)
+        Color:
+            rgb: 1,0,0
+        Line:
+            rectangle: self.x+1,self.y+1,self.width-1,self.height-1
+        Color:
+            rgb: 1,1,1
+----

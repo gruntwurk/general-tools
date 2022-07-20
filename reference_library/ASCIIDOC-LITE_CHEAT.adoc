@@ -1,0 +1,22 @@
+= AsciiDoc-Lite: A Barebones Subset of the AsciiDoc Markup Language
+
+"`AsciiDoc-Lite`" is an _unofficial_ term that refers to a certain tiny subset of AsciiDoc syntax.
+AsciiDoc is a powerful markup language used by everyone from wiki contributors to professional book publishers.
+It's been noticed that less than 5% of the available features of AsciiDoc handle 95% of the use cases.
+A user only needs to learn that 5% to become highly productive.
+
+So, this AsciiDoc-Lite convention attempts to enumerate that subset.
+Really, this is nothing more than a minimalist cheat-sheet.
+
+The goals of AsciiDoc-Lite:
+
+* Encourage developers to incorporate AsciiDoc into their applications.
+One goal of explicitly defining such a subset of AsciiDoc is to allow tool developers to know when their tool is "`good enough.`"
+
+* Syntax highlighting tools -- Trying to highlight the lesser-used syntax would actually be confusing, as well as a waste of time.
+
+* Special-Purpose Applications (Note-Taking, Journaling, Library Management) -- These only need a few basic markups. Having an AsciiDoc-Lite convention to go by would encourage their developers to adopt it as the (only/main/alternate) markup language under the hood.
+
+* Shortening the Learning Curve -- This becomes the "`TL;DR`" version of AsciiDoc.
+
+
