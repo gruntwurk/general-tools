@@ -1,0 +1,61 @@
+= A ReportLab Cheat Sheet
+
+== Flowables
+
+=== Main Flowables
+
+* Paragraph
+* ParagraphAndImage()
+* Table
+* Preformatted( text, style, bulletText = None, dedent=0, maxLineLength=None, splitChars=None, newLineChars="")
+* XPreformatted
+* Image(filename, width=None, height=None, kind='direct', mask="auto", lazy=1, hAlign='CENTER', useDPI=False)
+* ImageAndFlowables()
+* ListFlowable(),ListItem()
+* BalancedColumns()
+* FrameBG(color=None, left=0, right=0, start=True, strokeWidth=None, strokeColor=None, strokeDashArray=None)
+* HRFlowable
+
+=== Metadata Flowables
+
+* AnchorFlowable() -- create a bookmark in the pdf
+* TableOfContents()
+* SimpleIndex()
+
+=== Layout Controls
+
+* Spacer(width, height)
+* PageBreak(nextTemplate=None)
+* PageBreakIfNotEmpty()
+* SlowPageBreak()
+* CondPageBreak(height)
+* KeepTogether(flowables, maxHeight=None)
+* KeepTogetherSplitAtTop(flowables)
+* KeepInFrame(flowables)
+* FrameSplitter()
+
+=== Logic Flowables
+
+* FailOnWrap()
+* FailOnDraw()
+* Macro(command: str) -- Python code to execute (not a callable). Has a local `canvas` var.
+* CallerMacro(drawCallable=None, wrapCallable=None)
+* DocAssign - variable assignment
+* DocExec - expression evaluator
+* DocPara - Paragraph using expression result
+* DocAssert
+* DocIf
+* DocWhile
+
+=== Other Built-In Flowables
+
+* XBox() -- Just for debugging
+* PTOContainer(_Container,)
+* BalancedColumns(_FindSplitterMixin,NullDraw)
+* BulletDrawer
+* DDIndenter()
+* LIIndenter()
+* TopPadder()
+* SetTopFlowables()
+* SetPageTopFlowables()
+

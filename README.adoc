@@ -13,6 +13,7 @@ on virtual machines and/or on Raspberry Pi's.
 | Project site        | https://github.com/gruntwurk/general-tools
 | Issues              | https://github.com/gruntwurk/general-tools/issues/
 | Authors             | polyglot-jones
+| License             | link:/LICENSE[BSD]
 | Status              | This is still a work in progress, but definitely usable.
 |===
 
@@ -76,10 +77,6 @@ Note: These scripts all assume that it's a Debian-based distribution of Linux (w
 
 * link:/doc/CONTRIBUTING.adoc[Contributing]
 
-
-== License
-
-See link::LICENSE[]
 
 
 Next Topic: link:/doc/INSTALL.adoc[Installation/Getting Started]
