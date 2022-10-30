@@ -20,3 +20,172 @@ One goal of explicitly defining such a subset of AsciiDoc is to allow tool devel
 * Shortening the Learning Curve -- This becomes the "`TL;DR`" version of AsciiDoc.
 
 
+== Comments
+
+Comment lines begin with `//` (two slashes).
+There are no in-line comments.
+
+Comment blocks begin and end with a line of four or more slashes.
+(More on blocks, in general, below.)
+
+
+== Paragraphs
+
+Adjacent lines of text are combined into a single paragraph. Paragraphs are separated by one or more blank lines.
+To force a hard line break within a paragraph, end the line with ` +` (space + plus sign).
+
+One or more leading spaces on a line makes a paragraph rendered as literal (i.e. preformatted, monospaced).
+
+
+== Breaks
+
+|===
+| ''' (A line of exactly three apostrophes)         | Thematic break (aka. scene break, aka. horizontal rule)
+| <<< (A line of exactly three left angle brackets) | Page break
+|===
+
+
+== In-line Styling (bold, italics, etc.)
+
+|===
+| Escape the next character | \\ (backslash)
+| Bold                      | +*...*+ (asterisk)
+| Italics                   | +_..._+ (underscore)
+| Monospace                 | +`...`+ (back tick)
+| Superscript               | +^...^+ (caret)
+| Subscript                 | +~...~+ (tilde)
+| Span                      | +#...#+ (number sign)
+| Pass-thru                 | \+...\+ (plus sign)
+| Open Double Quote         | "\` (quote + back tick)
+| Close Double Quote        | \`" (back tick + quote)
+| Open Single Quote         | '\` (apostrophe + back tick)
+| Close Single Quote        | \`' (back tick + apostrophe)
+|===
+
+
+== Headers
+
+|===
+|Title (level 0)              |Line begins with `=` (equal sign + space)
+|Heading (level 1)            |Line begins with `==` (two equal signs + space)
+|Sub-Heading (level 2)        |Line begins with `===` (three equal signs + space)
+|Sub-Sub-Heading (level 3)    |Line begins with `====` (four equal signs + space)
+|Sub-Sub-Sub-Heading (level 4)|Line begins with `=====` (five equal signs + space)
+|===
+
+
+== Lists
+
+|===
+|Bullet (unordered)        |Line begins with `\*` (asterisk + space)
+|Sub-Bullet (unordered)    |Line begins with `\*\*` (multiple asterisks + space)
+|Numbered (ordered)        |Line begins with `.` (period + space)
+|Sub-Numbered (ordered)    |Line begins with `..` (multiple periods + space)
+|Term (glossary definition)|Line contains `::` (double colon) that separates the `term` from the `definition`
+|===
+
+NOTE: Lists can be indented. Leading white space is not significant.
+
+
+== Blocks
+
+Blocks start and end with matching lines of four or more of a certain character.
+IMPORTANT: The number of characters must match. If the block begins with a line of 7 dashes, then is must end with a line of exactly 7 dashes.
+
+|===
+|Listing/Source code|`----` (dashes)        |No internal asciidoc
+|Sidebar            |`****` (asterisks)     |May have internal asciidoc
+|Example            |`====` (equal signs)   |May have internal asciidoc
+|Comment            |`////` (slashes)       |No internal asciidoc
+|Passthru           |`++++` (plus signs)    |No internal asciidoc (contains HTML, or whatever markup is used by the back end)
+|Literal            |`....` (periods)       |No internal asciidoc
+|Quotation          |`____` (underscores)   |May have internal asciidoc
+|Generic block (div)|`--` (exactly 2 dashes)|May have internal asciidoc
+|===
+
+=== Block Titles
+
+A line that begins with a period followed by anything other than a space is a block title.
+That is, it's a title for the block/paragraph that follows.
+
+=== Block Attributes
+
+A line that is enclosed in square brackets provides optional attributes that control how the following block/paragraph is to be rendered.
+For example, if a listing block is preceded by `[source,python]`, then the contents of the block are to be considered to be python code.
+
+The first element is a keyword that determines the block type.
+This overrides the block type that is implied by the symbols used to enclose the block.
+
+|===
+| [source] | implied by using dashes to enclose the block
+| [source,(language)] |
+| [quote] | implied by using underscores to enclose the block
+| [quote,(author)] |
+| [quote,(author),(citation)] |
+| [example] | implied by using equal signs to enclose the block
+| [comment] | implied by using slashes to enclose the block
+| [sidebar] | implied by using asterisks to enclose the block
+| [passthru] | implied by using plus signs to enclose the block
+| [literal] | implied by using periods to enclose the block
+|===
+
+
+== Tables
+
+A table, in the most simplistic form, consists of pipe-delimited lines of data enclosed in `|===` lines (a pipe, aka. vertical bar, followed by exactly three equal signs).
+
+----
+|===
+| Row 1 cell 1 | Row 1 cell 2
+| Row 2 cell 1 | Row 2 cell 2
+|===
+----
+
+NOTE: Spaces next to the pipes are optional and ignored. Also, note that the data line does not end with a pipe, as that would imply another column with an empty cell.
+
+
+== Anchors and Links
+
+A line with an identifier enclosed in double square brackets is an anchor. The identifier thus names the block/paragraph that follows.
+
+To create a jump-link to the anchor, use the identifier enclosed in double angle brackets anywhere within a paragraph or block (as long as the block type allows for internal asciidoc).
+
+TIP: Within the double angle brackets, the identifier can be followed by a comma and an alternate wording for the link.
+
+----
+[[pancakes]]
+=== Mom's Delicious Pancakes
+Ingredients:
+...
+
+Directions:
+...
+
+// And then elsewhere...
+
+[[breakfast-ideas]]
+* My endulgent go-to is <<pancakes,Mom's Delicious Pancakes>> with pure maple syrup.
+* For the kids, there's good old "`Mickey Mouse`" <<pancakes>>.
+----
+
+
+== Admonitions
+
+A paragraph that begins with NOTE, IMPORTANT, TIP, CAUTION, or WARNING (all caps), followed by a colon and a space (or newline) is an admonition.
+
+NOTE: An admonition draws the reader's attention to auxiliary information.
+IMPORTANT: Don't forget the children!
+TIP: Look for the warp zone under the bridge.
+CAUTION: Slippery when wet.
+WARNING: The software you're about to use is untested.
+
+A block that begins with a block attribute of [NOTE], [IMPORTANT], [TIP], [CAUTION], or [WARNING] (all caps) is an admonition block.
+
+
+== Variable substitution
+
+A line that begins with `:(identifier):` (a colon followed by an alphanumeric identifier followed by another colon) is a variable assignment.
+
+To dereference the variable (i.e. perform a substitution), use the identifier enclosed in curly braces anywhere within a paragraph or block (as long as the block type allows for internal asciidoc).
+
+NOTE: If an identifier appears in curly braces, but that variable is undefined, then no substitution occurs and the identifier is rendered as-is, with the curly braces intact.

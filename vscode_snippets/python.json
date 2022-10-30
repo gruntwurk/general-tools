@@ -24,7 +24,7 @@
 			"\t\tif ${3} == \"${4:input}\":",
 			"\t\t\treturn \"${5:expected}\"",
 			"",
-			"## For the unit test:",
+			"## For the corresponding unit test file:",
 			"from ${TM_DIRECTORY/(.*)\\\\(.*)\\\\(.*)/$2.$3/}.${TM_FILENAME_BASE} import *",
 			"",
 			"${1/(.*)/${1:/downcase}/} = ${1}()",
@@ -32,14 +32,14 @@
 			"def test_${1/(.*)/${1:/downcase}/}_${2}():",
 			"\tassert ${1/(.*)/${1:/downcase}/}.${2}(${3}=\"${4}\") == \"${5}\"",
 		],
-		"description": "Create a new class"
+		"description": "Create a new class w/corresponding unit test code"
 	},
 	"__all__": {
 		"prefix":"all",
 		"body":[
 			"__all__ = (\"${1:method}\")",
 		],
-		"description": ""
+		"description": "Declare which objects correspond to 'import *'"
 	},
 	"Try Except": {
 		"prefix":"te",
@@ -49,38 +49,38 @@
 			"except Exception as e:",
 			"\tpass"
 		],
-		"description": "Try/Except"
+		"description": "Try/Except as e"
 	},
 	"LOG.trace": {
-		"prefix":"lt",
+		"prefix":"logt",
 		"body":[
-			"LOG.trace(\"Enter: $0\")"
+			"LOG.debug(\"Trace: ${1:Killroy was here}\")"
 		],
-		"description": "LOG.trace"
+		"description": "LOG.debug with a generic trace message"
 	},
 	"LOG.debug": {
-		"prefix":"ld",
+		"prefix":"logd",
 		"body":[
 			"LOG.debug(f\"$1 = {${1:variable}}\")"
 		],
 		"description": "LOG.debug"
 	},
 	"LOG.info": {
-		"prefix":"li",
+		"prefix":"logi",
 		"body":[
 			"LOG.info(f\"{$0}\")"
 		],
 		"description": "LOG.info"
 	},
 	"LOG.warn": {
-		"prefix":"lw",
+		"prefix":"logw",
 		"body":[
 			"LOG.warning(\"{}\".format($0))"
 		],
 		"description": "LOG.warn"
 	},
 	"LOG.error": {
-		"prefix":"le",
+		"prefix":"loge",
 		"body":[
 			"LOG.error(\"{}\".format($0))"
 		],
@@ -116,7 +116,7 @@
 	"Do-While-Until Sentinel": {
 		"prefix": "dosentinel",
 		"body": [
-			"for x in iter(${1:partial(f.read, 32)}, ''):"
+			"for ${1:data} in iter(${2:partial(f.read, 32)}, ''):"
 		],
 		"description": "Loop until a sentinel (terminating) value is encountered."
 	},
