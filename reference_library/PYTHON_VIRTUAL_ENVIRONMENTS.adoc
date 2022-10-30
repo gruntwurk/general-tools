@@ -79,6 +79,14 @@ Activate it now.
 . Now, if you run `pip freeze`, it'll come back with a list of all of the modules you have listed in `requirements.txt`, plus their automatically-installed dependencies.
 
 
+== Troubleshooting
+
+
+"`LookupError: setuptools-scm was unable to detect version for...`"
+
+Create the .git repo first, because the default metdhod for setuptools-scm to obtain the project's version number is to get it from the git repo.
+
+
 == Notes
 
 * `venv` used to be called `pyvenv` until Python 3.6.
