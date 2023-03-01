@@ -1,12 +1,54 @@
 = A Python Cheat Sheet
 polyglot-jones
-v0.01, 9/14/2020
+v0.01, 3/1/2023
 
-:toc:
-:toc-placement!:
+== Contents
 
-toc::[]
+* <<quick-start,Quick Start>>
+* <<commit-standards,Commit Standards>>
 
+* <<async-threading,Async/Threading>>
+* <<bytes,Bytes>>
+* <<character-sets,Character Sets>>
+* <<config,Configuration>>
+* <<console,Console>>
+* <<containers,Containers/Enums>>
+* <<data-classes,Data Classes>>
+* <<data,Data Structures/Databases>>
+* <<date-time,Date/Time>>
+* <<dictionaries,Dictionaries>>
+* <<dunder-methods,Dunder Methods>>
+* <<encoding-encryption,Encoding/Encryption>>
+* <<email,Email>>
+* <<error-handling,Error Handling>>
+* <<files,Files>>
+* <<files-archives,File Archive/Compression>>
+* <<graphics,Graphics>>
+* <<gui,GUI>>
+* <<iterators,Iterators>>
+* <<lint,Lint>>
+* <<lists,Lists>>
+* <<logic-flow,Logic Flow>>
+* <<media,Media>>
+* <<networking-internet,Networking/Internet>>
+* <<numbers,Numbers/Math>>
+* <<operating-system,Operating System>>
+* <<pathlib,PathLib>>
+* <<python-internals,Python Internals>>
+* <<python-tooling,Python Tooling>>
+* <<regex,RegEx>>
+* <<security,Security>>
+* <<sets,Sets>>
+* <<sorting,Sorting>>
+* <<strings,Strings/Text Processing/I18n/Unicode>>
+* <<testing,Testing>>
+* <<tuples,Tuples>>
+* <<types,Types/Classes>>
+* <<other,OTHER (TO IDENTIFY/SORT)>>
+
+
+
+[[quick-start]]
 == Quick Start
 
 === Sublime Plugin
@@ -58,47 +100,241 @@ cookiecutter https://github.com/audreyfeldroy/cookiecutter-pypackage.git
 . Edit `docs/conf.py` as necessary (for using sphinx to generate API docs).
 
 
-== Lint
-
-* For imports that appear to be unused but actually are, add `# noqa: F401` to the end of the line.
 
 
 
-== Logic Flow
 
-*Ternary* syntax: var = expression if expression else expression
+[[commit-standards]]
+== Commit Standards
 
-Else-if syntax: *elif*
+(per https://py-pkgs.org/07-releasing-versioning.html[])
+....
+<type>(optional scope): Short summary in present tense.
 
-For/While ... *Else*: The else clause is suppressed if we explicitly break out of the loop
+An optional body that explains motivation for the change.
 
-Switch logic (as of 3.10):
+An optional footer which may note BREAKING CHANGES, and/or issues to be closed.
+....
+
+`<type>` refers to the kind of change made and is usually one of:
+
+* *feat*: A new feature.
+* *fix*: A bug fix.
+* *docs*: Documentation changes.
+* *style*: Changes that do not affect the meaning of the code (white-space, formatting, missing semi-colons, etc).
+* *refactor*: A code change that neither fixes a bug nor adds a feature.
+* *perf*: A code change that improves performance.
+* *test*: Changes to the test _framework_. Changes to particular tests that correspond to a feat/fix/refactor do not need to be called out.
+* *build*: Changes to the build process or tools.
+
+`scope` is an optional keyword (e.g. a module or function name).
+
+Different text in the commit message will trigger PSR to make different kinds of releases:
+
+A `<type>` of `fix` triggers a patch version bump, e.g.:
+
+git commit -m "fix(mod_plotting): fix confusing error message in \
+                 plot_words"
+A `<type>` of `feat` triggers a minor version bump, e.g.:
+
+git commit -m "feat(package): add example data and new module to \
+                 package"
+The text `BREAKING CHANGE` in the footer will trigger a major release, e.g.:
+
+git commit -m "feat(mod_plotting): move code from plotting module \
+                 to pycounts module
+
+BREAKING CHANGE: plotting module wont exist after this release."
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+[[async-threading]]
+== Async/Threading
+
+Python Modules:
+
+* asyncio -- Asynchronous I/O.
+* concurrent -- TBD
+* multiprocessing -- Process-based parallelism.
+* select -- Wait for I/O completion on multiple streams.
+* selectors -- High-level I/O multiplexing.
+* signal -- Set handlers for asynchronous events.
+* subprocess -- Subprocess management.
+* threading -- Thread-based parallelism.
+
+
+
+
+[[bytes]]
+== Bytes
+
+* bytes type == immutable string
+* bytearray type == mutable list
+
 ----
-match value:
-    case condition:
-        action(s)
+value = b'\xf0\xf1\xf2'
+value.hex('-') ==> 'f0-f1-f2'
+value.hex('_', 2) ==> 'f0_f1f2'
+b'UUDDLRLRAB'.hex(' ', -4) ==> '55554444 4c524c52 4142'
 ----
 
-== Typing
+Instantiating:
 
-----
-isinstance(object, classinfo)
-type([]) is list
-type({}) is dict
-type('') is str
-type(0) is int
-----
-
-== Numbers
-
-*Integer division* operator: `//`
-*Modulo* operator: `%`
-
-*Chaining comparison operators*: `if 5 < x < 15:`
+* b'' literals
+* r'' literals
+* * bytes(10) -- a zero-filled bytes object of a specified length
+* * bytes(range(20)) -- from an iterable of integers
+* * bytes(obj) -- copying existing binary data via the buffer protocol
+* * bytearray() -- an empty instance
+* * bytearray(10) -- a zero-filled instance with a given length
+* * bytearray(range(20)) -- from an iterable of integers
+* * bytearray(b'Hi!') -- copying existing binary data via the buffer protocol
+* bytes.fromhex('FFFF FFFF FFFF')
+* bytes.hex()
 
 
 
-== Dates
+
+
+
+[[character-sets]]
+== Character Sets
+
+* Charset detection with chardet -- pip install chardet
+
+
+
+
+
+
+
+[[config]]
+== Configuration
+
+Python Modules:
+
+* argparse -- Command-line option and argument parsing library.
+* configparser -- Configuration file parser.
+* *cmd* -- Build line-oriented command interpreters.
+* getopt -- Portable parser for command line options; support both short and long option names.
+* plistlib -- Generate and parse Apple plist files.
+
+
+
+
+
+[[console]]
+== Console
+
+shutil.get_terminal_size(fallback=(columns, lines)) -> named tuple of type os.terminal_size
+
+
+
+
+
+
+[[containers]]
+== Containers/Enums
+
+Python Modules:
+
+* array -- Space efficient arrays of uniformly typed numeric values.
+* bisect -- Array bisection algorithms for binary searching.
+* collections -- Container datatypes
+* enum -- Implementation of an enumeration class.
+* heapq -- Heap queue algorithm (a.k.a. priority queue).
+* queue -- A synchronized queue class.
+* struct -- Interpret bytes as packed binary data.
+
+
+
+
+
+
+[[data-classes]]
+== Data Classes
+
+The `@dataclass` decorator automatically adds special methods to a class (only if the method has not been explicitly declared).
+
+`from dataclasses import dataclass`
+
+`@dataclass(init=True, repr=True, eq=True, order=False, unsafe_hash=False, frozen=False)`
+
+Details: https://docs.python.org/3/library/dataclasses.html[]
+
+
+
+
+[[data]]
+== Data Structures/Databases
+
+Python Modules:
+
+* graphlib -- Functionality to operate with graph-like structures
+* json -- Encode and decode the JSON format.
+* *shelve* -- Python object persistence.
+* sqlite3 -- A DB-API 2.0 implementation using SQLite 3.x.
+* xml -- Package containing XML processing modules
+* xmlrpc -- TBD
+
+
+
+
+
+[[date-time]]
+== Date/Time
+
+Python Modules:
+
+* calendar -- Functions for working with calendars, including some emulation of the Unix cal program.
+* datetime -- Basic date and time types.
+* time -- Time access and conversions.
+* zoneinfo -- IANA time zone support
+
 
 === DateUtils
 
@@ -139,7 +375,7 @@ class dt.dt(year, month, day, hour=0, minute=0, second=0, microsecond=0, tzinfo=
 classmethod dt.today()
 classmethod dt.now()
 classmethod dt.fromisoformat(date_string) # YYYY-MM-DD[\*HH[:MM[:SS[.fff[fff]]]][+HH:MM[:SS[.ffffff]]]] (where * is any single char)
-classmethod dt.strptime() -- parse formatted
+* classmethod dt.strptime() -- parse formatted
 
 dt.min # -> dt(MINYEAR, 1, 1, tzinfo=None)
 dt.max # -> dt(MAXYEAR, 12, 31, 23, 59, 59, 999999, tzinfo=None).
@@ -151,7 +387,7 @@ dt.minute
 dt.second
 dt.microsecond
 dt.tzinfo
-dt.fold -> in [0, 1] -- overlapping hour at the end of DST
+* dt.fold -> in [0, 1] -- overlapping hour at the end of DST
 
 dt2 = dt1 + timedelta
 dt2 = dt1 - timedelta
@@ -212,181 +448,11 @@ Additional Directives:
 
 
 
-== Character Sets
-
-Charset detection with chardet -- pip install chardet
 
 
 
-== Strings
-
-=== String Functions
-
-
-* str.*capitalize*() -- copy of the string with its first character capitalized and the rest lowercased.
-* str.*casefold*() -- for caseless matching (slightly more agressive than lower())
-* str.*center*/*ljust*/*rjust*(width[, fillchar])
-* str.*count*(sub[, start[, end]]) -- number of non-overlapping occurrences of substring sub in the range [start, end].
-* str.*encode*(encoding="utf-8", errors="strict")
-* str.*expandtabs*(tabsize=8)
-* str.*find*/*rfind*(sub[, start[, end]]) -- Only use to determine the position; otherwise use the `in` operator.
-* str.*format*(``*``args, ``**``kwargs)
-* str.*format_map*(mapping)
-* str.*index*/*rindex*(sub[, start[, end]]) -- Like find(), but raise ValueError when the substring is not found.
-* str.*isidentifier*() -- Also: Call keyword.iskeyword(str) to test if is a reserved identifier.
-* str.*isalnum*()
-* str.*isalpha*(), str.*isascii*(), str.*isdecimal*(), str.*isdigit*(), str.*islower*(), str.*isnumeric*(), str.*isprintable*(), str.*isspace*(), str.*istitle*(), str.*isupper*()
-* str.*join*(iterable)
-* str.*lower*() -- see also *casefold*()
-* str.*partition*/*rpartition*(sep) -- Split the string at the first occurrence of sep, and return a 3-tuple containing the part before the separator, the separator itself, and the part after the separator. If the separator is not found, return a 3-tuple containing the string itself, followed by two empty strings.
-* str.*replace*(old, new[, count]) -- a copy of the string with all occurrences of substring old replaced by new. If the optional argument count is given, only the first count occurrences are replaced. (For Regex replacements, use re.sub().)
-* str.*split*/*rsplit*(sep=None, maxsplit=-1) -- breaking the string at word boundaries (sep=None means split on runs of whitespace.)
-* str.*splitlines*([keepends]) -- breaking the string at line boundaries. (Use keepend=True to keep the EOL).
-* str.*startswith*/*endswith*(prefix[, start[, end]])
-* str.*strip*/*lstrip*/*rstrip*([chars]) -- a copy of the string with the leading and trailing characters removed. The chars argument is a string specifying the set of characters to be removed. If omitted or None, the chars argument defaults to removing whitespace. The chars argument is not a prefix or suffix; rather, all combinations of its values are stripped:
-* str.*swapcase*() -- a copy of the string with uppercase characters converted to lowercase and vice versa. Note that it is not necessarily true that s.swapcase().swapcase() == s.
-* str.*title*() -- a titlecased version of the string
-* str.*translate*(table) -- a copy of the string in which each character has been mapped through the given translation table. The table must be an object that implements indexing via __getitem__(), typically a mapping or sequence. When indexed by a Unicode ordinal (an integer), the table object can do any of the following: return a Unicode ordinal or a string, to map the character to one or more other characters; return None, to delete the character from the return string; or raise a LookupError exception, to map the character to itself. You can use str.maketrans() to create a translation map from character-to-character mappings in different formats.
-* str.*upper*()
-* str.*zfill*(width) -- zero pad
-
-=== String Constants
-
-* string.*ascii_letters* == ascii_lowercase + ascii_uppercase
-* string.*ascii_lowercase* -- 'abcdefghijklmnopqrstuvwxyz'
-* string.*ascii_uppercase* -- 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'
-* string.*digits* == '0123456789'
-* string.*hexdigits* == '0123456789abcdefABCDEF'
-* string.*octdigits* == '01234567'
-* string.*punctuation* == `!"#$%&'()*+,-./:;<=>?@[\]^_{|}~`  (plus back tic)
-* string.*printable* == digits `+` ascii_letters `+` punctuation + whitespace.
-* string.*whitespace* == space, tab, linefeed, return, formfeed, and vertical tab.
-
-=== String Misc.
-
-TODO: Multi-Line Strings vs. """
-
-
-== RegEx
-
-Details: https://docs.python.org/3/library/re.html[]
-
-
-* re.*compile*(pattern, flags=0)
-* re.*search*(pattern, string, flags=0) -- Any one match
-* re.*match*(pattern, string, flags=0) -- Matches at the beginning of string only (regardless of any MULTILINE flag)
-* re.*fullmatch*(pattern, string, flags=0) -- Matches the whole string only
-* re.*split*(pattern, string, maxsplit=0, flags=0) -- Split using pattern as delimiters. List will include paren captures within the delimiter.
-* re.*findall*(pattern, string, flags=0) -- Returns all non-overlapping matches as a list (strings or tuples).
-* re.*finditer*(pattern, string, flags=0)
-* re.*sub*(pattern, repl, string, count=0, flags=0)
-* re.*subn*(pattern, repl, string, count=0, flags=0) -- Same as sub(), but returns a tuple (new_string, number_of_subs_made).
-* re.*escape*(pattern) -- converts a string to a pattern
-* re.*purge*() -- Clears the regular expression cache.
-* Match.*expand*(template) -- do the substitution (with backrefs).
-* Match.*group*([group1, ...]), m[group] -- Returns one or more subgroups of the match (string or tuple).
-* Match.*groups*(default=None) -- Returns all subgroups as a tuple.
-* Match.*groupdict*(default=None) -- Returns a named subgroups
-* Match.*start*([group]), Match.end([group]) -- Return the indices of the matched string
-* Match.*span*([group]) -- Returns a tuple: (m.start(group), m.end(group)).
-* Match.*pos* -- Where the RE engine started looking for a match.
-* Match.*endpos* -- Where the RE engine stopped looking for a match.
-* Match.*lastindex* -- The integer index of the last matched capturing group, or None if no group was matched at all. For example, the expressions (a)b, ((a)(b)), and ((ab)) will have lastindex == 1 if applied to the string 'ab', while the expression (a)(b) will have lastindex == 2, if applied to the same string.
-* Match.*lastgroup* --The name of the last matched capturing group, or None if the group didn’t have a name, or if no group was matched at all.
-* Match.*re* -- The regular expression object whose match() or search() method produced this match instance.
-* Match.*string* -- The string passed to match() or search().
-
-
-=== Replacement Backref Modifiers
-
-----
-  \l : first character to lower case
-  \u : first character to upper case
-  \L : start of lower case conversion
-  \U : start of upper case conversion
-  \E : end lower/upper case conversion
-----
-
-=== Flags
-
-----
-re.I, re.IGNORECASE, (?i) : Performs case-insensitive matching.
-re.M, re.MULTILINE, (?m)  : Caret and dollar match line-by-line.
-re.S, re.DOTALL, (?s)     : '.' will match anything INCLUDING a newline.
-re.A, re.ASCII, (?a)      : Disables full Unicode matching.
-re.DEBUG                  : Displays debug information about compiled expression.
-re.L, re.LOCALE, (?L)     : Makes case-insensitive matching dependent on the current locale.
-re.X, re.VERBOSE, (?x)    : Allow comments and whitespace in expressions.
-----
-
-
-== Containers/Collections
-
-* List Comprehension: `[ expression for item in list if conditional ]`
-* List Comprehension via Generator: `g = (item for item in "hello")` then `print(list(g))`
-* Merging dictionaries (Python 3.5+): `merged = { **dict1, **dict2 }`
-* Reversing strings and lists: `revstring = "abcdefg"[::-1]`
-* Map: `map(function, something_iterable)`
-* Unique elements: `set(mylist)`
-* Most frequently occurring value: `max(set(test), key = test.count)`
-* Counting occurrences: `from collections import Counter`
-* List.append(single item)
-* List.extend(another list)
-* Size: `len(container)`
-* Unpacking: a, b, c = (1,2,3)
-* Repeat: `two_by_two_array = [[0]*2]*2`
-* Zipper: `list_of_tuples = zip(list1, list2, list3)`
-
-=== Sets
-
-s.add(some_new_element)
-s.remove(element)
-s.update(other_set)
-s.union(other_set) (or the vertical bar operator)
-s.intersection(other_set) (or the ampersand operator)
-s.difference(other_set) (or the minus sign operator)
-s.symmetric_difference(other_set) (or the carret operator)
-s.isdisjoint(other_set)
-s.issubset() (or `<=`, or `<` for a proper subset)
-s.issuperset() (or `>=`, or `>` for a proper superset)
-len(s)
-element in s
-
-=== Sorting
-
-* `lst.sort()` or `sorted(lst)`
-* `lst.sort(reverse=True)` or `sorted(lst, reverse=True)`
-* `lst.sort(key=lambda x: x[1])` or `sorted(lst, key=fn)`
-* For case-insensitive, use `key=str.lower`
-
-=== itertools
-
-`import itertools`
-
-* `iterator = itertools.accumulate(list1, list2)` -- runnning totals
-* `iterator = itertools.chain(list1, list2)` -- logical List.extend()
-* `iterator = itertools.compress(list1, list2)` -- list1[i] if list2[i]
-
-
-
-=== Data Classes
-
-The `@dataclass` decorator automatically adds special methods to a class (only if the method has not been explicitly declared).
-
-`from dataclasses import dataclass`
-
-`@dataclass(init=True, repr=True, eq=True, order=False, unsafe_hash=False, frozen=False)`
-
-Details: https://docs.python.org/3/library/dataclasses.html[]
-
-
-=== Tuples
-
-`Color = namedtuple("Color", "red green blue", defaults=[0,0,0])`
-
-color = Color.make([255,255,255])
-
-=== Dictionaries
+[[dictionaries]]
+== Dictionaries
 
 * `class dict(**kwarg)`
 * `class dict(mapping, **kwarg)`
@@ -411,196 +477,109 @@ color = Color.make([255,255,255])
 * `update([other])` -- Update the dictionary with the key/value pairs from other.
 * `values()` -- A new view (dynamic) of the dictionary’s values.
 
+* Merging dictionaries (Python 3.5+): `merged = { **dict1, **dict2 }`
 
-== Bytes
-
-* bytes type == immutable string
-* bytearray type == mutable list
-
-----
-value = b'\xf0\xf1\xf2'
-value.hex('-') ==> 'f0-f1-f2'
-value.hex('_', 2) ==> 'f0_f1f2'
-b'UUDDLRLRAB'.hex(' ', -4) ==> '55554444 4c524c52 4142'
-----
-
-Instantiating:
-
-* b'' literals
-* r'' literals
-* bytes(10) -- a zero-filled bytes object of a specified length
-* bytes(range(20)) -- from an iterable of integers
-* bytes(obj) -- copying existing binary data via the buffer protocol
-* bytearray() -- an empty instance
-* bytearray(10) -- a zero-filled instance with a given length
-* bytearray(range(20)) -- from an iterable of integers
-* bytearray(b'Hi!') -- copying existing binary data via the buffer protocol
-* bytes.fromhex('FFFF FFFF FFFF')
-* bytes.hex()
+* repeat: `two_by_two_array = [[0]*2]*2`
+* Zipper: `list_of_tuples = zip(list1, list2, list3)`
 
 
 
 
-== Graphics
-
-=== Images
-
-----
-pip3 install Pillow
-from PIL import Image
-im = Image.open("kittens.jpg")
-im.show()
-(im.format, im.size, im.mode) -> JPEG (1920, 1357) RGB
-----
-
-=== Emoji
-
-`pip3 install emoji` -- https://pypi.org/project/emoji/
 
 
+[[dunder-methods]]
+== Dunder Methods
 
-== pathlib.Path
+=== Basic Customizations
 
-=== Pure Path Methods
+`__new__`(self) return a new object (an instance of that class). It is called before ``__init__`` method.
+`__init__`(self) is called when the object is initialized. It is the constructor of a class.
+`__del__`(self) for del() function. Called when the object is to be destroyed. Can be used to commit unsaved data or close connections.
+`__repr__`(self) for repr() function. It returns a string to print the object. Intended for developers to debug. Must be implemented in any class.
+`__str__`(self) for str() function. Return a string to print the object. Intended for users to see a pretty and useful output. If not implemented, `__repr__` will be used as a fallback.
+`__bytes__`(self) for bytes() function. Return a byte object which is the byte string representation of the object.
+`__format__`(self) for format() function. Evaluate formatted string literals like % for percentage format and ‘b’ for binary.
+`__lt__`(self, anotherObj) for < operator.
+`__le__`(self, anotherObj) for <= operator.
+`__eq__`(self, anotherObj) for == operator.
+`__ne__`(self, anotherObj) for != operator.
+`__gt__`(self, anotherObj)for > operator.
+`__ge__`(self, anotherObj)for >= operator.
 
-* p / str -- join operator
-* p / p -- join operator
-* str(p)
-* p.parts -- tuple of the path broken down `Path('/usr/bin/python3').parts` -> `('/', 'usr', 'bin', 'python3')`
-* p.drive -- string representing the drive letter or name, if any
-* p.root -- string representing the (local or global) root, if any
-* p.anchor -- concatenation of the drive and root
-* p.parents -- immutable sequence providing access to the logical ancestors of the path
-* p.parent -- logical parent of the path
-* p.name -- string representing the final path component, excluding the drive and root, if any
-* p.suffix -- file extension of the final component, if any:
-* p.suffixes -- `Path("my/library.tar.gz").suffixes` -> `["tar","gz"]`
-* p.stem -- final path component, without its suffix
-* p.as_posix() -- string representation of the path with forward slashes (/)
-* p.as_uri() -- `Path('/etc/passwd')` -> `file:///etc/passwd`
-* p.is_absolute() -- `Path('/a/b').is_absolute()` -> `True`
-* p.is_reserved() -- `PureWindowsPath('nul').is_reserved()` -> `True`
-* p.joinpath(``*``other) -- same as the join operator
-* p.match(pattern) -- glob-style pattern
-* p.relative_to(``*``other) -- ValueError raised if impossible
-* p.with_name(name) -- new path with the name changed. ValueError raised if original path has no name. `Path('c:/Downloads/pathlib.tar.gz').with_name('setup.py')` -> `Path('c:/Downloads/setup.py')`
+=== Arithmetic Operators
 
-=== Concrete Path Methods
+`__add__`(self, anotherObj) for + operator.
+`__sub__`(self, anotherObj) for – operation on object.
+`__mul__`(self, anotherObj) for * operation on object.
+`__matmul__`(self, anotherObj) for @ operator (numpy matrix multiplication).
+`__truediv__`(self, anotherObj) for simple / division operation on object.
+`__floordiv__`(self, anotherObj) for // floor division operation on object.
 
-* Path.cwd() -- the current directory
-* Path.home() -- the user’s home directory
-* p.stat() -- os.stat_result object
-* p.chmod(mode) -- Change the file mode and permissions
-* p.exists() -- file or directory
-* p.expanduser() -- new path with expanded ~ and ~user constructs
-* p.glob(pattern) -- yields all matching files (of any kind) -> List[Path]
-* p.group() -- name of the group owning the file
-* p.is_dir() -- True if the path points to a directory (or symlink to one)
-* p.is_file() -- True if the path points to a regular file (or symlink to one)
-* p.is_mount() True if the path is a mount point
-* p.is_symlink()
-* p.is_socket()
-* p.is_fifo()
-* p.is_block_device()
-* p.is_char_device()
-* p.iterdir() -- When the path points to a directory, yields path objects of the contents (random order)
-* p.lchmod(mode) -- of the symbolic link itself
-* p.lstat() -- of the symbolic link itself
-* p.mkdir(mode=0o777, parents=False, exist_ok=False)
-* p.open(mode='r', buffering=-1, encoding=None, errors=None, newline=None)
-* p.owner()
-* p.read_bytes()
-* p.read_text(encoding=None, errors=None)
-* p.rename(target) -- rename unless target exists
-* p.replace(target) -- rename regardless (clobber any existing target)
-* p.resolve(strict=False) -- Make the path absolute, resolving any symlinks. A new path object is returned
-* p.rglob(pattern) -- glob() with `**/` prefix assumed (recursive)
-* p.rmdir() -- the directory must be empty
-* p.samefile(other_path) -- True if points to the same file
-* p.symlink_to(target, target_is_directory=False)
-* p.unlink(missing_ok=False)
-* p.link_to(target) -- create a hard link pointing to a path named target
-* p.write_bytes(data)
-* p.write_text(data, encoding=None, errors=None)
+=== Type Conversion
 
-[width="100%",cols="",options="header"]
-|===
-| os and os.path            | pathlib
-| os.path.abspath()         | Path.resolve()
-| os.chmod()                | Path.chmod()
-| os.mkdir()                | Path.mkdir()
-| os.rename()               | Path.rename()
-| os.replace()              | Path.replace()
-| os.rmdir()                | Path.rmdir()
-| os.remove(), os.unlink()  | Path.unlink()
-| os.getcwd()               | Path.cwd()
-| os.path.exists()          | Path.exists()
-| os.path.expanduser()      | Path.expanduser() and Path.home()
-| os.listdir()              | Path.iterdir()
-| os.path.isdir()           | Path.is_dir()
-| os.path.isfile()          | Path.is_file()
-| os.path.islink()          | Path.is_symlink()
-| os.link()                 | Path.link_to()
-| os.symlink()              | Path.symlink_to()
-| os.stat()                 | Path.stat(), Path.owner(), Path.group()
-| os.path.isabs()           | PurePath.is_absolute()
-| os.path.join()            | PurePath.joinpath()
-| os.path.basename()        | PurePath.name
-| os.path.dirname()         | PurePath.parent
-| os.path.samefile()        | Path.samefile()
-| os.path.splitext()        | PurePath.suffix
-|===
+`__abs__`(self) make support for abs() function. Return absolute value.
+`__int__`(self) support for int() function. Returns the integer value of the object.
+`__float__`(self) for float() function support. Returns float equivalent of the object.
+`__complex__`(self) for complex() function support. Return complex value representation of the object.
+`__round__`(self, nDigits) for round() function. Round off float type to 2 digits and return it.
+`__trunc__`(self) for trunc() function of math module. Returns the real value of the object.
+`__ceil__`(self) for ceil() function of math module. The ceil function Return ceiling value of the object.
+`__floor__`(self) for floor() function of math module. Return floor value of the object.
 
-NOTE: Although os.path.relpath() and PurePath.relative_to() have some overlapping use-cases, their semantics differ enough to warrant not considering them equivalent.
+=== Emulating Container Types
 
-=== High-Level Directory and File Operations
-
-In the following, src and dst can be a str or Path.
-
-* shutil.copyfileobj(fsrc, fdst[, length])
-* shutil.copyfile(src, dst, *, follow_symlinks=True)
-* shutil.copymode(src, dst, *, follow_symlinks=True) -- Copy the permission bits
-* shutil.copystat(src, dst, *, follow_symlinks=True) -- Copy the permission bits, timestamps, and flags
-* shutil.copy(src, dst, *, follow_symlinks=True) -- dst can be a directory
-* shutil.copy2(src, dst, *, follow_symlinks=True) -- attempts to preserve file metadata
-* shutil.ignore_patterns(*patterns) -- creates a function that can be passed in to copytree()
-* shutil.copytree(src, dst, symlinks=False, ignore=None, copy_function=copy2, ignore_dangling_symlinks=False, dirs_exist_ok=False) -- Recursively copy an entire directory tree rooted at src to a directory named dst and return the destination directory.
-* shutil.rmtree(path, ignore_errors=False, onerror=None) -- Delete a directory tree
-* shutil.move(src, dst, copy_function=copy2) = Recursively move a file or directory
-* shutil.disk_usage(path) -- disk usage statistics about the given path -> named tuple (total, used, free)
-* shutil.chown(path, user=None, group=None)
-* shutil.which(cmd, mode=os.F_OK | os.X_OK, path=None) -- executable which would be run
-
-=== Archiving (zip, tar)
-
-shutil.make_archive(base_name, format[, root_dir[, base_dir[, verbose[, dry_run[, owner[, group[, logger]]]]]]]) -- Create an archive (zip, tar...) -> name: str.
-shutil.get_archive_formats() -> List of tuples (name, description)
-shutil.register_archive_format(name, function[, extra_args[, description]])
-shutil.unregister_archive_format(name)
-shutil.unpack_archive(filename[, extract_dir[, format]])
-shutil.register_unpack_format(name, extensions, function[, extra_args[, description]])
-shutil.unregister_unpack_format(name)
-shutil.get_unpack_formats()
-
-
-== Console
-
-shutil.get_terminal_size(fallback=(columns, lines)) -> named tuple of type os.terminal_size
+`__len__`(self) for len() function. Returns the total number in any container.
+`__getitem__`(self, key) to support indexing. Like container[index]. Calls `container.__getitem(key)` explicitly.
+`__setitem__`(self, key, value) makes item mutable (items can be changed by index), like container[index] = otherElement.
+`__delitem__`(self, key) for del() function. Delete the value at the index key.
+`__iter__`(self) returns an iterator when required that iterates all values in the container.
 
 
 
-== Internet
-
-=== Quickly Create a Web Server
-
-You can quickly start a web server, serving the contents of the current directory:
-`python3 -m http.server`
 
 
-=== Beautiful Soup
+
+[[encoding-encryption]]
+== Encoding/Encryption
+
+Python Modules:
+
+* base64 -- RFC 4648: Base16, Base32, Base64 Data Encodings; Base85 and Ascii85
+* binascii -- Tools for converting between binary and various ASCII-encoded binary representations.
+* codecs -- Encode and decode data and streams.
+* encodings -- TBD
+* hashlib -- Secure hash and message digest algorithms.
+* hmac -- Keyed-Hashing for Message Authentication (HMAC) implementation
+* marshal -- Convert Python objects to streams of bytes and back (with different constraints).
 
 
+
+
+
+
+
+[[email]]
+== Email
+
+Python Modules:
+
+* email -- Package supporting the parsing, manipulating, and generating email messages.
+* imaplib -- IMAP4 protocol client (requires sockets).
+* mailbox -- Manipulate mailboxes in various formats
+* poplib -- POP3 protocol client (requires sockets).
+* smtplib -- SMTP protocol client (requires sockets).
+
+
+
+
+
+[[error-handling]]
 == Error Handling
+
+Python Modules:
+
+* *errno* -- Standard errno system symbols.
+* *warnings* -- Issue warning messages and control their disposition.
 
 === Built-In Error and Warning Exceptions
 
@@ -637,7 +616,7 @@ User-defined warnings should descend from `UserWarning`.
 * TypeError
 * ValueError => UnicodeError = > UnicodeDecodeError, UnicodeEncodeError, UnicodeTranslateError
 * Warning =>
-** *UserWarning* -- _base class for user-defined warnings._
+* ** *UserWarning* -- _base class for user-defined warnings._
 ** RuntimeWarning
 ** FutureWarning, DeprecationWarning, PendingDeprecationWarning
 ** SyntaxWarning, ImportWarning
@@ -656,4 +635,654 @@ These all inherit directly from BaseException.
 
 
 
-Details: https://beautiful-soup-4.readthedocs.io/en/latest/[]
+
+
+
+
+
+
+
+
+[[files]]
+== Files
+
+Python Modules:
+
+* *csv* -- Write and read tabular data to and from delimited files.
+* dbm -- Interfaces to various Unix "database" formats.
+* *filecmp* -- Compare files efficiently.
+* fileinput -- Loop over standard input or a list of files.
+* fnmatch -- Unix shell style filename pattern matching.
+* glob -- Unix shell style pathname pattern expansion.
+* linecache -- Provides random access to individual lines from text files.
+* mimetypes -- Mapping of filename extensions to MIME types.
+* *mmap* -- Interface to memory-mapped files for Unix and Windows.
+* pathlib -- Object-oriented filesystem paths
+* shutil -- High-level file operations, including copying.
+* *tempfile* -- Generate temporary files and directories.
+
+
+=== High-Level Directory and File Operations
+
+In the following, src and dst can be a str or Path.
+
+* shutil.copyfileobj(fsrc, fdst[, length])
+* shutil.copyfile(src, dst, `*`, follow_symlinks=True)
+* shutil.copymode(src, dst, `*`, follow_symlinks=True) -- Copy the permission bits
+* shutil.copystat(src, dst, `*`, follow_symlinks=True) -- Copy the permission bits, timestamps, and flags
+* shutil.copy(src, dst, `*`, follow_symlinks=True) -- dst can be a directory
+* shutil.copy2(src, dst, `*`, follow_symlinks=True) -- attempts to preserve file metadata
+* shutil.ignore_patterns(``*``patterns) -- creates a function that can be passed in to copytree()
+* shutil.copytree(src, dst, symlinks=False, ignore=None, copy_function=copy2, ignore_dangling_symlinks=False, dirs_exist_ok=False) -- Recursively copy an entire directory tree rooted at src to a directory named dst and return the destination directory.
+* shutil.rmtree(path, ignore_errors=False, onerror=None) -- Delete a directory tree
+* shutil.move(src, dst, copy_function=copy2) = Recursively move a file or directory
+* shutil.disk_usage(path) -- disk usage statistics about the given path -> named tuple (total, used, free)
+* shutil.chown(path, user=None, group=None)
+* shutil.which(cmd, mode=os.F_OK | os.X_OK, path=None) -- executable which would be run
+
+
+
+
+[[files-archives]]
+== File Archive/Compression
+
+* shutil.make_archive(base_name, format[, root_dir[, base_dir[, verbose[, dry_run[, owner[, group[, logger]]]]]]]) -- Create an archive (zip, tar...) -> name: str.
+* shutil.get_archive_formats() -> List of tuples (name, description)
+* shutil.register_archive_format(name, function[, extra_args[, description]])
+* shutil.unregister_archive_format(name)
+* shutil.unpack_archive(filename[, extract_dir[, format]])
+* shutil.register_unpack_format(name, extensions, function[, extra_args[, description]])
+* shutil.unregister_unpack_format(name)
+* shutil.get_unpack_formats()
+
+Python Modules:
+
+* bz2 -- Interfaces for bzip2 compression and decompression.
+* gzip -- Interfaces for gzip compression and decompression using file objects.
+* lzma -- A Python wrapper for the liblzma compression library.
+* tarfile -- Read and write tar-format archive files.
+* zipfile -- Read and write ZIP-format archive files.
+* zipimport -- Support for importing Python modules from ZIP archives.
+* zlib -- Low-level interface to compression and decompression routines compatible with gzip.
+
+
+
+[[graphics]]
+== Graphics
+
+Python Modules:
+
+* colorsys -- Conversion functions between RGB and other color systems.
+
+
+=== Images
+
+----
+pip3 install Pillow
+from PIL import Image
+im = Image.open("kittens.jpg")
+im.show()
+(im.format, im.size, im.mode) -> JPEG (1920, 1357) RGB
+----
+
+=== Emoji
+
+* `pip3 install emoji` -- https://pypi.org/project/emoji/
+
+
+
+
+
+[[gui]]
+== GUI
+
+See also the link::KIVY_CHEAT.adoc[Kivy Cheat Sheet]
+
+Python Modules:
+
+* *webbrowser* -- Easy-to-use controller for web browsers.
+* tkinter -- Interface to Tcl/Tk for graphical user interfaces
+* turtle -- An educational framework for simple graphics applications
+* turtledemo -- A viewer for example turtle scripts
+
+
+
+
+[[iterators]]
+== Iterators
+
+`import itertools`
+
+* `iterator = itertools.accumulate(list1, list2)` -- runnning totals
+* `iterator = itertools.chain(list1, list2)` -- logical List.extend()
+* `iterator = itertools.compress(list1, list2)` -- list1[i] if list2[i]
+
+
+
+
+
+[[lint]]
+== Lint
+
+* For imports that appear to be unused but actually are, add `# noqa: F401` to the end of the line.
+
+
+
+[[lists]]
+== Lists
+
+* List Comprehension: `[ expression for item in list if conditional ]`
+* List Comprehension via Generator: `g = (item for item in "hello")` then `print(list(g))`
+* Reversing strings and lists: `revstring = "abcdefg"[::-1]`
+* Map: `map(function, something_iterable)`
+* Unique elements: `set(mylist)`
+* Most frequently occurring value: `max(set(test), key = test.count)`
+* Counting occurrences: `from collections import Counter`
+* List.append(single item)
+* List.extend(another list)
+* Size: `len(container)`
+
+
+
+
+
+[[logic-flow]]
+== Logic Flow
+
+*Ternary* syntax: var = expression if expression else expression
+
+Else-if syntax: *elif*
+
+For/While ... *Else*: The else clause is suppressed if we explicitly break out of the loop
+
+Switch logic (as of 3.10):
+----
+match value:
+    case condition:
+        action(s)
+----
+
+
+
+
+[[media]]
+== Media
+
+Python Modules:
+
+* wave -- Provide an interface to the WAV sound format.
+
+
+
+
+
+[[networking-internet]]
+== Networking/Internet
+
+Python Modules:
+
+* ftplib -- FTP protocol client (requires sockets).
+* http -- HTTP status codes and messages
+* ipaddress -- IPv4/IPv6 manipulation library.
+* socket -- Low-level networking interface.
+* socketserver -- A framework for network servers.
+* ssl -- TLS/SSL wrapper for socket objects
+* urllib -- TBD
+
+
+=== Quickly Create a Web Server
+
+You can quickly start a web server, serving the contents of the current directory:
+`python3 -m http.server`
+
+
+=== Beautiful Soup
+
+* Details -- : https://beautiful-soup-4.readthedocs.io/en/latest/[]
+
+
+
+
+[[numbers]]
+== Numbers/Math
+
+* *Integer division* operator: `//`
+* *Modulo* operator: `%`
+* *Chaining comparison operators*: `if 5 < x < 15:` (But, avoid using.)
+
+Python Modules:
+
+* cmath -- Mathematical functions for complex numbers.
+* decimal -- Implementation of the General Decimal Arithmetic Specification.
+* fractions -- Rational numbers.
+* math -- Mathematical functions (sin() etc.).
+* numbers -- Numeric abstract base classes (Complex, Real, Integral, etc.).
+* operator -- Functions corresponding to the standard operators.
+* random -- Generate pseudo-random numbers with various common distributions.
+* statistics -- Mathematical statistics functions
+
+
+
+
+[[operating-system]]
+== Operating System
+
+Python Modules:
+
+* curses -- (Unix) An interface to the curses library, providing portable terminal handling.
+* fcntl -- (Unix)  The fcntl() and ioctl() system calls.
+* grp -- (Unix)  The group database (getgrnam() and friends).
+* msvcrt -- (Windows)  Miscellaneous useful routines from the MS VC++ runtime.
+* os -- Miscellaneous operating system interfaces.
+* platform -- Retrieves as much platform identifying data as possible.
+* posix -- (Unix)  The most common POSIX system calls (normally used via module os).
+* pty -- (Unix)  Pseudo-Terminal Handling for Unix.
+* pwd -- (Unix)  The password database (getpwnam() and friends).
+* readline -- (Unix) GNU readline support for Python.
+* resource -- (Unix) An interface to provide resource usage information on the current process.
+* stat -- Utilities for interpreting the results of os.stat(), os.lstat() and os.fstat().
+* sys -- Access system-specific parameters and functions.
+* syslog -- (Unix) An interface to the Unix syslog library routines.
+* termios -- (Unix)  POSIX style tty control.
+* tty -- (Unix)  Utility functions that perform common terminal control operations.
+* winreg -- (Windows)  Routines and objects for manipulating the Windows registry.
+* winsound -- (Windows)  Access to the sound-playing machinery for Windows.
+
+
+
+[[pathlib]]
+== PathLib
+
+=== Pure pathlib.Path Methods
+
+* * p / str -- join operator
+* * p / p -- join operator
+* str(p)
+* * p.parts -- tuple of the path broken down `Path('/usr/bin/python3').parts` -> `('/', 'usr', 'bin', 'python3')`
+* * p.drive -- string representing the drive letter or name, if any
+* * p.root -- string representing the (local or global) root, if any
+* * p.anchor -- concatenation of the drive and root
+* * p.parents -- immutable sequence providing access to the logical ancestors of the path
+* * p.parent -- logical parent of the path
+* * p.name -- string representing the final path component, excluding the drive and root, if any
+* * p.suffix -- file extension of the final component, if any:
+* * p.suffixes -- `Path("my/library.tar.gz").suffixes` -> `["tar","gz"]`
+* * p.stem -- final path component, without its suffix
+* * p.as_posix() -- string representation of the path with forward slashes (/)
+* * p.as_uri() -- `Path('/etc/passwd')` -> `file:///etc/passwd`
+* * p.is_absolute() -- `Path('/a/b').is_absolute()` -> `True`
+* * p.is_reserved() -- `PureWindowsPath('nul').is_reserved()` -> `True`
+* * p.joinpath(``*``other) -- same as the join operator
+* * p.match(pattern) -- glob-style pattern
+* * p.relative_to(``*``other) -- ValueError raised if impossible
+* * p.with_name(name) -- new path with the name changed. ValueError raised if original path has no name. `Path('c:/Downloads/pathlib.tar.gz').with_name('setup.py')` -> `Path('c:/Downloads/setup.py')`
+
+=== Concrete Path Methods
+
+* * Path.cwd() -- the current directory
+* * Path.home() -- the user’s home directory
+* * p.stat() -- os.stat_result object
+* * p.chmod(mode) -- Change the file mode and permissions
+* * p.exists() -- file or directory
+* * p.expanduser() -- new path with expanded ~ and ~user constructs
+* * p.glob(pattern) -- yields all matching files (of any kind) -> List[Path]
+* * p.group() -- name of the group owning the file
+* * p.is_dir() -- True if the path points to a directory (or symlink to one)
+* * p.is_file() -- True if the path points to a regular file (or symlink to one)
+* p.is_mount() True if the path is a mount point
+* p.is_symlink()
+* p.is_socket()
+* p.is_fifo()
+* p.is_block_device()
+* p.is_char_device()
+* * p.iterdir() -- When the path points to a directory, yields path objects of the contents (random order)
+* * p.lchmod(mode) -- of the symbolic link itself
+* * p.lstat() -- of the symbolic link itself
+* p.mkdir(mode=0o777, parents=False, exist_ok=False)
+* p.open(mode='r', buffering=-1, encoding=None, errors=None, newline=None)
+* p.owner()
+* p.read_bytes()
+* p.read_text(encoding=None, errors=None)
+* * p.rename(target) -- rename unless target exists
+* * p.replace(target) -- rename regardless (clobber any existing target)
+* * p.resolve(strict=False) -- Make the path absolute, resolving any symlinks. A new path object is returned
+* * p.rglob(pattern) -- glob() with `**/` prefix assumed (recursive)
+* * p.rmdir() -- the directory must be empty
+* * p.samefile(other_path) -- True if points to the same file
+* p.symlink_to(target, target_is_directory=False)
+* p.unlink(missing_ok=False)
+* * p.link_to(target) -- create a hard link pointing to a path named target
+* p.write_bytes(data)
+* p.write_text(data, encoding=None, errors=None)
+
+[width="100%",cols="",options="header"]
+|===
+| os and os.path            | pathlib
+| os.path.abspath()         | Path.resolve()
+| os.chmod()                | Path.chmod()
+| os.mkdir()                | Path.mkdir()
+| os.rename()               | Path.rename()
+| os.replace()              | Path.replace()
+| os.rmdir()                | Path.rmdir()
+| os.remove(), os.unlink()  | Path.unlink()
+| os.getcwd()               | Path.cwd()
+| os.path.exists()          | Path.exists()
+| os.path.expanduser()      | Path.expanduser() and Path.home()
+| os.listdir()              | Path.iterdir()
+| os.path.isdir()           | Path.is_dir()
+| os.path.isfile()          | Path.is_file()
+| os.path.islink()          | Path.is_symlink()
+| os.link()                 | Path.link_to()
+| os.symlink()              | Path.symlink_to()
+| os.stat()                 | Path.stat(), Path.owner(), Path.group()
+| os.path.isabs()           | PurePath.is_absolute()
+| os.path.join()            | PurePath.joinpath()
+| os.path.basename()        | PurePath.name
+| os.path.dirname()         | PurePath.parent
+| os.path.samefile()        | Path.samefile()
+| os.path.splitext()        | PurePath.suffix
+|===
+
+NOTE: Although os.path.relpath() and PurePath.relative_to() have some overlapping use-cases, their semantics differ enough to warrant not considering them equivalent.
+
+
+
+[[python-internals]]
+== Python Internals
+
+Python Modules:
+
+* `_compile` -- Generate byte-code files from Python source files.
+* atexit -- Register and execute cleanup functions.
+* builtins -- The module that provides the built-in namespace.
+* codeop -- Compile (possibly incomplete) Python code.
+* compileall -- Tools for byte-compiling all Python source files in a directory tree.
+* contextlib -- Utilities for with-statement contexts.
+* copy -- Shallow and deep copy operations.
+* copyreg -- Register pickle support functions.
+* ctypes -- A foreign function library for Python.
+* functools -- Higher-order functions and operations on callable objects.
+* gc -- Interface to the cycle-detecting garbage collector.
+* importlib -- The implementation of the import machinery.
+* itertools -- Functions creating iterators for efficient looping.
+* keyword -- Test whether a string is a keyword in Python.
+* modulefinder -- Find modules used by a script.
+* pickle -- Convert Python objects to streams of bytes and back.
+* pickletools -- Contains extensive comments about the pickle protocols and pickle-machine opcodes, as well as some useful functions.
+* pkgutil -- Utilities for the import system.
+* pprint -- Data pretty printer.
+* shlex -- Simple lexical analysis for Unix shell-like languages.
+* symtable -- Interface to the compiler's internal symbol tables.
+* sysconfig -- Python's configuration information
+* token -- Constants representing terminal nodes of the parse tree.
+* tokenize -- Lexical scanner for Python source code.
+* weakref -- Support for weak references and weak dictionaries.
+
+
+
+
+
+
+[[python-tooling]]
+== Python Tooling
+
+Python Modules:
+
+* bdb -- Debugger framework.
+* code -- Facilities to implement read-eval-print loops.
+* cProfile -- TBD
+* dis -- Disassembler for Python bytecode.
+* distutils -- Support for building and installing Python modules into an existing Python installation.
+* ensurepip -- Bootstrapping the "pip" installer into an existing Python installation or virtual environment.
+* faulthandler -- Dump the Python traceback.
+* inspect -- Extract information and source code from live objects.
+* lib2to3 -- The 2to3 library
+* logging -- Flexible event logging system for applications.
+* pdb -- The Python debugger for interactive interpreters.
+* profile -- Python source profiler.
+* pstats -- Statistics object for use with the profiler.
+* pyclbr -- Supports information extraction for a Python module browser.
+* pydoc -- Documentation generator and online help system.
+* reprlib -- Alternate repr() implementation with size limits.
+* runpy -- Locate and run Python modules without importing them first.
+* tabnanny -- Tool for detecting white space related problems in Python source files in a directory tree.
+* *timeit* -- Measure the execution time of small code snippets.
+* tomllib -- Parse TOML files.
+* trace -- Trace or track Python statement execution.
+* traceback -- Print or retrieve a stack traceback.
+* tracemalloc -- Trace memory allocations.
+* venv -- Creation of virtual environments.
+* zipapp -- Manage executable Python zip archives
+
+
+
+[[regex]]
+== RegEx
+
+Details: https://docs.python.org/3/library/re.html[]
+
+
+* re.*compile*(pattern, flags=0)
+* * re.*search*(pattern, string, flags=0) -- Any one match
+* * re.*match*(pattern, string, flags=0) -- Matches at the beginning of string only (regardless of any MULTILINE flag)
+* * re.*fullmatch*(pattern, string, flags=0) -- Matches the whole string only
+* * re.*split*(pattern, string, maxsplit=0, flags=0) -- Split using pattern as delimiters. List will include paren captures within the delimiter.
+* * re.*findall*(pattern, string, flags=0) -- Returns all non-overlapping matches as a list (strings or tuples).
+* re.*finditer*(pattern, string, flags=0)
+* re.*sub*(pattern, repl, string, count=0, flags=0)
+* * re.*subn*(pattern, repl, string, count=0, flags=0) -- Same as sub(), but returns a tuple (new_string, number_of_subs_made).
+* * re.*escape*(pattern) -- converts a string to a pattern
+* * re.*purge*() -- Clears the regular expression cache.
+* * Match.*expand*(template) -- do the substitution (with backrefs).
+* * Match.*group*([group1, ...]), m[group] -- Returns one or more subgroups of the match (string or tuple).
+* * Match.*groups*(default=None) -- Returns all subgroups as a tuple.
+* * Match.*groupdict*(default=None) -- Returns a named subgroups
+* * Match.*start*([group]), Match.end([group]) -- Return the indices of the matched string
+* * Match.*span*([group]) -- Returns a tuple: (m.start(group), m.end(group)).
+* * Match.*pos* -- Where the RE engine started looking for a match.
+* * Match.*endpos* -- Where the RE engine stopped looking for a match.
+* * Match.*lastindex* -- The integer index of the last matched capturing group, or None if no group was matched at all. For example, the expressions (a)b, ((a)(b)), and ((ab)) will have lastindex == 1 if applied to the string 'ab', while the expression (a)(b) will have lastindex == 2, if applied to the same string.
+* * Match.*lastgroup* -- The name of the last matched capturing group, or None if the group didn’t have a name, or if no group was matched at all.
+* * Match.*re* -- The regular expression object whose match() or search() method produced this match instance.
+* * Match.*string* -- The string passed to match() or search().
+
+
+=== Replacement Backref Modifiers
+
+----
+  \l : first character to lower case
+  \u : first character to upper case
+  \L : start of lower case conversion
+  \U : start of upper case conversion
+  \E : end lower/upper case conversion
+----
+
+=== Flags
+
+----
+re.I, re.IGNORECASE, (?i) : Performs case-insensitive matching.
+re.M, re.MULTILINE, (?m)  : Caret and dollar match line-by-line.
+re.S, re.DOTALL, (?s)     : '.' will match anything INCLUDING a newline.
+re.A, re.ASCII, (?a)      : Disables full Unicode matching.
+re.DEBUG                  : Displays debug information about compiled expression.
+re.L, re.LOCALE, (?L)     : Makes case-insensitive matching dependent on the current locale.
+re.X, re.VERBOSE, (?x)    : Allow comments and whitespace in expressions.
+----
+
+
+
+[[security]]
+== Security
+
+Python Modules:
+
+* getpass -- Portable reading of passwords and retrieval of the userid.
+* secrets -- Generate secure random numbers for managing secrets.
+
+
+
+
+
+
+
+[[sets]]
+== Sets
+
+s.add(some_new_element)
+s.remove(element)
+s.update(other_set)
+s.union(other_set) (or the vertical bar operator)
+s.intersection(other_set) (or the ampersand operator)
+s.difference(other_set) (or the minus sign operator)
+s.symmetric_difference(other_set) (or the carret operator)
+s.isdisjoint(other_set)
+s.issubset() (or `<=`, or `<` for a proper subset)
+s.issuperset() (or `>=`, or `>` for a proper superset)
+len(s)
+element in s
+
+
+
+[[sorting]]
+== Sorting
+
+* `lst.sort()` or `sorted(lst)`
+* `lst.sort(reverse=True)` or `sorted(lst, reverse=True)`
+* `lst.sort(key=lambda x: x[1])` or `sorted(lst, key=fn)`
+* For case-insensitive, use `key=str.lower`
+
+
+
+
+
+
+
+[[strings]]
+== Strings/Text Processing/I18n/Unicode
+
+Python Modules:
+
+* ast -- Abstract Syntax Tree classes and manipulation.
+* gettext -- Multilingual internationalization services.
+* *html* -- Helpers for manipulating HTML.
+* locale -- Internationalization services.
+* re -- Regular expression operations.
+* string -- Common string operations.
+* stringprep -- String preparation, as per RFC 3453
+* textwrap -- Text wrapping and filling
+* unicodedata -- Access the Unicode Database.
+
+
+=== String Functions
+
+* * str.*capitalize*() -- copy of the string with its first character capitalized and the rest lowercased.
+* * str.*casefold*() -- for caseless matching (slightly more agressive than lower())
+* str.*center*/*ljust*/*rjust*(width[, fillchar])
+* * str.*count*(sub[, start[, end]]) -- number of non-overlapping occurrences of substring sub in the range [start, end].
+* str.*encode*(encoding="utf-8", errors="strict")
+* str.*expandtabs*(tabsize=8)
+* * str.*find*/*rfind*(sub[, start[, end]]) -- Only use to determine the position; otherwise use the `in` operator.
+* str.*format*(``*``args, ``**``kwargs)
+* str.*format_map*(mapping)
+* * str.*index*/*rindex*(sub[, start[, end]]) -- Like find(), but raise ValueError when the substring is not found.
+* * str.*isidentifier*() -- Also: Call keyword.iskeyword(str) to test if is a reserved identifier.
+* str.*isalnum*()
+* str.*isalpha*(), str.*isascii*(), str.*isdecimal*(), str.*isdigit*(), str.*islower*(), str.*isnumeric*(), str.*isprintable*(), str.*isspace*(), str.*istitle*(), str.*isupper*()
+* str.*join*(iterable)
+* * str.*lower*() -- see also *casefold*()
+* * str.*partition*/*rpartition*(sep) -- Split the string at the first occurrence of sep, and return a 3-tuple containing the part before the separator, the separator itself, and the part after the separator. If the separator is not found, return a 3-tuple containing the string itself, followed by two empty strings.
+* * str.*replace*(old, new[, count]) -- a copy of the string with all occurrences of substring old replaced by new. If the optional argument count is given, only the first count occurrences are replaced. (For Regex replacements, use re.sub().)
+* * str.*split*/*rsplit*(sep=None, maxsplit=-1) -- breaking the string at word boundaries (sep=None means split on runs of whitespace.)
+* * str.*splitlines*([keepends]) -- breaking the string at line boundaries. (Use keepend=True to keep the EOL).
+* str.*startswith*/*endswith*(prefix[, start[, end]])
+* * str.*strip*/*lstrip*/*rstrip*([chars]) -- a copy of the string with the leading and trailing characters removed. The chars argument is a string specifying the set of characters to be removed. If omitted or None, the chars argument defaults to removing whitespace. The chars argument is not a prefix or suffix; rather, all combinations of its values are stripped:
+* * str.*swapcase*() -- a copy of the string with uppercase characters converted to lowercase and vice versa. Note that it is not necessarily true that s.swapcase().swapcase() == s.
+* * str.*title*() -- a titlecased version of the string
+* * str.*translate*(table) -- a copy of the string in which each character has been mapped through the given translation table. The table must be an object that implements indexing via __getitem__(), typically a mapping or sequence. When indexed by a Unicode ordinal (an integer), the table object can do any of the following: return a Unicode ordinal or a string, to map the character to one or more other characters; return None, to delete the character from the return string; or raise a LookupError exception, to map the character to itself. You can use str.maketrans() to create a translation map from character-to-character mappings in different formats.
+* str.*upper*()
+* * str.*zfill*(width) -- zero pad
+
+=== String Constants
+
+* string.*ascii_letters* == ascii_lowercase + ascii_uppercase
+* * string.*ascii_lowercase* -- 'abcdefghijklmnopqrstuvwxyz'
+* * string.*ascii_uppercase* -- 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'
+* string.*digits* == '0123456789'
+* string.*hexdigits* == '0123456789abcdefABCDEF'
+* string.*octdigits* == '01234567'
+* string.*punctuation* == `!"#$%&'()*+,-./:;<=>?@[\]^_{|}~`  (plus back tic)
+* string.*printable* == digits `+` ascii_letters `+` punctuation + whitespace.
+* string.*whitespace* == space, tab, linefeed, return, formfeed, and vertical tab.
+
+=== String Misc.
+
+TODO: Multi-Line Strings vs. """
+
+
+
+
+
+[[testing]]
+== Testing
+
+Python Modules:
+
+* doctest -- Test pieces of code within docstrings.
+* test -- Regression tests package containing the testing suite for Python.
+* unittest -- Unit testing framework for Python.
+
+
+
+[[tuples]]
+== Tuples
+
+`Color = namedtuple("Color", "red green blue", defaults=[0,0,0])`
+
+color = Color.make([255,255,255])
+
+* Unpacking: a, b, c = (1,2,3)
+
+
+
+[[types]]
+== Types/Classes
+
+Python Modules:
+
+* types -- Names for built-in types.
+* typing -- Support for type hints (see :pep:`484`).
+* abc -- Abstract base classes according to :pep:`3119`.
+* dataclasses -- Generate special methods on user-defined classes.
+
+----
+isinstance(object, classinfo)
+type([]) is list
+type({}) is dict
+type('') is str
+type(0) is int
+----
+
+
+
+
+
+
+
+
+[[other]]
+== OTHER (TO IDENTIFY/SORT)
+
+Python Modules:
+
+* *contextvars?* -- Context Variables
+* *difflib?* -- Helpers for computing differences between objects.
+* *sched?* -- General purpose event scheduler.
+* idlelib -- Implementation package for the IDLE shell/editor.
+* io -- Core tools for working with streams.
+* netrc -- Loading of .netrc files.
+* quopri -- Encode and decode files using the MIME quoted-printable encoding.
+* rlcompleter -- Python identifier completion, suitable for the GNU readline library.
+* site -- Module responsible for site-specific configuration.
+* uuid -- UUID objects (universally unique identifiers) according to RFC 4122
+* wsgiref -- WSGI Utilities and Reference Implementation.
+
