@@ -1,6 +1,6 @@
 [source,python]
 ====
-    ---- Listing blok
+    ---- Listing block
     **** Sidebar
     ==== Example
     //// comment

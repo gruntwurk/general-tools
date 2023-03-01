@@ -8,7 +8,7 @@
 # INSPIRATION:  NetworkChuck's video: https://www.youtube.com/watch?v=ZhMw53Ud2tY
 # AUTHOR:       polygot-jones -- 7/12/2021
 # LINE ENDINGS: Be sure this file is saved with Unix line-endings.
-# IDEMPOTENT:   There is no harm is running this script multiple times.
+# IDEMPOTENT:   There is no harm in running this script multiple times.
 
 # ============================================================================
 #                                                     CHOOSE YOUR OPTIONS HERE
@@ -21,15 +21,15 @@ ROUTER_PW=
 
 if [ "$TARGET_MACHINE" == "PI" ]; then
     USER_ID=pi
-    USER_NAME="Raspberry Pi Administrator" 
+    USER_NAME="Raspberry Pi Administrator"
     USER_GROUPS=sudo
 elif [ "$TARGET_MACHINE" == "VAGRANT" ]; then
     USER_ID=vagrant
-    USER_NAME="Vagrant Developer" 
+    USER_NAME="Vagrant Developer"
     USER_GROUPS=sudo,vagrant
 else
     USER_ID=guest
-    USER_NAME="Guest User" 
+    USER_NAME="Guest User"
     USER_GROUPS=
 fi
 
@@ -70,7 +70,7 @@ apt_install ntfs-3g "NTFS file system driver"
 #                                                           CREATE A SUDO USER
 # ============================================================================
 
-log_step "Creating user account: $USER_ID ($USER_NAME) with default password of $USER_ID" 
+log_step "Creating user account: $USER_ID ($USER_NAME) with default password of $USER_ID"
 USER_HOME="/home/$USER_ID"
 if [ -d $USER_HOME ]; then
     log "User $USER_ID already exists."
@@ -134,7 +134,7 @@ sudo service avahi-daemon restart 2>> $LOG_FILE
 
 log_header "RECAP"      # this shows the time zone and the hostname/IP address
 log ""
-log "AsciiDoctor = $( asciidoctor --version )"  
+log "AsciiDoctor = $( asciidoctor --version )"
 log ""
 log "Firewall `sudo ufw status`"
 log ""
