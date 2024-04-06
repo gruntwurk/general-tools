@@ -34,6 +34,7 @@ v0.01, 3/1/2023
 * <<numbers,Numbers/Math>>
 * <<operating-system,Operating System>>
 * <<pathlib,PathLib>>
+* <<pip-e,PIP Install Editable>>
 * <<python-internals,Python Internals>>
 * <<python-tooling,Python Tooling>>
 * <<regex,RegEx>>
@@ -118,8 +119,8 @@ An optional footer which may note BREAKING CHANGES, and/or issues to be closed.
 
 `<type>` refers to the kind of change made and is usually one of:
 
-* *feat*: A new feature.
-* *fix*: A bug fix.
+* *feat*: A new feature -- may trigger a minor version bump.
+* *fix*: A bug fix -- may trigger a patch version bump.
 * *docs*: Documentation changes.
 * *style*: Changes that do not affect the meaning of the code (white-space, formatting, missing semi-colons, etc).
 * *refactor*: A code change that neither fixes a bug nor adds a feature.
@@ -129,66 +130,7 @@ An optional footer which may note BREAKING CHANGES, and/or issues to be closed.
 
 `scope` is an optional keyword (e.g. a module or function name).
 
-Different text in the commit message will trigger PSR to make different kinds of releases:
-
-A `<type>` of `fix` triggers a patch version bump, e.g.:
-
-git commit -m "fix(mod_plotting): fix confusing error message in \
-                 plot_words"
-A `<type>` of `feat` triggers a minor version bump, e.g.:
-
-git commit -m "feat(package): add example data and new module to \
-                 package"
-The text `BREAKING CHANGE` in the footer will trigger a major release, e.g.:
-
-git commit -m "feat(mod_plotting): move code from plotting module \
-                 to pycounts module
-
-BREAKING CHANGE: plotting module wont exist after this release."
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+The text `BREAKING CHANGE` in the footer will trigger a major release.
 
 
 
@@ -226,19 +168,15 @@ Instantiating:
 
 * b'' literals
 * r'' literals
-* * bytes(10) -- a zero-filled bytes object of a specified length
-* * bytes(range(20)) -- from an iterable of integers
-* * bytes(obj) -- copying existing binary data via the buffer protocol
-* * bytearray() -- an empty instance
-* * bytearray(10) -- a zero-filled instance with a given length
-* * bytearray(range(20)) -- from an iterable of integers
-* * bytearray(b'Hi!') -- copying existing binary data via the buffer protocol
+* bytes(10) -- a zero-filled bytes object of a specified length
+* bytes(range(20)) -- from an iterable of integers
+* bytes(obj) -- copying existing binary data via the buffer protocol
+* bytearray() -- an empty instance
+* bytearray(10) -- a zero-filled instance with a given length
+* bytearray(range(20)) -- from an iterable of integers
+* bytearray(b'Hi!') -- copying existing binary data via the buffer protocol
 * bytes.fromhex('FFFF FFFF FFFF')
 * bytes.hex()
-
-
-
-
 
 
 [[character-sets]]
@@ -369,43 +307,45 @@ In the following, _dt_ is short for `datetime`:
 
 All are immutable, hashable, efficiently pickled.
 
-----
-class dt.dt(year, month, day, hour=0, minute=0, second=0, microsecond=0, tzinfo=None, fold=0)
+* class dt.dt(year, month, day, hour=0, minute=0, second=0, microsecond=0, tzinfo=None, fold=0)
 
-classmethod dt.today()
-classmethod dt.now()
-classmethod dt.fromisoformat(date_string) # YYYY-MM-DD[\*HH[:MM[:SS[.fff[fff]]]][+HH:MM[:SS[.ffffff]]]] (where * is any single char)
+* classmethod dt.today()
+* classmethod dt.now()
+* classmethod dt.fromisoformat(date_string)  # YYYY-MM-DD[\*HH[:MM[:SS[.fff[fff]]]][+HH:MM[:SS[.ffffff]]]] (where * is any single char)
 * classmethod dt.strptime() -- parse formatted
 
-dt.min # -> dt(MINYEAR, 1, 1, tzinfo=None)
-dt.max # -> dt(MAXYEAR, 12, 31, 23, 59, 59, 999999, tzinfo=None).
-dt.year
-dt.month
-dt.day
-dt.hour
-dt.minute
-dt.second
-dt.microsecond
-dt.tzinfo
+* dt.min # -> dt(MINYEAR, 1, 1, tzinfo=None)
+* dt.max # -> dt(MAXYEAR, 12, 31, 23, 59, 59, 999999, tzinfo=None).
+* dt.year
+* dt.month
+* dt.day
+* dt.hour
+* dt.minute
+* dt.second
+* dt.microsecond
+* dt.tzinfo
 * dt.fold -> in [0, 1] -- overlapping hour at the end of DST
 
-dt2 = dt1 + timedelta
-dt2 = dt1 - timedelta
-timedelta = dt1 - dt2
-dt1 < dt2
+Operators:
 
-dt.replace(year=self.year, month=self.month, day=self.day, hour=self.hour, minute=self.minute, second=self.second, microsecond=self.microsecond, tzinfo=self.tzinfo, fold=0)
-dt.timetuple() # -> time.struct_time((d.year, d.month, d.day, d.hour, d.minute, d.second, d.weekday(), yday, dst))
+* dt2 = dt1 + timedelta
+* dt2 = dt1 - timedelta
+* timedelta = dt1 - dt2
+* dt1 < dt2
 
-dt.weekday() # Monday 0 .. Sunday 6
-dt.isoweekday() # Monday 1 .. Sunday 7
-dt.isocalendar()
-dt.isoformat(sep='T', timespec='auto') # -> "YYYY-MM-DDTHH:MM:SS.ffffff"
-dt.__str__() # -> dt.isoformat()
-dt.ctime()
-dt.strftime(format)
-dt.__format__(format) # thus f"{dt1:%B %d, %Y}"
-----
+* dt.replace(year=self.year, month=self.month, day=self.day, hour=self.hour, minute=self.minute, second=self.second, microsecond=self.microsecond, tzinfo=self.tzinfo, fold=0)
+* dt.timetuple()  # -> time.struct_time((d.year, d.month, d.day, d.hour, d.minute, d.second, d.weekday(), yday, dst))
+
+* dt.weekday()  # Monday 0 .. Sunday 6
+* dt.isoweekday()  # Monday 1 .. Sunday 7
+* dt.isocalendar()
+* dt.isoformat(sep='T', timespec='auto')  # -> "YYYY-MM-DDTHH:MM:SS.ffffff"
+* dt.__str__()  # -> dt.isoformat()
+* dt.ctime()
+* dt.strftime(format)
+* dt.__format__(format)  # thus f"{dt1:%B %d, %Y}"
+
+
 
 === Date Formatting (per the C89 standard)
 
@@ -448,6 +388,17 @@ Additional Directives:
 
 
 
+[[deprecation]]
+=== Deprecation
+
+https://github.com/tantale/deprecated[]
+
+----
+# pip install deprecated
+from deprecated import deprecated
+
+@deprecated(reason="Just use Path(filename).to_uri()")
+----
 
 
 
@@ -766,6 +717,153 @@ Python Modules:
 
 * For imports that appear to be unused but actually are, add `# noqa: F401` to the end of the line.
 
+Flake8 Error Codes:
+
+* E1 -- *Indentation*
+* E101 -- indentation contains mixed spaces and tabs
+* E111 -- indentation is not a multiple of four
+* E112 -- expected an indented block
+* E113 -- unexpected indentation
+* E114 -- indentation is not a multiple of four (comment)
+* E115 -- expected an indented block (comment)
+* E116 -- unexpected indentation (comment)
+* E117 -- over-indented
+* E121 -- continuation line under-indented for hanging indent UNOFFICIAL NOQA-ABLE
+* E122 -- continuation line missing indentation or outdented NOQA-ABLE
+* E123 -- closing bracket does not match indentation of opening bracket’s line UNOFFICIAL
+* E124 -- closing bracket does not match visual indentation NOQA-ABLE
+* E125 -- continuation line with same indent as next logical line NOQA-ABLE
+* E126 -- continuation line over-indented for hanging indent UNOFFICIAL NOQA-ABLE
+* E127 -- continuation line over-indented for visual indent NOQA-ABLE
+* E128 -- continuation line under-indented for visual indent NOQA-ABLE
+* E129 -- visually indented line with same indent as next logical line NOQA-ABLE
+* E131 -- continuation line unaligned for hanging indent NOQA-ABLE
+* E133 -- closing bracket is missing indentation UNOFFICIAL
+* E2 -- *Whitespace*
+* E201 -- whitespace after ‘(’
+* E202 -- whitespace before ‘)’
+* E203 -- whitespace before ‘,’, ‘;’, or ‘:’
+* E211 -- whitespace before ‘(’
+* E221 -- multiple spaces before operator
+* E222 -- multiple spaces after operator
+* E223 -- tab before operator
+* E224 -- tab after operator
+* E225 -- missing whitespace around operator
+* E226 -- missing whitespace around arithmetic operator UNOFFICIAL
+* E227 -- missing whitespace around bitwise or shift operator
+* E228 -- missing whitespace around modulo operator
+* E231 -- missing whitespace after ‘,’, ‘;’, or ‘:’
+* E241 -- multiple spaces after ‘,’ UNOFFICIAL
+* E242 -- tab after ‘,’ UNOFFICIAL
+* E251 -- unexpected spaces around keyword / parameter equals
+* E261 -- at least two spaces before inline comment
+* E262 -- inline comment should start with ‘# ‘
+* E265 -- block comment should start with ‘# ‘
+* E266 -- too many leading ‘#’ for block comment
+* E271 -- multiple spaces after keyword
+* E272 -- multiple spaces before keyword
+* E273 -- tab after keyword
+* E274 -- tab before keyword
+* E275 -- missing whitespace after keyword
+* E3 -- *Blank line*
+* E301 -- expected 1 blank line, found 0
+* E302 -- expected 2 blank lines, found 0
+* E303 -- too many blank lines (3)
+* E304 -- blank lines found after function decorator
+* E305 -- expected 2 blank lines after end of function or class
+* E306 -- expected 1 blank line before a nested definition
+* E4 -- *Import*
+* E401 -- multiple imports on one line
+* E402 -- module level import not at top of file
+* E5 -- *Line length*
+* E501 -- line too long (82 > 79 characters) NOQA-ABLE
+* E502 -- the backslash is redundant between brackets
+* E7 -- *Statement*
+* E701 -- multiple statements on one line (colon)
+* E702 -- multiple statements on one line (semicolon)
+* E703 -- statement ends with a semicolon
+* E704 -- multiple statements on one line (def) UNOFFICIAL
+* E711 -- comparison to None should be ‘if cond is None:’ NOQA-ABLE
+* E712 -- comparison to True should be ‘if cond is True:’ or ‘if cond:’ NOQA-ABLE
+* E713 -- test for membership should be ‘not in’
+* E714 -- test for object identity should be ‘is not’
+* E721 -- do not compare types, use ‘isinstance()’ NOQA-ABLE
+* E722 -- do not use bare except, specify exception instead
+* E731 -- do not assign a lambda expression, use a def
+* E741 -- do not use variables named ‘l’, ‘O’, or ‘I’
+* E742 -- do not define classes named ‘l’, ‘O’, or ‘I’
+* E743 -- do not define functions named ‘l’, ‘O’, or ‘I’
+* E9 -- *Runtime*
+* E901 -- SyntaxError or IndentationError
+* E902 -- IOError
+* F4 -- *Import*
+* F401 -- module imported but unused
+* F402 -- import module from line N shadowed by loop variable
+* F403 -- ‘from module import ...’ used; unable to detect undefined names
+* F404 -- future import(s) name after other statements
+* F405 -- name may be undefined, or defined from star imports: module
+* F406 -- ‘from module import ...’ only allowed at module level
+* F407 -- an undefined __future__ feature name was imported
+* F5 -- *Format*
+* F501 -- invalid % format literal
+* F502 -- % format expected mapping but got sequence
+* F503 -- % format expected sequence but got mapping
+* F504 -- % format unused named arguments
+* F505 -- % format missing named arguments
+* F506 -- % format mixed positional and named arguments
+* F507 -- % format mismatch of placeholder and argument count
+* F508 -- % format with * specifier requires a sequence
+* F509 -- % format with unsupported format character
+* F521 -- .format(...) invalid format string
+* F522 -- .format(...) unused named arguments
+* F523 -- .format(...) unused positional arguments
+* F524 -- .format(...) missing argument
+* F525 -- .format(...) mixing automatic and manual numbering
+* F541 -- f-string without any placeholders
+* F6 -- *Expression*
+* F601 -- dictionary key name repeated with different values
+* F602 -- dictionary key variable name repeated with different values
+* F621 -- too many expressions in an assignment with star-unpacking
+* F622 -- two or more starred expressions in an assignment (a, ``*``b, ``*``c = d)
+* F631 -- assertion test is a tuple, which is always True
+* F632 -- use ==/!= to compare str, bytes, and int literals
+* F633 -- use of >> is invalid with print function
+* F634 -- if test is a tuple, which is always True
+* F7 -- *Logic Flow*
+* F701 -- a break statement outside of a while or for loop
+* F702 -- a continue statement outside of a while or for loop
+* F703 -- a continue statement in a finally block in a loop
+* F704 -- a yield or yield from statement outside of a function
+* F706 -- a return statement outside of a function/method
+* F707 -- an except: block as not the last exception handler
+* F721 -- syntax error in doctest
+* F722 -- syntax error in forward annotation
+* F723 -- syntax error in type comment
+* F8 -- *Variable*
+* F811 -- redefinition of unused name from line N
+* F821 -- undefined name name
+* F822 -- undefined name name in __all__
+* F823 -- local variable name … referenced before assignment
+* F831 -- duplicate argument name in function definition
+* F841 -- local variable name is assigned to but never used
+* F9 -- *Error Handling*
+* F901 -- raise NotImplemented should be raise NotImplementedError
+* W1 -- *Indentation warning*
+* W191 -- indentation contains tabs
+* W2 -- *Whitespace warning*
+* W291 -- trailing whitespace
+* W292 -- no newline at end of file
+* W293 -- blank line contains whitespace
+* W3 -- *Blank line warning*
+* W391 -- blank line at end of file
+* W5 -- *Line break warning*
+* W503 -- line break before binary operator UNOFFICIAL
+* W504 -- line break after binary operator UNOFFICIAL
+* W505 -- doc line too long (82 > 79 characters) UNOFFICIAL NOQA-ABLE
+* W6 -- *Deprecation warning*
+* W605 -- invalid escape sequence ‘x’
+* W606 -- ‘async’ and ‘await’ are reserved keywords starting with Python 3.7*
+
 
 
 [[lists]]
@@ -781,7 +879,10 @@ Python Modules:
 * List.append(single item)
 * List.extend(another list)
 * Size: `len(container)`
-
+* list.clear()
+* list.remove(value)
+* list.pop(index) or del list[index]
+* list.pop() -- last item
 
 
 
@@ -893,65 +994,70 @@ Python Modules:
 [[pathlib]]
 == PathLib
 
+* p / str -- join operator
+* p / p -- join operator
+* str(p)
+
+=== Pure pathlib.Path Properties
+
+* p.parts -- tuple of the path broken down `Path('/usr/bin/python3').parts` -> `('/', 'usr', 'bin', 'python3')`
+* p.drive -- string representing the drive letter or name, if any
+* p.root -- string representing the (local or global) root, if any
+* p.anchor -- concatenation of the drive and root
+* p.parents -- immutable sequence providing access to the logical ancestors of the path
+* p.parent -- logical parent of the path
+* p.name -- string representing the final path component, excluding the drive and root, if any
+* p.suffix -- file extension of the final component, if any:
+* p.suffixes -- `Path("my/library.tar.gz").suffixes` -> `["tar","gz"]`
+* p.stem -- final path component, without its suffix
+
 === Pure pathlib.Path Methods
 
-* * p / str -- join operator
-* * p / p -- join operator
-* str(p)
-* * p.parts -- tuple of the path broken down `Path('/usr/bin/python3').parts` -> `('/', 'usr', 'bin', 'python3')`
-* * p.drive -- string representing the drive letter or name, if any
-* * p.root -- string representing the (local or global) root, if any
-* * p.anchor -- concatenation of the drive and root
-* * p.parents -- immutable sequence providing access to the logical ancestors of the path
-* * p.parent -- logical parent of the path
-* * p.name -- string representing the final path component, excluding the drive and root, if any
-* * p.suffix -- file extension of the final component, if any:
-* * p.suffixes -- `Path("my/library.tar.gz").suffixes` -> `["tar","gz"]`
-* * p.stem -- final path component, without its suffix
-* * p.as_posix() -- string representation of the path with forward slashes (/)
-* * p.as_uri() -- `Path('/etc/passwd')` -> `file:///etc/passwd`
-* * p.is_absolute() -- `Path('/a/b').is_absolute()` -> `True`
-* * p.is_reserved() -- `PureWindowsPath('nul').is_reserved()` -> `True`
-* * p.joinpath(``*``other) -- same as the join operator
-* * p.match(pattern) -- glob-style pattern
-* * p.relative_to(``*``other) -- ValueError raised if impossible
-* * p.with_name(name) -- new path with the name changed. ValueError raised if original path has no name. `Path('c:/Downloads/pathlib.tar.gz').with_name('setup.py')` -> `Path('c:/Downloads/setup.py')`
+* p.as_posix() -- string representation of the path with forward slashes (/)
+* p.as_uri() -- `Path('/etc/passwd')` -> `file:///etc/passwd`
+* p.is_absolute() -- `Path('/a/b').is_absolute()` -> `True`
+* p.is_reserved() -- `PureWindowsPath('nul').is_reserved()` -> `True`
+* p.joinpath(``*``other) -- same as the join operator
+* p.match(pattern) -- glob-style pattern
+* p.relative_to(``*``other) -- ValueError raised if impossible
+* p.with_name(name) -- new path with the name changed. ValueError raised if original path has no name. `Path('c:/Downloads/pathlib.tar.gz').with_name('setup.py')` -> `Path('c:/Downloads/setup.py')`
 
 === Concrete Path Methods
 
-* * Path.cwd() -- the current directory
-* * Path.home() -- the user’s home directory
-* * p.stat() -- os.stat_result object
-* * p.chmod(mode) -- Change the file mode and permissions
-* * p.exists() -- file or directory
-* * p.expanduser() -- new path with expanded ~ and ~user constructs
-* * p.glob(pattern) -- yields all matching files (of any kind) -> List[Path]
-* * p.group() -- name of the group owning the file
-* * p.is_dir() -- True if the path points to a directory (or symlink to one)
-* * p.is_file() -- True if the path points to a regular file (or symlink to one)
+* Path.cwd() -- the current directory
+* Path.home() -- the user's home directory
+* p.stat() -- os.stat_result object
+* p.chmod(mode) -- Change the file mode and permissions
+* p.exists() -- file or directory
+* p.expanduser() -- new path with expanded ~ and ~user constructs
+* p.glob(pattern) -- yields all matching files (of any kind) -> List[Path]
+* p.group() -- name of the group owning the file
+* p.is_dir() -- True if the path points to a directory (or symlink to one)
+* p.is_file() -- True if the path points to a regular file (or symlink to one)
 * p.is_mount() True if the path is a mount point
 * p.is_symlink()
 * p.is_socket()
 * p.is_fifo()
 * p.is_block_device()
 * p.is_char_device()
-* * p.iterdir() -- When the path points to a directory, yields path objects of the contents (random order)
-* * p.lchmod(mode) -- of the symbolic link itself
-* * p.lstat() -- of the symbolic link itself
+* p.iterdir() -- When the path points to a directory, yields path objects of the contents (random order)
+* p.lchmod(mode) -- of the symbolic link itself
+* p.lstat() -- of the symbolic link itself
 * p.mkdir(mode=0o777, parents=False, exist_ok=False)
 * p.open(mode='r', buffering=-1, encoding=None, errors=None, newline=None)
 * p.owner()
 * p.read_bytes()
 * p.read_text(encoding=None, errors=None)
-* * p.rename(target) -- rename unless target exists
-* * p.replace(target) -- rename regardless (clobber any existing target)
-* * p.resolve(strict=False) -- Make the path absolute, resolving any symlinks. A new path object is returned
-* * p.rglob(pattern) -- glob() with `**/` prefix assumed (recursive)
-* * p.rmdir() -- the directory must be empty
-* * p.samefile(other_path) -- True if points to the same file
+* p.rename(target) -- rename unless target exists
+* p.remove -- (no such method) Use unlink() to remove a file.
+* p.replace(target) -- rename regardless (clobber any existing target)
+* p.resolve(strict=False) -- Make the path absolute, resolving any symlinks. A new path object is returned
+* p.rglob(pattern) -- glob() with `**/` prefix assumed (recursive)
+* p.rmdir() -- the directory must be empty
+* p.samefile(other_path) -- True if points to the same file
 * p.symlink_to(target, target_is_directory=False)
-* p.unlink(missing_ok=False)
-* * p.link_to(target) -- create a hard link pointing to a path named target
+* p.unlink(missing_ok=False) -- remove a file OR a symlink
+* p.link_to(target) -- create a hard link pointing to a path named target
 * p.write_bytes(data)
 * p.write_text(data, encoding=None, errors=None)
 
@@ -964,6 +1070,9 @@ Python Modules:
 | os.rename()               | Path.rename()
 | os.replace()              | Path.replace()
 | os.rmdir()                | Path.rmdir()
+| os.remove(file)           |
+| os.removedir()            |
+| os.removedirs()           | -- | removes leaf directory and all now-empty parent directories
 | os.remove(), os.unlink()  | Path.unlink()
 | os.getcwd()               | Path.cwd()
 | os.path.exists()          | Path.exists()
@@ -985,6 +1094,51 @@ Python Modules:
 
 NOTE: Although os.path.relpath() and PurePath.relative_to() have some overlapping use-cases, their semantics differ enough to warrant not considering them equivalent.
 
+
+
+[[pip]]
+== Install PIP (Windows)
+
+How to manually install PIP if it was not originally included (e.g. the version of Python 3.8.18 that is distributed within LibreOffice 7.5):
+
+TIP: In Windows Explorer, Shift+RightClick offers "Open PowerShell window here"
+
+IMPORTANT: Be sure to run PowerShell as Administrator
+
+. Open PowerShell and navigate to the folder where Python is installed: `cd "C:\Program Files\LibreOffice\program"`
+. Run this command to install pip:
+----
+(Invoke-WebRequest -Uri https://bootstrap.pypa.io/get-pip.py -UseBasicParsing).Content | .\python.exe -
+.\python.exe -m pip --version
+----
+NOTE: You may get a warning that the pip install location is not on that path. This warning can be ignored.
+
+
+
+[[pip-e]]
+== PIP Install Editable (-e)
+
+When `PIP install -e .` complains that it can't find a module/package, it might actually be fine.
+If VSCode test explorer can't find any tests in your editable module, it might be because you need to reconfigure pytest.
+(Command Palette: "Python: Configure Tests".)
+
+
+
+[[poetry]]
+== poetry (Installing on Windows)
+
+Poetry is a tool that facilitates creating a Python virtual environment based on the project dependencies.
+You can declare the libraries your project depends on, and Poetry will install and update them for you.
+Project dependencies are recorded in the `pyproject.toml` file that specifies required packages, scripts, plugins, and URLs.
+
+Installing poetry via PowerShell:
+
+----
+(Invoke-WebRequest -Uri https://install.python-poetry.org -UseBasicParsing).Content | py -
+$Env:Path += ";C:\Users\CRaig Jones\AppData\Roaming\Python\Scripts"; setx PATH "$Env:Path"
+poetry --version
+poetry config virtualenvs.in-project true
+----
 
 
 [[python-internals]]
@@ -1214,6 +1368,24 @@ Python Modules:
 * string.*printable* == digits `+` ascii_letters `+` punctuation + whitespace.
 * string.*whitespace* == space, tab, linefeed, return, formfeed, and vertical tab.
 
+=== F-Strings
+
+* f"{foo}" -- displays the value alone
+* f"{foo = }" -- displays the expression followed by the value
+* f"{foo:25}"  -- left align
+* f"{foo:=>25}"  -- right align using a fill character of =
+* f"{foo:``^``25}"  -- center align
+* f"{foo!r}" -- for using `__repl__` instead of `__str__`
+* f"{foo:s}" -- formatted as a string
+* f"{foo:d}" -- formatted as a decimal integer (with commas)
+* f"{foo:n}" -- formatted as a number (per locale)
+* f"{foo:e}" -- formatted as scientific notation
+* f"{foo:f}" -- formatted as fixed point
+* f"{foo:20f}" -- formatted as fixed point within a 20-char field
+* f"{foo:%}" -- formatted as fixed * 100
+* f"{variable:+,.2f}") -- formatted with two decimal places, a forced plus-sign, and commas
+
+
 === String Misc.
 
 TODO: Multi-Line Strings vs. """
@@ -1285,4 +1457,6 @@ Python Modules:
 * site -- Module responsible for site-specific configuration.
 * uuid -- UUID objects (universally unique identifiers) according to RFC 4122
 * wsgiref -- WSGI Utilities and Reference Implementation.
+
+
 

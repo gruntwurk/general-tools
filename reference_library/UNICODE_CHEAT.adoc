@@ -1,0 +1,166 @@
+|===
+|Find|Replace|Libre  |MS Word  |String
+|F   |       |       |^1 or ^g |Picture (inline pictures only)
+|F   |       |       |^f       |Auto-referenced footnotes
+|F   |       |       |^e       |Auto-referenced endnotes
+|F   |       |       |^2       |Auto-referenced footnotes or endnotes
+|F   |       |       |^5 or ^a |Annotation/comment mark
+|F   |       |       |^19 or ^d|Opening field brace (Use only when you are viewing field codes.) (Selects whole field, not just opening brace.)
+|F   |       |       |^21 or ^d|Closing field brace (Use only when you are viewing field codes.) (Selects whole field, not just closing brace.)
+|F   |       |.      |^?       |Any single character
+|F   |       |\d     |^#       |Any digit
+|F   |       |\a     |^$       |Any letter
+|F   |       |\u8195 |^u8195   |Em space Unicode character value search
+|F   |       |\u8194 |^u8194   |En space Unicode character value search
+|F   |       |       |^b       |Section break
+|F   |       |       |^w       |White space (space, nonbreaking space, tab)
+|F   |       |       |^unnnn   |Word 2000 Unicode character search, where "n" is a decimal number corresponding to the Unicode character value
+|    |R      |& or $0|^&       |Contents of the "Find what" box
+|    |R      |       |^c       |Replace with the Clipboard contents
+|F   |R      |\t     |^9 or ^t |Tab
+|F   |R      |       |^11 or ^l|New line
+|F   |R      |\u2014 |^+       |Em dash
+|F   |R      |\u2013 |^=       |En dash
+|F   |R      |       |^12      |Page or section break (Replaces a section break with a page break)
+|F   |R      |       |^13 or ^p|Carriage return/paragraph mark
+|F   |R      |       |^14 or ^n|Column break
+|F   |R      |       |?        |Question mark
+|F   |R      |       |^-       |Optional hyphen
+|F   |R      |       |^~       |Nonbreaking hyphen
+|F   |R      |       |^^       |Caret character
+|F   |R      |       |^m       |Manual page break
+|F   |R      |       |^s       |Nonbreaking space
+|F   |R      |       |^nnn     |Where "n" is an ASCII character number
+|F   |R      |       |^0nnn    |Where "n" is an ANSI character number
+|===
+
+|===
+|Category     |  |Short Name       |Hex   |Dec  |Unicode Name
+|Arrow        |  |arrow-down-heavy       |U+F0EA|61674|(Wingding font)
+|Arrow        |  |arrow-left-heavy       |U+F0E7|61671|(Wingding font)
+|Arrow        |  |arrow-lower-left-heavy |U+F0ED|61677|(Wingding font)
+|Arrow        |  |arrow-lower-right-heavy|U+F0EE|61678|(Wingding font)
+|Arrow        |  |arrow-right-heavy      |U+F0E8|61672|(Wingding font)
+|Arrow        |  |arrow-up-heavy         |U+F0E9|61673|(Wingding font)
+|Arrow        |  |arrow-upper-left-heavy |U+F0EB|61675|(Wingding font)
+|Arrow        |  |arrow-upper-right-heavy|U+F0EC|61676|(Wingding font)
+|Arrow        |  |arrow-down-light             |U+F0E2|61666|(Wingding font)
+|Arrow        |  |arrow-left-light             |U+F0DF|61663|(Wingding font)
+|Arrow        |  |arrow-lower-left-light       |U+F0E5|61669|(Wingding font)
+|Arrow        |  |arrow-lower-right-light      |U+F0E6|61670|(Wingding font)
+|Arrow        |  |arrow-right-light            |U+F0E0|61664|(Wingding font)
+|Arrow        |  |arrow-up-light               |U+F0E1|61665|(Wingding font)
+|Arrow        |  |arrow-upper-left-light       |U+F0E3|61667|(Wingding font)
+|Arrow        |  |arrow-upper-right-light      |U+F0E4|61668|(Wingding font)
+|Arrow        |← |arrow-left               |U+2190|     |LEFTWARDS ARROW
+|Arrow        |↑ |arrow-up               |U+2191|     |UPWARDS ARROW
+|Arrow        |→ |arrow-right               |U+2192|     |RIGHTWARDS ARROW
+|Arrow        |↓ |arrow-down               |U+2193|     |DOWNWARDS ARROW
+|Arrow        |↔ |arrow-left-right               |U+2194|     |LEFT RIGHT ARROW
+|Arrow        |↕ |arrow-up-down               |U+2195|     |UP DOWN ARROW
+|Bullet       |  |box-cancelled    |U+F0FD|61693|(Wingding font)
+|Bullet       |  |box-checked      |U+F0FE|61694|(Wingding font)
+|Bullet       |  |box-empty        |U+F0A8|61608|(Wingding font)
+|Bullet       |  |cancel-mark      |U+F0FB|61691|(Wingding font)
+|Bullet       |  |check-mark       |U+F0FC|61692|(Wingding font)
+|Bullet       |  |crosshairs       |U+F0B1|61617|(Wingding font)
+|Bullet       |  |heavy-right      |U+F0E8|61672|(Wingding font)
+|Bullet       |  |right            |U+F0E0|61664|(Wingding font)
+|Bullet       |  |star-12-pointed  |U+F0AE|61614|(Wingding font)
+|Bullet       |  |star-3-pointed   |U+F0A9|61609|(Wingding font)
+|Bullet       |  |star-4-pointed   |U+F0AA|61610|(Wingding font)
+|Bullet       |  |star-5-pointed   |U+F0AB|61611|(Wingding font)
+|Bullet       |  |star-6-pointed   |U+F0AC|61612|(Wingding font)
+|Bullet       |  |star-8-pointed   |U+F0AD|61613|(Wingding font)
+|Bullet       |■ |  black-square              |U+25A0|     |BLACK SQUARE
+|Bullet       |□ |  white-square              |U+25A1|     |WHITE SQUARE
+|Bullet       |▪ |  black-small-square              |U+25AA|     |BLACK SMALL SQUARE
+|Bullet       |▫ |  white-small-square              |U+25AB|     |WHITE SMALL SQUARE
+|Bullet       |▲ |  triangle-up              |U+25B2|     |BLACK UP-POINTING TRIANGLE
+|Bullet       |► |  triangle-right              |U+25BA|     |BLACK RIGHT-POINTING POINTER
+|Bullet       |▼ |  triangle-down              |U+25BC|     |BLACK DOWN-POINTING TRIANGLE
+|Bullet       |◄ |  triangle-left              |U+25C4|     |BLACK LEFT-POINTING POINTER
+|Bullet       |○ |  white-circle              |U+25CB|     |WHITE CIRCLE
+|Bullet       |● |  black-circle              |U+25CF|     |BLACK CIRCLE
+|Bullet       |● |  bullet              |U+2022|8226 |BULLET
+|Bullet       |◦ |  white-bullet              |U+25E6|     |WHITE BULLET
+|Bullet       |⦾ | circled-white-bullet               |U+29BE|10686|CIRCLED WHITE BULLET
+|Bullet       |⦿ | circled-bullet               |U+29BF|10687|CIRCLED BULLET
+|Currency     |¢ |cent                 |U+A2  |162  |CENT SIGN
+|Currency     |£ |sterling                 |U+A3  |163  |POUND SIGN
+|Currency     |¥ |yen                 |U+A5  |165  |YEN SIGN
+|Currency     |€ |euro                 |U+20AC|8364 |EURO SIGN
+|Entertainment|« |rewind           |U+AB  |171  |LEFT-POINTING DOUBLE ANGLE QUOTATION MARK
+|Entertainment|» |fast-forward     |U+BB  |187  |RIGHT-POINTING DOUBLE ANGLE QUOTATION MARK
+|Entertainment|‖ |pause            |U+2016|     |DOUBLE VERTICAL LINE
+|Entertainment|■ |stop             |U+25A0|     |BLACK SQUARE
+|Entertainment|► |play             |U+25BA|     |BLACK RIGHT-POINTING POINTER
+|Entertainment|♠ |spades           |U+2660|     |BLACK SPADE SUIT
+|Entertainment|♣ |clubs            |U+2663|     |BLACK CLUB SUIT
+|Entertainment|♥ |hearts           |U+2665|     |BLACK HEART SUIT
+|Entertainment|♦ |diamonds         |U+2666|     |BLACK DIAMOND SUIT
+|Entertainment|♪ |music-note       |U+266A|     |EIGHTH NOTE
+|Entertainment|♫ |music-notes      |U+266B|     |BEAMED EIGHTH NOTES
+|Fraction     |¼ |quarter          |U+BC  |188  |VULGAR FRACTION ONE QUARTER
+|Fraction     |½ |half             |U+BD  |189  |VULGAR FRACTION ONE HALF
+|Fraction     |¾ |three-quarters   |U+BE  |190  |VULGAR FRACTION THREE QUARTERS
+|Fraction     |⁄ |fraction-slash                 |U+2044|8260 |VULGAR FRACTION SLASH
+|Fraction     |⅓ |third            |U+2153|8531 |VULGAR FRACTION ONE THIRD
+|Fraction     |⅔ |two-thirds       |U+2154|8532 |VULGAR FRACTION TWO THIRDS
+|Fraction     |⅕ |fifth                 |U+2155|8533 |VULGAR FRACTION ONE FIFTH
+|Fraction     |⅖ |two-fifths                 |U+2155|8533 |VULGAR FRACTION TWO FIFTHS
+|Fraction     |⅗ |three-fifths                 |U+2157|8535 |VULGAR FRACTION THREE FIFTHS
+|Fraction     |⅘ |four-fifths                 |U+2158|8536 |VULGAR FRACTION FOUR FIFTHS
+|Fraction     |⅙ |sixth                 |U+2159|8537 |VULGAR FRACTION ONE SIXTH
+|Fraction     |⅚ |five-sixths                 |U+215A|8538 |VULGAR FRACTION FIVE SIXTHS
+|Fraction     |⅛ |eighth           |U+215B|8539 |VULGAR FRACTION ONE EIGHTH
+|Fraction     |⅜ |three-eighths    |U+215C|8540 |VULGAR FRACTION THREE EIGHTHS
+|Fraction     |⅝ |five-eighths     |U+215D|8541 |VULGAR FRACTION FIVE EIGHTHS
+|Fraction     |⅞ |seven-eighths    |U+215E|8542 |VULGAR FRACTION SEVEN EIGHTHS
+|Greek        |Δ |cap-delta        |U+394 |916  |GREEK CAPITAL LETTER DELTA
+|Greek        |Θ |cap-theta        |U+398 |920  |GREEK CAPITAL LETTER THETA
+|Greek        |Λ |cap-lambda       |U+39B |923  |GREEK CAPITAL LETTER LAMBDA
+|Greek        |π |pi               |U+3C0 |960  |GREEK SMALL LETTER PI
+|Greek        |Σ |cap-sigma        |U+3A3 |931  |GREEK CAPITAL LETTER SIGMA
+|Greek        |Ω |cap-omega        |U+3A9 |937  |GREEK CAPITAL LETTER OMEGA
+|Invisible    |  |em-space                 |U+2003|8195 |EM SPACE
+|Invisible    |  |en-space                 |U+2002|8194 |EN SPACE
+|Invisible    |  |narrow-nb-space                 |U+202F|8239 |NARROW NO-BREAK SPACE
+|Invisible    |  |nb-space                 |U+A0  |160  |NO-BREAK SPACE
+|Invisible    |  |nb-hyphen                 |U+2011|8209 |NON-BREAKING HYPHEN
+|Invisible    |  |soft-hyphen                 |U+AD  |173  |SOFT HYPHEN
+|Invisible    |  |space                 |U+20  |32   |SPACE
+|Invisible    |  |thin-space                 |U+2009|8201 |THIN SPACE
+|Invisible    |  |zero-width-space                 |U+200B|8203 |ZERO WIDTH SPACE
+|Legal        |§ | section               |U+A7  |167  |SECTION SIGN
+|Legal        |© | copyright               |U+A9  |169  |COPYRIGHT SIGN
+|Legal        |® | registered               |U+AE  |174  |REGISTERED SIGN
+|Legal        |℠ | service-mark               |U+2120|8480 |SERVICE MARK
+|Legal        |™ | trademark               |U+2122|8482 |TRADE MARK SIGN
+|Numeric      |№ |numero           |U+2116|8470 |NUMERO SIGN
+|Numeric      |∞ |infinity         |U+221E|8734 |INFINITY
+|Operator     |× |times            |U+D7  |215  |MULTIPLICATION SIGN
+|Operator     |÷ |divide           |U+F7  |247  |DIVISION SIGN
+|Operator     |≈ |aprox            |U+2248|8776 |ALMOST EQUAL TO
+|Operator     |≠ |ne               |U+2260|8800 |NOT EQUAL TO
+|Operator     |≤ |le               |U+2264|8804 |LESS-THAN OR EQUAL TO
+|Operator     |≥ |ge               |U+2265|8805 |GREATER-THAN OR EQUAL TO
+|Typesetting  |\^|caret            |U+5E  |94   |CIRCUMFLEX ACCENT
+|Typesetting  |\`|grave            |U+60  |96   |GRAVE ACCENT
+|Typesetting  |\~|tilde            |U+7E  |126  |TILDE
+|Typesetting  |§ |section          |U+A7  |167  |SECTION SIGN
+|Typesetting  |´ |accent           |U+B4  |180  |ACUTE ACCENT
+|Typesetting  |– |en-dash          |U+2013|     |EN DASH
+|Typesetting  |— |em-dash          |U+2014|     |EM DASH
+|Typesetting  |‘ |lsquo            |U+201C|8220 |LEFT SINGLE QUOTATION MARK
+|Typesetting  |’ |rsquo            |U+201C|8220 |RIGHT SINGLE QUOTATION MARK
+|Typesetting  |“ |ldquo            |U+201C|8220 |LEFT DOUBLE QUOTATION MARK
+|Typesetting  |” |ditto            |U+201C|8220 |RIGHT DOUBLE QUOTATION MARK
+|Typesetting  |” |rdquo            |U+201C|8220 |RIGHT DOUBLE QUOTATION MARK
+|Typesetting  |† |dagger                 |U+2020|8224 |DAGGER
+|Typesetting  |‡ |double-dagger                 |U+2021|8225 |DOUBLE DAGGER
+|Typesetting  |⸗ |hyphen2          |U+2E17|11799|DOUBLE OBLIQUE HYPHEN
+|Unit         |° |deg              |U+B0  |176  |DEGREE SIGN
+|Unit         |’ |foot             |U+201C|8220 |RIGHT SINGLE QUOTATION MARK
+|Unit         |” |inch             |U+201C|8220 |RIGHT DOUBLE QUOTATION MARK
+|===

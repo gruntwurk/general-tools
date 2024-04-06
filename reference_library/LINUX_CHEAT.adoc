@@ -10,6 +10,9 @@ toc::[]
 These notes particularly pertain to *Debian-flavored distros* (Ubuntu, Mint).
 Adjust accordingly.
 
+
+
+[[key-bindings]]
 == Key Bindings
 
 [width="100%",cols="",options="header"]
@@ -20,48 +23,74 @@ Adjust accordingly.
 |===
 
 
+
+[[commands]]
 == Frequently Used Commands
 
-[width="100%"]
-|===
-| Category  | Command            | Function
-| Access    | `scp`              | secure file copy
-| Access    | `ssh`              | secure shell 
-| Files     | `cat`              | concatenates (prints) the contents of a file(s)
-| Files     | `cp`               | copy a file
-| Files     | `mv`               | move a file
-| Files     | `rm`               | remove a file
-| Files     | `rmdir`            | remove a directory
-| Files     | `chmod`            | change the attributes (modifiers) of a file
-| Files     | `chown`            | change the ownership of a file
-| Files     | `df -k`            | shows info about the filesystem
-| Files     | `grep`             | find occurrences of text in file(s)
-| Files     | `ls`               | list files
-| Files     | `more`             | displays text one screen-full at a time
-| Files     | `pwd`              | prints the name of the current directory
-| Files     | `tail`             | print the last N lines of a file (e.g of a log file)
-| Files     | `which`            | Show which copy of a command will execute
-| Files     | `whereis`          | Locate binary, source, and manual-page files for a command
-| System    | `alias`            | defines a command alias
-| System    | `date`             | show or change the date
-| System    | `kill`             | kill a process (by pid number) -- see below
-| System    | `killall`          | kill a process (by name) -- see below
-| System    | `shutdown -r now`  | reboot
-| System    | `sudo`             | run the following command as if logged in as root
-| System    | `uname -a`         | shows system info
-| Terminal  | `clear`            | clears the terminal
-| Terminal  | `exit`             | close the terminal 
-| Terminal  | `script`           | records the terminal session
-| Users     | `adduser`          | create a new user account (newer, friendlier version of `useradd`)
-| Users     | `passwd`           | change the logged-in user's password
-| Users     | `su`               | Temporarily switch to (log in as) another user (use `exit` to switch back)
-| Users     | `userdel –r`       | destroy a user account
-| Users     | `who`              | shows users who are currently logged in
-| Users     | `whoami`           | show who you are logged in as
-|===
+=== Access
+
+scp:: secure file copy
+ssh:: secure shell
+
+=== Files
+
+cat:: concatenates (prints) the contents of a file(s)
+cp:: copy a file
+mv:: move a file
+rm:: remove a file
+rmdir:: remove a directory
+chmod:: change the attributes (modifiers) of a file
+chown:: change the ownership of a file
+df -k:: shows info about the filesystem
+grep:: find occurrences of text in file(s)
+ls:: list files
+more:: displays text one screen-full at a time
+pwd:: prints the name of the current directory
+tail:: print the last N lines of a file (e.g of a log file)
+which:: Show which copy of a command will execute
+whereis:: Locate binary, source, and manual-page files for a command
+
+==== Make a directory tree (the fast way)
+
+`mkdir -p a/deep/directory/tree`
+
+=== System
+
+alias:: defines a command alias
+date:: show or change the date
+kill:: kill a process (by pid number) -- see below
+killall:: kill a process (by name) -- see below
+shutdown -r now:: reboot
+sudo:: run the following command as if logged in as root
+uname -a:: shows system info
+
+=== Terminal
+
+clear:: clears the terminal
+exit:: close the terminal
+script:: records the terminal session
+
+=== Users
+
+adduser:: create a new user account (newer, friendlier version of `useradd`)
+passwd:: change the logged-in user's password
+su:: Temporarily switch to (log in as) another user (use `exit` to switch back)
+userdel –r:: destroy a user account
+who:: shows users who are currently logged in
+whoami:: show who you are logged in as
 
 
-== File System
+
+
+== ALIAS -- Create your own commands
+Add alias definitions to `~/.bash_profile` to make them persistent between sessions.
+
+`alias mattsdb='mysql -u matt -p mattsdb -h example.com'`
+
+
+
+[[folder-tree]]
+== The Linux Folder Tree
 
 [width="100%",cols="",options="header"]
 |===
@@ -81,6 +110,8 @@ Adjust accordingly.
 |===
 
 
+
+[[system-operations]]
 == System Operations
 
 === Kill a process by name
@@ -90,6 +121,9 @@ Running `kill` will terminate a process but you have to know the PID (process ID
 For example: `killall -9 httpd` will kill all the processes that are httpd. 
 The -9 basically kills the process with extreme prejudice, it will die immediately. 
 Be careful when using this on processes that need to do cleanup before they die.
+
+=== Reboot
+  `shutdown -r now`
 
 
 
@@ -104,3 +138,43 @@ Be careful when using this on processes that need to do cleanup before they die.
 
 `apt install apache2`
 `sudo systemctl start apache2`
+
+
+=== RSync
+Setting up to RSync from Windows to Linux (either to push/publish the latest software build, or to pull a backup).
+. Install CygWin with RSync and OpenSSH on the Windows box
+. Make sure you are logged in on the Windows box with user Id that does not contain any spaces
+. Open a cygwin window and run
+----
+ssh-keygen -f rsync.private.key -t rsa -C "backupkey" -N ""
+ssh $remotehost "adduser backupuser;mkdir ~backupuser/.ssh;echo "$public_key" &gt; ~backupuser/.ssh/authorized_keys"
+----
+
+=== Sendmail
+* Starting/Stopping/Restarting sendmail
+----
+service sendmail stop
+service sendmail restart
+service sendmail start
+----
+
+=== POP Relay
+tarpitting - This just makes the server act as though it is running slow if a spammer really starts to hammer a server instead of denying the connection.
+
+
+
+=== Upgrading Software
+Upgrading software on Linux
+See http://www.linuxquestions.org/linux/answers/Applications_GUI_Multimedia/Using_yum_to_update_and_install_applications
+. If the server has cPanel/WHM installed, upgrade software strictly through WHM.
+. You could use
+  `yum check-update` to look for updates, but don't install them
+  `yum update` -- look for updates, and install them
+  `yum upgrade`
+Those two commands should upgrade all apps on your server, though not entirely sure if it will upgrade php and MySQL to the latest v5 version.
+. It would be best to upgrade through source.
+For PHP: Download the source, run ./configure using the original variables (these can be seen from a phpinfo() page) then do a make andand make install and you should be good.
+For MySQL, download the souce package and extract it.
+You will then need to overwrite all of the older binaries and language files then kill and start back up MySQL.
+
+

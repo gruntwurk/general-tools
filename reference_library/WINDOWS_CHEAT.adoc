@@ -2,51 +2,264 @@
 polyglot-jones
 v0.01, 4/20/2021
 
-:toc:
-:toc-placement!:
+== Quick Jumps
 
-toc::[]
-
-
-
-
-== Useful Shortcut Keys (just the lesser known)
-
-* Win+Shift+S = Capture Screen Snippet
-* Ctrl+Backspace = Delete Entire Words
-* Win+arrow = Snap Windows
-* Win+A = Open Action Center (e.g. brightness)
-* Win+H = Open Speech Recognition (must be enabled in Privacy Settings and configured in Time & Speech)
-* Win+V = Cloud clipboard (with clipboard history)
-* Win+Plus = Magnify Screen (Win+=, actually)
-* Win+Minus = Un-Magnify Screen
-* Win+Esc = Close magnifier
-* Win+Period = Insert symbol or emoji 
-
-NOTE: Use properties to create custom shortcuts on executables/files/folders
-
-* Win+G = Open/Close Game Bar (incl. general-purpose recording modes)
-* Win+I = Open Settings
-* Win+X = Open Hidden Quick Link Menu
-* Win = Reopen Browser Tabs
-* Win+Tab = Create a New Virtual Desktop
+* <<boot-problems,Boot Problems>>, Diagnosing
+* <<de-bloat,De-Bloat>>
+* <<encryption,Encryption>> and Wiping
+* <<install-media,Install Media>> (Obtaining an ISO)
+* <<optimization,Optimization>> of Windows 10
+* <<powertoys,PowerToys>>
+* <<recovery-environment,Recovery Environment>> (aka. Windows RE)
+* <<safe-mode,Safe Mode>>, booting into
+* <<shortcut-keys,Shortcut Keys>> (just the lesser known)
+* <<sysinternals,SysInternals>> Suite
+* <<troubleshooting,Troubleshooting>>/Diagnostics
+* <<windows-update,Windows Update>>
+* <<wsl,WSL>> -- Windows Subsystem for Linux (Ubuntu based)
 
 
-== Troubleshooting/Diagnostics
 
-=== Checking for File Corruption
+== Newly Added Notes Yet to be Organized
 
-* `chkdisk c: /r`
-* System File Checker: `sfc /scannow` (as Admin) -- Adds to `C:\Windows\Logs\CBS\CBS.log`; Always restart after.
-* Deployment, Imaging, Servicing and Management command: `DISM /Online /Cleanup-Image /RestoreHealth` --  Adds to `C:\Windows\Logs\CBS\CBS.log`; Always restart after, then repeat sfc.
+* `fc file1 file2` -- file compare (preinstalled DOS command)
+* `ipconfig /all` -- (preinstalled DOS command)
+* `ipconfig /flushdns` -- (preinstalled DOS command)
+* `netsh wlan show wlanreport` -- (preinstalled DOS command)
+* `ping` -- (preinstalled DOS command)
+* `powercfg /batteryreport` -- (preinstalled DOS command)
+* `powercfg /energy` -- (preinstalled DOS command)
+* `taskkill /f /t /pid nnn` -- (preinstalled DOS command)
+* `tasklist` -- (preinstalled DOS command)
+* `tracert` -- (preinstalled DOS command)
+* Use Charmap with pTouch
 
-=== Other Diagnostics
 
-* Reliability History Monitor: (Search Bar> "reliability")
-* `powercfg /batteryreport`
+https://www.youtube.com/watch?v=pm3bvkl3yEk[]
+https://www.youtube.com/watch?v=tx48Ela6AFU[]
 
 
-=== Booting into Safe Mode
+
+
+[[boot-problems]]
+== Boot Problems, Diagnosing
+
+{sa} <<troubleshooting,Troubleshooting>>/Diagnostics
+
+=== Disabling Bad Software that Auto-Executes
+
+If Windows won’t start because of a recently added program that runs at startup, you can use the `msconfig` utility to disable startup services or software applications:
+
+. Run `msconfig` (in <<safe-mode,Safe Mode>>)
+. Disable any/all suspect entries under the "Startup" tab and/or "Services" tab
+. Reboot
+
+=== Repair In Situ
+
+Using the <<install-media,Install Media>> to repair in situ:
+
+(Per ThioJoe https://www.youtube.com/watch?v=yidWdy-Xwdk[])
+
+. DO NOT boot from the burned media. Instead, while Windows is still running, just mount the ISO file (right click > mount).
+. Run `setup.exe`
+. Click "Change how Windows Setup downloads updates" > "Not right now."
+. *DOUBLE CHECK* the "Ready to Install" screen: Is it installing the correct version of Windows? Is it keeping personal files and apps?
+. It will reboot several times.
+
+=== Using Bootrec.exe
+
+The `Bootrec.exe` tool runs within the <<recovery-environment,Recovery Environment>> (aka. Windows RE).
+
+It operates on the following items:
+
+* A master boot record (MBR)
+* A boot sector
+* A Boot Configuration Data (BCD) store
+* You can also use the Bootrec.exe tool to troubleshoot a "Windows Boot Configuration Data file is missing required information" error.
+
+. Run each of the four bootrec variants, as follows, in order:
+
+* `Bootrec.exe /FixMbr` -- writes a Windows-compatible MBR to the system partition. It does not overwrite the existing partition table. This may resolve MBR corruption issues. It can also remove nonstandard code from the MBR.
+
+* `Bootrec.exe /FixBoot` -- writes a new boot sector to the system partition by using a boot sector that's compatible with Windows. This can resolve the following situations: (a) the boot sector was replaced with a nonstandard boot sector, or (b) the boot sector is damaged, or (c) an earlier Windows operating system was installed over a newer one. In this situation, the computer starts by using Windows NT Loader (NTLDR) instead of Windows Boot Manager (Bootmgr.exe).
+
+* `Bootrec.exe /ScanOs` -- scans all disks for installations that are compatible with Windows. It also displays the entries that are currently not in the BCD store. Use this option when there are Windows installations that the Boot Manager menu does not list.
+
+* `Bootrec.exe /RebuildBcd` -- scans all disks for installations that are compatible with Windows. Additionally, it lets you select the installations that you want to add to the BCD store. Use this option when you must completely rebuild the BCD store.
+
+[[hard-rebuild-bcd]]
+=== Doing a Hard-Rebuild of the BCD
+
+Running `bootrec /RebuildBcd` alone may not work (i.e. the system still won't boot).
+Try doing a hard rebuild, as follows:
+----
+bcdedit /export C:\BCD_Backup
+c:
+cd boot
+attrib bcd -s -h -r
+ren c:\boot\bcd bcd.old
+bootrec /RebuildBcd
+----
+
+[[activate-partition]]
+=== Making Sure the Partition is Active
+
+----
+diskpart
+list disk
+select disk 0   (where 0 is the number of your disk)
+list partition
+select partition 0   (where 0 is the number of your partition number)
+active
+exit
+----
+
+[[fix-efi-bootloader]]
+=== Fixing the EFI bootloader (Windows 8+)
+
+----
+diskpart
+sel disk 0
+list vol
+sel vol 2   (where 2 is the volume number that has FAT32 under the FS column)
+assign letter=x:   (where x is an unused drive letter)
+exit
+cd /d x:\EFI\Microsoft\Boot\
+bootrec /fixboot
+ren BCD BCD.Backup
+bcdboot c:\Windows /l en-us /s x: /f ALL
+exit
+----
+Remove the media and reboot.
+
+=== Specific Boot Issues
+
+[qanda]
+`bootrec /ScanOs` reports 0 installations of Windows found::
+----
+ren c:\bootmgr bootmgrbackup
+bootrec /RebuildBcd
+bootrec /FixBoot
+----
+
+[qanda]
+"Bootmgr Is Missing" error::
+Try doing a <<hard-rebuild-bcd,hard-rebuild>>.
+
+[qanda]
+"Element not found" error::
+Try doing a <<hard-rebuild-bcd,hard-rebuild>>.
+If you have a SATA cable, move it to another port.
+Make sure the <<activate-partition,partition is active>>.
+
+
+
+[[de-bloat]]
+== De-Bloat
+
+. Download script from https://github.com/Sycnex/Windows10Debloater[]
+. Open powershell as admin
+. `Set-ExecutionPolicy unrestricted`
+. `.\Windows10Debloater.ps1`
+. R (run once)
+
+
+
+[[encryption]]
+== Encryption and Wiping
+
+* `cipher /e (folder)` -- turn on encryption for the given folder (preinstalled DOS command)
+* `cipher /d (folder)` -- decrypt (turn off encryption)
+* `cipher /w (drive)` -- *wipe free space*
+* SDelete (`sdelete64.exe`) -- Secure delete of files/folders/free-space (<<sysinternals,SysInternals>>)
+
+
+
+[[install-media]]
+== Install Media (Obtaining an ISO)
+
+Using the Windows Media Creation Tool to obtain the install media as an ISO:
+
+. Download the Windows Media Creation Tool.
+. The version number will be in the filename. Verify that WMCT >= Windows.
+. Run the tool and have it create installation media.
+. Make sure the specific language, edition, and architecture are selected (not "Both" or whatever).
+. Create an ISO file.
+. Burn the ISO file to USB memory.
+
+
+
+[[optimization]]
+== Optimization of Windows 10
+
+* Sycnex's <<de-bloat,De-Bloat>> script
+* <<windows-update,Windows Update>> -- MS Windows Update defaults to having your PC act as a mirror for updating other PCs.
+
+=== PC Settings
+
+. Apps > Startup -- (review)
+. Account > Sign-in Options -- (uncheck) Use my sign-in info to automatically...
+. Privacy > General -- (uncheck all)
+. Privacy > Speech -- (uncheck all)
+. Privacy > Inking/Typing -- (uncheck all)
+. Privacy > Diag/Feedback -- (all basic/off); Feedback = never
+. Privacy > Location -- (uncheck all)
+. Privacy > Background Apps -- (uncheck all)
+. Privacy > App Diagnostics -- (uncheck all)
+
+
+=== Indexing
+
+. C-Drive properties > (uncheck) Allows files...indexed
+
+=== Restore Points
+
+. Control Panel > System Properties > System Protection
+. Highlight the "system" drive
+. Click the Configure button
+. (check) System protection and set the maximum disk space to 3%
+
+=== Uninstall IE, etc.
+
+Control Panel > Programs and Features > Windows Features
+
+* (uncheck) IE 11
+* (uncheck) Windows Media Player
+
+Click OK
+
+
+
+[[powertoys]]
+== PowerToys
+
+https://www.youtube.com/watch?v=o8TP-7XrVqY[] @ThioJoe "Microsoft's Secret Windows Tools for Power Users"
+https://www.youtube.com/watch?v=JinQIyEhfew[] @ThioJoe "The Coolest New Tools in Microsoft PowerToys"
+
+https://github.com/microsoft/PowerToys/releases/[]
+
+* Fancy Zones -- window snapping behavior
+* PowerToys Run -- Alt+Space launcher
+* Shortcut Guide -- Hold Win for .9 sec
+* (new) Mouse Without Borders -- Synergy rival
+
+
+
+[[recovery-environment]]
+== Recovery Environment (aka. Windows RE)
+
+To launch the Recovery Environment,
+
+. Boot from the <<install-media,install media>>.
+. Select a language, keyboard, etc.
+. Click "Repair your computer" (far lower left corner)
+. Select the operating system that you want to repair, and then click Next.
+. In the System Recovery Options dialog box, click "Command Prompt."
+
+
+
+[[safe-mode]]
+== Safe Mode, booting into
 
 First Method:
 
@@ -79,175 +292,39 @@ Fourth Method:
 Note: This will boot safe mode every time until countered... `bcdedit /deletevalue {default} safeboot`
 
 
-=== Using the Windows Media Creation Tool to Obtain the Install Media
 
-. Download the Windows Media Creation Tool.
-. The version number will be in the filename. Verify that WMCT >= Windows.
-. Run the tool and have it create installation media.
-. Make sure the specific language, edition, and architecture are selected (not "Both" or whatever).
-. Create an ISO file.
-. Burn the ISO file to USB memory.
+[[shortcut-keys]]
+== Shortcut Keys (just the lesser known)
 
+* Win+Shift+S = *Screen capture* a snippet
+* Win = Reopen Browser Tabs
+* Ctrl+Backspace/Ctrl+Delete = *Delete Entire Words*
+* Win+arrow = *Snap Windows*
+* Win+I = Open Settings
+* Win+A = Open Action Center (e.g. brightness)
+* Win+H = Open Speech Recognition (must be enabled in Privacy Settings and configured in Time & Speech)
+* Win+Tab = Create a New *Virtual Desktop*
+* Win+X = Open Hidden Quick Link Menu
+* Win+V = Cloud clipboard (with *clipboard history*)
+* Win+G = Open/Close Game Bar (incl. general-purpose *recording modes*)
+* Win+Plus = *Magnify Screen* (Win+=, actually)
+* Win+Minus = Un-Magnify Screen
+* Win+Esc = Close magnifier
+* Win+Period = *Insert symbol* or emoji
 
-=== Launching the Recovery Environment
-
-. Boot from the installation media.
-. Select a language, keyboard, etc.
-. Click "Repair your computer" (far lower left corner)
-. Select the operating system that you want to repair, and then click Next.
-. In the System Recovery Options dialog box, click "Command Prompt."
-
-
-
-== Diagnosing Boot Problems
-
-=== Disabling Bad Software that Auto-Executes
-
-If Windows won’t start because of a recently added program that runs at startup, you can use the msconfig utility to disable startup services or software applications:
-
-. Run `msconfig` (in Safe Mode)
-. Disable any/all suspect entries under the "Startup" tab and/or "Services" tab
-. Reboot
-
-
-=== Using the Install Media to Repair In Situ
-
-(Per ThioJoe https://www.youtube.com/watch?v=yidWdy-Xwdk)
-
-. DO NOT boot from the burned media. Instead, while Windows is still running, just mount the ISO file (right click > mount).
-. Run setup.exe
-. Click "Change how Windows Setup downloads updates" > "Not right now."
-. DOUBLE CHECK the "Ready to Install" screen: Is it installing the correct version of Windows? Is it keeping personal files and apps?
-. It will reboot several times.
-
-
-=== Using Bootrec.exe
-
-The Bootrec.exe tool runs within the Recovery Environment (Windows RE).
-
-It operates on the following items:
-
-* A master boot record (MBR)
-* A boot sector
-* A Boot Configuration Data (BCD) store
-* You can also use the Bootrec.exe tool to troubleshoot a "Windows Boot Configuration Data file is missing required information" error.
-
-. Run each of the four bootrec variants, as follows, in order:
-
-* `Bootrec.exe /FixMbr` -- writes a Windows-compatible MBR to the system partition. It does not overwrite the existing partition table. This may resolve MBR corruption issues. It can also remove nonstandard code from the MBR.
-
-* `Bootrec.exe /FixBoot` -- writes a new boot sector to the system partition by using a boot sector that's compatible with Windows. This can resolve the following situations: (a) the boot sector was replaced with a nonstandard boot sector, or (b) the boot sector is damaged, or (c) an earlier Windows operating system was installed over a newer one. In this situation, the computer starts by using Windows NT Loader (NTLDR) instead of Windows Boot Manager (Bootmgr.exe).
-
-* `Bootrec.exe /ScanOs` -- scans all disks for installations that are compatible with Windows. It also displays the entries that are currently not in the BCD store. Use this option when there are Windows installations that the Boot Manager menu does not list.
-
-* `Bootrec.exe /RebuildBcd` -- scans all disks for installations that are compatible with Windows. Additionally, it lets you select the installations that you want to add to the BCD store. Use this option when you must completely rebuild the BCD store.
-
-
-
-[[hard-rebuild-bcd]]
-=== Doing a Hard-Rebuild of the BCD
-
-Running `bootrec /RebuildBcd` alone may not work (i.e. the system still won't boot).
-Try doing a hard rebuild, as follows:
-----
-bcdedit /export C:\BCD_Backup
-c:
-cd boot
-attrib bcd -s -h -r
-ren c:\boot\bcd bcd.old
-bootrec /RebuildBcd
-----
-
-
-[[activate-partition]]
-=== Making Sure the Partition is Active
-
-----
-diskpart
-list disk
-select disk 0   (where 0 is the number of your disk)
-list partition
-select partition 0   (where 0 is the number of your partition number)
-active
-exit
-----
-
-
-[[fix-efi-bootloader]]
-=== Fixing the EFI bootloader (Windows 8+)
-
-----
-diskpart
-sel disk 0
-list vol
-sel vol 2   (where 2 is the volume number that has FAT32 under the FS column)
-assign letter=x:   (where x is an unused drive letter)
-exit
-cd /d x:\EFI\Microsoft\Boot\
-bootrec /fixboot
-ren BCD BCD.Backup
-bcdboot c:\Windows /l en-us /s x: /f ALL
-exit
-----
-Remove the media and reboot.
+NOTE: Use properties to create custom shortcuts on executables/files/folders
 
 
 
 
-=== Specific Boot Issues
+[[sysinternals]]
+== SysInternals Suite
 
-[qanda]
-`bootrec /ScanOs` reports 0 installations of Windows found::
-----
-ren c:\bootmgr bootmgrbackup
-bootrec /RebuildBcd
-bootrec /FixBoot
-----
+https://www.youtube.com/watch?v=KPaZhqCpTXw[] ThioJoe: 13 Awesome Windows Software Tools You've Never Heard Of
 
-[qanda]
-"Bootmgr Is Missing" error::
-Try doing a <<hard-rebuild-bcd,hard-rebuild>>.
+https://docs.microsoft.com/en-us/sysinternals/downloads[]
 
-[qanda]
-"Element not found" error::
-Try doing a <<hard-rebuild-bcd,hard-rebuild>>.
-If you have a SATA cable, move it to another port.
-Make sure the <<activate-partition,partition is active>>.
-
-
-
-
-
-== Misc. Utilities (DOS Commands)
-
-=== Pre-Installed Commands
-
-* cipher /e (folder) -- turn on encryption for the given folder
-* cipher /d (folder) -- decrypt (turn off encryption)
-* cipher /w (drive) -- wipe free space
-* fc file1 file2 -- file compare
-* ipconfig /all
-* ipconfig /flushdns
-* netsh wlan show wlanreport
-* ping
-* powercfg /batteryreport
-* powercfg /energy
-* taskkill /f /t /pid nnn
-* tasklist
-* tracert
-
-=== Windows Subsystem for Linux (Ubuntu based)
-
-. Settings > Update and Security > For Developers > Developer Mode
-. Turn Windows Features On/Off > [x] Windows Subsystem for Linux (Beta)
-. (Reboot)
-. Search Bar> "bash"
-
-=== SysInternals Suite
-
-https://docs.microsoft.com/en-us/sysinternals/downloads
-
-The Suite is a bundling of the following selected Sysinternals Utilities: 
+The Suite is a bundling of the following selected Sysinternals Utilities:
 
 * AccessChk
 * AccessEnum
@@ -255,7 +332,7 @@ The Suite is a bundling of the following selected Sysinternals Utilities:
 * AdInsight
 * AdRestore
 * Autologon
-* Autoruns -- Diagnose programs that auto start
+* Autoruns -- Diagnose *programs that auto start*
 * BgInfo
 * BlueScreen
 * CacheSet
@@ -272,15 +349,15 @@ The Suite is a bundling of the following selected Sysinternals Utilities:
 * Disk Usage (DU)
 * EFSDump
 * FindLinks
-* Handle -- Show file-in-use info
+* Handle -- *Show file-in-use info*
 * Hex2dec
-* Junction -- Create/Delete symbolic links
+* Junction -- Create/Delete *symbolic links*
 * LDMDump
 * ListDLLs
 * LiveKd
 * LoadOrder
 * LogonSessions
-* MoveFile -- Queues files (that are currently in use) to be moved upon restart; PendMoves shows the queue
+* MoveFile -- Queue up files (that are currently in use) to be *moved/deleted upon restart*; PendMoves shows the queue
 * NotMyFault
 * NTFSInfo
 * PageDefrag
@@ -288,100 +365,98 @@ The Suite is a bundling of the following selected Sysinternals Utilities:
 * PipeList
 * PortMon
 * ProcDump
-* Process Explorer (procexp64.exe) -- Task Manager on Steroids (e.g. what resources are blocked by whom)
+* Process Explorer (procexp64.exe) -- *Task Manager on Steroids* (e.g. what resources are blocked by whom)
 * Process Monitor
-* PsExec
-* PsFile
-* PsGetSid
-* PsInfo
-* PsKill -- Kill a  process
-* PsList -- Show processes
-* PsLoggedOn
-* PsLogList
-* PsPasswd
-* PsPing
-* PsService
-* PsShutdown
-* PsSuspend
-* PsTools
+* PsExec - execute processes remotely
+* PsFile - shows files opened remotely
+* PsGetSid - display the SID of a computer or a user
+* PsInfo - list information about a system
+* PsKill - *kill processes* by name or process ID
+* PsList - list detailed *process information*
+* PsLoggedOn - see who's logged on locally and via resource sharing (full source is included)
+* PsLogList - dump event log records
+* PsPasswd - changes account passwords
+* PsPing - measure network performance
+* PsService - view and control services
+* PsShutdown - shuts down and optionally reboots a computer
+* PsSuspend - suspends processes
+* PsTools -- Collectively, the `Ps*` commands are documented at https://learn.microsoft.com/en-us/sysinternals/downloads/pstools[]
 * RAMMap
 * RegDelNull
 * RegHide
 * RegJump
 * Registry Usage (RU)
-* SDelete (sdelete64.exe) -- Secure delete of files/folders/free-space
+* SDelete (sdelete64.exe) -- *Secure delete* of files/folders/free-space
 * ShareEnum
 * ShellRunas
-* Sigcheck -- Analyzes files that aren't digitally signed (like malware)
+* Sigcheck -- Analyzes files that aren't *digitally signed* (like malware)
 * Streams
 * Strings
 * Sync
 * Sysmon
-* TCPView -- Network diagnostics
+* TCPView -- *Network activity diagnostics* (e.g. w/convenient link to whois)
 * VMMap
 * VolumeID
 * WhoIs
 * WinObj
-* ZoomIt
+* ZoomIt -- Same as W10's Screen Magnifier?
 
 
 
-== Windows 10 Optimization
+== Task Manager
 
-=== Windows Update
+{s} The <<sysinternals,SysInternals>> Process Explorer (procexp64.exe)
+
+
+
+[[troubleshooting]]
+== Troubleshooting/Diagnostics
+
+{sa} Diagnosing <<boot-problems,Boot Problems>>, <<windows-update,Windows Update>>, <<install-media,Install Media>>, <<recovery-environment,Environment Recovery>>, booting into <<safe-mode,Safe Mode>>.
+
+=== Error Lookup Tool
+
+The Error Lookup Tool, also known as `Err.exe`, is a command-line tool to decode many Microsoft error codes. It does not require elevation and is very easy to use. https://www.microsoft.com/en-us/download/details.aspx?id=100432[]
+
+@ThioJoe's Error-Lookup-Tool-Friendly.bat https://gist.github.com/ThioJoe/7ceac4e56bfa1ea9807150ac07a998e0[]
+
+=== Checking for File Corruption
+
+* `chkdisk c: /r`
+* System File Checker: `sfc /scannow` (as Admin) -- Adds to `C:\Windows\Logs\CBS\CBS.log`; Always restart after.
+* Deployment, Imaging, Servicing and Management command: `DISM /Online /Cleanup-Image /RestoreHealth` --  Adds to `C:\Windows\Logs\CBS\CBS.log`; Always restart after, then repeat sfc.
+
+=== Other Diagnostics
+
+* Reliability History Monitor: (Search Bar> "reliability")
+* `powercfg /batteryreport`
+* Use <<sysinternals,SysInternals>> `autoruns` to Diagnose programs that auto start
+
+
+
+[[windows-update]]
+== Windows Update
+
+MS Windows Update defaults to having your PC act as a mirror for updating other PCs.
 
 * Windows Update> Advanced Settings > Delivery Optimization > (uncheck) Allow Downloads from other PCs
 
-=== De-Bloat
 
-. Download script from github.com/Sycnex/Windows10Debloater
-. Open powershell as admin
-. Set-ExecutionPolicy unrestricted
-. .\Windows10Debloater.ps1
-. R (run once)
 
-=== PC Settings
+== Wiping
 
-. Apps > Startup -- (review)
-. Account > Sign-in Options -- (uncheck) Use my sign-in info to automatically...
-. Privacy > General -- (uncheck all)
-. Privacy > Speech -- (uncheck all)
-. Privacy > Inking/Typing -- (uncheck all)
-. Privacy > Diag/Feedback -- (all basic/off); Feedback = never
-. Privacy > Location -- (uncheck all)
-. Privacy > Background Apps -- (uncheck all)
-. Privacy > App Diagnostics -- (uncheck all)
-
-Expected Startup Apps:
-
-* AVG
-* Alps Pointing-device Driver
-* Classic Start Menu (IvoSoft)
-* Delayed Launcher (Intel)
-* Dropbox
-* HD Audio Background Process
-* Realteck HD Audio Manager
-* Windows Security Notify
-
-=== Indexing
-
-. C-Drive properties > (uncheck) Allows files...indexed
-
-=== Restore Points
-
-. Control Panel > System Properties > System Protection
-. Highlight the "system" drive
-. Click the Configure button
-. (check) System protection and set the maximum disk space to 3%
-
-=== Uninstall IE, etc.
-
-Control Panel > Programs and Features > Windows Features
-
-* (uncheck) IE 11
-* (uncheck) Windows Media Player
-
-Click OK
+{s} <<encryption,Encryption>> and Wiping
 
 
 
+[[wsl]]
+== WSL -- Windows Subsystem for Linux (Ubuntu based)
+
+
+https://learn.microsoft.com/en-us/windows/wsl/install[]
+
+You must be running Windows 10 build >= 19041 to use the simplified (Powershell) `wsl --install`
+
+The first time you launch a newly installed Linux distribution, a console window will open and you'll be asked to wait for files to de-compress and be stored on your machine. All future launches should take less than a second.
+
+The above command only works if WSL is not installed at all. If you run `wsl --install` and see the WSL help text, please try running `wsl --list --online` to see a list of available distros and run `wsl --install -d <DistroName>` to install a distro. To uninstall WSL, see https://learn.microsoft.com/en-us/windows/wsl/troubleshooting#uninstall-legacy-version-of-wsl[Uninstall legacy version of WSL] or https://learn.microsoft.com/en-us/windows/wsl/basic-commands#unregister-or-uninstall-a-linux-distribution[unregister or uninstall a Linux distribution].

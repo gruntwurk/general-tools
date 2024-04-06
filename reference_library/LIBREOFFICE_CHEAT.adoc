@@ -1,0 +1,389 @@
+= A LibreOffice Cheat Sheet
+polyglot-jones
+v0.01, 4/24/2023
+
+== Intro
+
+=== Quick Jumps
+
+* <<apso,APSO>>
+* <<api,API>>
+* <<assigning-macros,Assigning Macros>>
+* <<dialogs,Dialogs>>
+* <<executing,Executing a Script Directly>>
+* <<extensions,Extensions (i.e. plugins) -- Creating>>
+* <<find,Find and Replace>>
+* <<gexportedscripts,g_exportedScripts>>
+* <<importing-modules,Importing Modules>>
+* <<macro-recorder-limitations,Macro Recorder Limitations>>
+* <<script-locations,Script Locations (Windows)>>
+* <<service-managers,Service Managers>>
+* <<uno,UNO>>
+* <<venv-pip,virtual environment (PIP)>>
+* <<venv-poetry,virtual environment (poetry)>>
+* <<zaz-pip,Zaz-Pip>> is a LibreOffice extension that allows pip installation of Python packages from within LibreOffice.
+
+=== Nomenclature
+
+OO:: OpenOffice (aka. Star Office, aka. LibreOffice)
+OOo:: OpenOffice.org
+
+=== What's Where
+
+* LibreOffice is version 24.2.1.2 as of 3/25/2024
+* The embedded Python interpreter is at: `C:\Program Files\LibreOffice\program\python-core-3.8.18\bin\python.exe`
+* With the corresponding: `C:\Program Files\LibreOffice\program\python-core-3.8.18\lib`
+
+`C:\proj\LibreOffice.code-workspace` includes:
+
+* `C:\forks\LibreWriter_Macros\python-ooouno-ex` -- The ooodev samples project
+* `C:\Program Files\LibreOffice\share\Scripts\python\*.py` -- Scripts to run within LibreOffice
+* `C:\proj\proj_gruntwurk\gwpycore` -- The GruntWurk core python library
+* `C:\proj\proj_gruntwurk\self-publish` -- The GruntWurk library for a self-publishing tool chain (AsciiDoc -> LibreOffice -> KindleGen, etc.)
+
+=== Further Info
+
+https://wiki.openoffice.org/wiki/Python[]
+
+See https://help.libreoffice.org/6.3/en-US/text/sbasic/python/main0000.html[] for...
+
+* Python Scripts Organization and Location
+* Running Python Interactive Console
+* Programming with Python Scripts
+* Python programming examples
+
+
+
+== Topics (alphabetically)
+
+[[apso]]
+=== APSO
+
+Alternative Python Script Organizer -- Allows for Py script editing within LibreOffice
+
+A "`library`" is a folder.
+A "`module`" is a file.
+Depends on `.py` being associated with an editor/IDE (not Python itself).
+
+{sl} https://extensions.libreoffice.org/en/extensions/show/apso-alternative-script-organizer-for-python[].
+{sl} https://www.youtube.com/watch?v=3Ef_ordyWQs[].
+
+
+
+[[api]]
+=== API
+
+{sl} https://api.libreoffice.org/docs/idl/ref/annotated.html[].
+{sl} https://extensions.libreoffice.org/en/extensions/show/5742[] -- Inline heading (BASIC) extension.
+
+
+
+[[assigning-macros]]
+=== Assigning Macros
+
+https://help.libreoffice.org/latest/en-US/text/shared/guide/scripting.html[]
+
+Macros may receive different args depending on what they are assigned to, so be sure to use a signature of `(*args, **kwargs)`
+
+
+
+
+[[dialogs]]
+=== Dialogs
+
+https://wiki.openoffice.org/wiki/Documentation/DevGuide/Scripting/Writing_Macros[]
+
+----
+ def dialog_example():
+     ctx = XSCRIPTCONTEXT.getComponentContext()
+     smgr = ctx.getServiceManager()
+     dp = smgr.createInstanceWithContext("com.sun.star.awt.DialogProvider", ctx)
+     dialog = dp.createDialog("vnd.sun.star.script:Standard.Dialog1?location=user")
+     dialog.execute()
+     dialog.dispose()
+----
+
+https://wiki.openoffice.org/wiki/Python/Transfer_from_Basic_to_Python#Usable_Modules[]
+
+
+
+[[executing]]
+=== Executing a Script Directly
+
+Tools > Organize Macros > Python
+
+
+[[extensions]]
+=== Extensions (i.e. plugins) -- Creating
+
+C:\forks\LibreWriter_Macros\additional_examples\sdk-examples\TuesdayPython
+
+
+
+[[find]]
+=== Find and Replace
+
+|===
+|Find|Replace|Libre  |MS Word  |String
+|F   |       |       |^1 or ^g |Picture (inline pictures only)
+|F   |       |       |^f       |Auto-referenced footnotes
+|F   |       |       |^e       |Auto-referenced endnotes
+|F   |       |       |^2       |Auto-referenced footnotes or endnotes
+|F   |       |       |^5 or ^a |Annotation/comment mark
+|F   |       |       |^19 or ^d|Opening field brace (Use only when you are viewing field codes.) (Selects whole field, not just opening brace.)
+|F   |       |       |^21 or ^d|Closing field brace (Use only when you are viewing field codes.) (Selects whole field, not just closing brace.)
+|F   |       |.      |^?       |Any single character
+|F   |       |\d     |^#       |Any digit
+|F   |       |\a     |^$       |Any letter
+|F   |       |\u8195 |^u8195   |Em space Unicode character value search
+|F   |       |\u8194 |^u8194   |En space Unicode character value search
+|F   |       |       |^b       |Section break
+|F   |       |       |^w       |White space (space, nonbreaking space, tab)
+|F   |       |       |^unnnn   |Word 2000 Unicode character search, where "n" is a decimal number corresponding to the Unicode character value
+|    |R      |& or $0|^&       |Contents of the "Find what" box
+|    |R      |       |^c       |Replace with the Clipboard contents
+|F   |R      |\t     |^9 or ^t |Tab
+|F   |R      |       |^11 or ^l|New line
+|F   |R      |\u2014 |^+       |Em dash
+|F   |R      |\u2013 |^=       |En dash
+|F   |R      |       |^12      |Page or section break (Replaces a section break with a page break)
+|F   |R      |       |^13 or ^p|Carriage return/paragraph mark
+|F   |R      |       |^14 or ^n|Column break
+|F   |R      |       |?        |Question mark
+|F   |R      |       |^-       |Optional hyphen
+|F   |R      |       |^~       |Nonbreaking hyphen
+|F   |R      |       |^^       |Caret character
+|F   |R      |       |^m       |Manual page break
+|F   |R      |       |^s       |Nonbreaking space
+|F   |R      |       |^nnn     |Where "n" is an ASCII character number
+|F   |R      |       |^0nnn    |Where "n" is an ANSI character number
+|===
+
+
+
+[[gexportedscripts]]
+=== g_exportedScripts
+
+Set g_exportedScripts to a tuple of the functions you want to be able to be called directly by the user.
+
+----
+def func_a(): pass
+def func_b(): pass
+def func_hidden(): pass # not shown in the UI
+
+g_exportedScripts = func_a, func_b
+----
+
+[[importing-modules]]
+=== Importing Modules
+
+In Python, you can import some modules that can be found in `sys.path` list.
+If you want to import your own module placed inside Scripts/python directory (see <<script-locations,Script Locations>>), put your module in `pythonpath` directory nearby your script file.
+
+----
+ - Scripts/
+   - python/
+     - macro.py
+     - pythonpath/  # this directory is added automatically before your macro executed
+       - your_module.py  # this module can be found
+----
+
+When you execute the macro from your script file, the internal executor adds the `pythonpath/` directory to `sys.path` list to be used as one of lookup location.
+
+
+
+=== macros
+
+{s} <<assigning-macros,Assigning Macros>>
+
+
+
+[[macro-recorder-limitations]]
+=== Macro Recorder Limitations
+
+* The LibreOffice macro recorder sucks (besides only working in Basic, not Python). When you try to record, for example, changing the after-spacing on a paragraph Style, it only records the fact that you're opening the definition dialog box. It does nothing about recording the actual changes that you're making.
+* In any event, the macro recorder is not available in the ribbon bar. You have to pull down Tools > Macros > RecordMacro.
+
+
+
+[[script-locations]]
+=== Script Locations (Windows)
+
+User-specific:: C:\Users\<user>\AppData\Roaming\LibreOffice\4\user\Scripts\python
+All users:: %APPDATA%\LibreOffice\4\user\Scripts\python
+
+
+
+=== Search and Replace
+{s} <<find,Find and Replace>>
+
+
+
+[[service-managers]]
+=== Service Managers
+
+Service managers are factories that create services.
+Examples:
+
+* `com.sun.star.frame.Desktop` -- maintains loaded documents: is used to load documents, to get the current document, and access all loaded documents
+* `com.sun.star.configuration.ConfigurationProvider` -- yields access to the Apache OpenOffice configuration, for instance the settings in the Tools > Options dialog
+* `com.sun.star.sdb.DatabaseContext` -- holds databases registered with Apache OpenOffice
+* `com.sun.star.system.SystemShellExecute` -- executes system commands or documents registered for an application on the current platform
+* `com.sun.star.text.GlobalSettings` -- manages global view and print settings for text documents
+
+
+[[uno]]
+=== UNO
+
+
+https://wiki.openoffice.org/wiki/PyUNO_bridge#PyUNO_bridge_modes[]
+
+
+In a stand-alone Python script, use the `XSCRIPTCONTEXT` object.
+In a Python module, use `import uno`.
+
+[source,python]
+----
+import uno
+
+def HelloWorldPythonCalc():
+
+    oDoc = XSCRIPTCONTEXT.getDocument()
+
+    # -- or --
+
+    ctx = uno.getComponentContext()
+    smgr = ctx.ServiceManager
+    desktop = smgr.createInstanceWithContext("com.sun.star.frame.Desktop", ctx)
+    oDoc = desktop.getCurrentComponent()
+
+    oSheet =oDoc.getSheets().getByIndex(0)
+    oCell = oSheet.getCellByPosition(0,0)
+    oCell.String = 'Hello World via Python'
+
+    return None
+----
+
+
+
+[[venv-pip]]
+=== virtual environment (PIP)
+
+There are two ways to create a virtual environment for working with LibreOffice.
+One is to go through poetry (see below).
+The other is to manually install pip, as follows:
+
+. Capture the version of python that is installed with LibreOfice:
+----
+"C:\Program Files\LibreOffice\program\python.exe" --version
+----
+. Create a rough virtual environment using your regular copy of python
+----
+cd <project folder>
+py -38 -m venv --without-pip .venv
+----
+. Edit `.venv\pyvenv.cfg`, and change it to look like the following excerpt.
+----
+home = C:\Program Files\LibreOffice\program
+implementation = CPython
+version_info = 3.8.16.final.0
+virtualenv = 20.17.1
+include-system-site-packages = false
+base-prefix = C:\Program Files\LibreOffice\program\python-core-3.8.16
+base-exec-prefix = C:\Program Files\LibreOffice\program\python-core-3.8.16
+base-executable = C:\Program Files\LibreOffice\program\python.exe
+prompt = myproject_3.8.16
+----
+. Make sure `home =` points to the python that's installed in LibreOffice.
+. Change `version_info =` to specify the version found above (e.g. `version_info = 3.10.5.final.0`).
+. Change the two references to the `python-core-nnn` folder to correspond.
+. Change `prompt =` to correspond (optional, no impact).
+. Activate the venv and Install PIP:
+----
+.\.venv\Scripts\Activate.ps1
+Invoke-WebRequest -Uri https://bootstrap.pypa.io/get-pip.py -UseBasicParsing).Content | python.exe -
+python -m pip --version
+----
+. Use pip to install whatever packages are needed (including editable local packages)
+NOTE: It is import that pip be run with `python -m pip` within the venv to ensure the correct pip is being used.
+
+Optionally, link LibreOffice user python into virtual environment.
+
+. Deactivate current virtual environment.
+----
+deactivate
+----
+. Determine the path that pip has been installed in (e.g. `C:\Users\<user>\AppData\Roaming\Python\Python38\site-packages`).
+. Create a file in `.venv\Lib\site-packages` called `libre_office_user_pkg.pth` (the name is not important as long as it ends with `.pth`). Open the file in a text editor and paste in the determined path. Save and close the file.
+Now, when the virtual environment is activated the user python packages will be included in python's sys.path.
+. Reactivate Virtual Environment: `.\.venv\Scripts\Activate.ps1`
+
+
+
+[[venv-poetry]]
+=== virtual environment (poetry)
+
+There are two ways to create a virtual environment for working with LibreOffice.
+One is to manually install pip (see above).
+The other is to go through poetry, as follows:
+
+. Install poetry. See <<poetry>> in PYTHON_CHEAT.adoc.
+. Capture the version of customized python that is installed with LibreOfice:
+----
+"C:\Program Files\LibreOffice\program\python.exe" --version
+----
+. Make sure that a corresponding, non-customized version of python is installed (matching the major and minor release numbers, at least, if not the build number as well). See https://github.com/pyenv-win/pyenv-win[] for a tool that can help with this. If using `pyenv`, then the install placement will be something like `C:\Users\<username>\.pyenv\pyenv-win\versions\3.8.10\`
+. Use that non-customized python to create a virtual environment.
+----
+&"C:\Users\<username>\.pyenv\pyenv-win\versions\3.8.10\python.exe" -m venv --without-pip .venv
+.\.venv\Scripts\Activate.ps1
+python --version
+----
+. Use poetry to initialize a project. We will add packages later as there are some additional steps that need to be done.
+----
+cd D:\tmp\project
+poetry init
+----
+. Install `oooenv` in the virtual environment:
+----
+poetry add oooenv --group=dev
+oooenv --version
+----
+. Use the following command to toggle back and forth between the virtual environment using the python interpreter that is included with LiobreOffice vs. the non-customized one. (When issuing poetry commands, it need to be the non-customized one.)
+----
+oooenv env -t
+poetry add ooo-dev-tools
+----
+
+----
+import uno
+from ooodev.loader.lo import Lo
+from ooodev.calc import CalcDoc
+
+def say_hello(cell_name):
+    doc = CalcDoc.from_current_doc()
+    sheet = doc.sheets[0]
+    sheet[cell_name].value="Hello World!"
+
+_ = Lo.load_office(Lo.ConnectSocket())
+doc = CalcDoc.create_doc(visible=True)
+say_hello("A1")
+doc.close()
+Lo.close_office()
+----
+
+Ref: https://python-ooo-dev-tools.readthedocs.io/en/latest/guide/virtual_env/windows_poetry_env.html[]
+
+
+
+[[zaz-pip]]
+=== Zaz-Pip
+
+Zaz-Pip is a LibreOffice extension (`*.oxt`) that allows pip installation of Python packages from within LibreOffice.
+
+. Download the .oxt file from https://git.cuates.net/elmau/zaz-pip/src/branch/master/extension[]
+. Within LibreOffice, Tools -> Extension Manager
+. Click `Add` button
+. Install the downloaded `ZAZPip_v1.0.0.oxt` file
+. Restart LibreOffice.
+

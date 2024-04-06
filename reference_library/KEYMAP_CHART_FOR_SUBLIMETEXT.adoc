@@ -1,0 +1,87 @@
+
+= Existing Keymaps (to see what is available or conflicting)
+
+== Default (Windows).sublime-keymap
+
+|===
+| Key | (Plain)     | SHIFT         | CTRL             |ALT                 |CTRL+SHIFT            |CTRL+ALT       |ALT+SHIFT           |CTRL+ALT+SHIFT | CTRL+K CTRL| CTRL+J CTRL
+| 0   | -           | -             | focus side bar   |                    |                      |               |                    |               | unfold all |
+| 1   | -           | -             | focus grp (no.)  |sel index (no.)     |                      |               |layout  2 col       |               | fold lvl 1 |
+| 2   | -           | -             |                  |                    |                      |               |layout  3 col       |               | fold lvl 2 |
+| 3   | -           | -             |                  |                    |                      |               |layout  4 col       |               | fold lvl 3 |
+| 4   | -           | -             |                  |                    |                      |               |layout  5 col       |               | fold lvl 4 |
+| 5   | -           | -             |                  |                    |                      |               |layout  2 x 2       |               | fold lvl 5 |
+| 6   | -           | -             |                  |                    |                      |               |                    |               | fold lvl 6 |
+| 7   | -           | -             |                  |                    |                      |               |                    |               | fold lvl 7 |
+| 8   | -           | -             |                  |                    |                      |               |layout  2 row       |               | fold lvl 8 |
+| 9   | -           | -             |                  |                    |moveto grp 9          |               |layout 3 row        |               | fold lvl 9 |
+| a   | -           | -             | select all       |                    |expand selection smart|               |                    |               |select to mark|
+| b   | -           | -             | build            |                    |select build          |               |tog side bar        |               |            |
+| c   | -           | -             | copy             |                    |                      |               |                    |               |            |
+| d   | -           | -             | find under expand|                    |dup line              |               |                    |               |find under expand skip |
+| e   | -           | -             | slurp find string|                    |slurp replace string  |               |                    |               |            |
+| f   | -           | -             | find             |                    |find in files         |               |                    |               |            |
+| g   | -           | -             | goto             |                    |                      |               |                    |               |clear bkmarks|
+| h   | -           | -             | replace          |                    |replace next          |               |                    |               |            |
+| i   | -           | -             | incremental find |                    |incremental find rev  |               |                    |               |            |
+| j   | -           | -             |                  |                    |join lines            |               |unfold all          |               | unfold all |primary_j_changed
+| k   | -           | -             |                  |del Line.macro      |                      |               |                    |               | del to Hard EOL.macro|
+| l   | -           | -             | sel whole line   |split sel into lines|                      |               |                    |               | lower case |
+| m   | -           | -             | move to brackets |                    |sel to brackets       |               |                    |               |            |
+| n   | -           | -             | new file         |                    |new window            |               |                    |               |            |
+| o   | -           | -             | open file        |                    |                      |switch file SxS|switch file         |               |            |
+| p   | -           | -             | goto file        |                    |command palette       |               |                    |show scope name|            |
+| q   | -           | -             | tog record macro |wrap line s         |                      |               |                    |               |            |
+| r   | -           | -             | goto @           |                    |goto symbol in project|               |                    |               |            |
+| s   | -           | -             | save             |                    |save as               |               |                    |               |            |
+| t   | -           | -             | transpose        |                    |reopen last file      |               |                    |               |fold tag attributes|
+| u   | -           | -             | soft undo        |                    |soft redo             |               |                    |               | upper case |
+| v   | -           | -             | paste            |                    |paste and indent      |               |                    |               | paste from history |
+| w   | -           | -             | close            | *(See below)*      |close window          |               |xml-long-tag.snippet|               | del to mark |
+| x   | -           | -             | cut              |                    |                      |               |                    |               | swap with mark |
+| y   | -           | -             | redo or repeat   |                    |                      |               |                    |               | yank       |
+| z   | -           | -             | undo             |                    |redo                  |               |                    |               | revert hunk|
+| +   | -           | -             | inc font size    |                    |                      |               |                    |               |            |
+| -   | -           | -             | dec font size    |jump back           |                      |               |jump forward        |               |            |
+| .   | -           | -             | next mod         |close tag           |                      |               |                    |               |            |
+| /   | -           | -             | tog comment      |tog comment blk     |                      |               |                    |               |tog inline diff|
+| ;   | -           | -             | goto             |                    |                      |               |                    |               |tog inline diff|
+| =   | -           | -             | incr font size   |                    |decrease font size    |               |                    |               |            |
+| [   | -           | -             | unindent         |                    |fold                  |               |                    |               |            |
+| ]   | -           | -             | indent           |                    |unfold                |               |                    |               |            |
+| `   | -           | -             | show console     |                    |                      |               |                    |               |            |
+|space| -           |               | auto complete    |                    |sel to scope          |               |                    |               | set mark   |
+|break| -           |               | cancel build     |                    |                      |               |                    |               |            |
+|bksp | -           | left del      | del word         |                    |left del              |               |                    |               |del to Hard BOL.macro|
+|del  | -           | cut           | del word         |                    |del to Hard EOL.macro |               |                    |               |            |
+|home | -           | sel to BOL    | move to BOF      |                    |sel to BOF            |               |                    |               |            |
+|end  | -           | sel to EOL    | move to EOF      |                    |sel to EOF            |               |                    |               |            |
+|up   | -           | sel line      | scroll line      |sel line            |swap line up          |sel line       |                    |               | new pane   | unsel others
+|down | -           | sel line      | scroll line      |sel line            |swap line down        |sel line       |                    |               | close pane |
+|left | -           | sel char      | move word        |move subword        |sel word              |               |sel subword         |mv neighbor grp|focus neighbor grp| sel to left
+|right| -           | sel char      | move word        |move subword        |sel word              |               |sel subword         |mv neighbor grp|focus neighbor grp| sel to right
+|pgup | -           | sel page      | prev view        |                    |show also prev view   |               |                    |               |            | focus to left
+|pgdn | -           | sel page      | next view        |                    |show also next view   |               |                    |               |            | focus to right
+|ins  | -           | paste         | copy             |                    |                      |               |                    |               |            |
+|tab  | -           | tab           | next view        |                    |prev view in stack    |               |                    |               |            |
+|esc  | -           |               |                  |                    |                      |               |                    |               |            |
+| f2  |tog bkmark   |sel all bkmarks| next bkmark      |clear bkmarks       |prev bkmark           |               |                    |               |            |
+| f3  |find next    |find all under | find under       |find under prev     |find prev             |               |                    |               |            |
+| f4  |close file   |prev result    | next result      |                    |                      |               |                    |               |            |
+| f6  |tog spell chk|prev misspell  | next misspell    |                    |                      |               |                    |               |            |
+| f7  |build        |               |                  |                    |                      |               |                    |               |            |
+| f9  |sort insens  |               | sort lines sens  |                    |                      |               |                    |               |            |
+| f10 |context menu |               |                  |                    |                      |               |                    |               |            |
+| f11 |tog full scrn|               | tog distract     |                    |                      |               |                    |               |            |
+| f12 |goto def     |               | goto ref         |goto ref SxS        |                      |               |                    |               |            |
+|padE | -           | CRLF          |                  |                    |Add Line Before.macro |               |                    |               |            |
+|pad+ | -           |               | inc font size    |                    |decrease font size    |               |                    |               |            |
+|pad- | -           | jump back     | dec font size    |                    |                      |               |jump forward        |               |            |
+|===
+
+
+
+=== Toggle View Word Wrap
+----
+{ "keys": ["alt+w"], "command": "toggle_setting", "args": {"setting": "word_wrap"} }
+----

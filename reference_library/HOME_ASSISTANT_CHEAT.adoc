@@ -1,0 +1,86 @@
+= Home Assistant Cheat
+
+== Topics (alphabetical)
+
+
+[[etcher]]
+=== etcher
+
+https://etcher.balena.io/#download-etcher[]
+
+
+[[frigate]]
+=== Frigate NVR
+
+https://www.youtube.com/watch?v=3pWQg4-VQ8o[]
+
+Frigate is an open source <<nvr,NVR>>.
+
+Cameras must support H.264 encoding (not just H.265)
+
+<<rtsp,RTSP>> streaming preferred.
+
+Frigate (https://frigate.video/[]) is available as an add-on to <<haos,HAOS>>; however, it's not built in. so, you'll need to add the frigates Repository (A GitHub URL) to the operating system. See https://www.youtube.com/watch?v=gQdtGLRzKRI[] for details.
+
+
+
+[[haos]]
+=== HAOS
+
+"`Home Assistant Operating System.`"
+
+
+
+[[mqtt]]
+=== MQTT server
+
+
+https://www.youtube.com/watch?v=cZV2OOXLtE[]
+
+Mosquito is an <<mqtt,MQTT>> broker that works well with Home Assistant.
+
+It communicates with Home Assistant (via a specific home assistant integration) over TCP port 1883.
+
+
+
+
+
+[[nas]]
+=== NAS
+
+{s} <<samba,SAMBA>>
+
+
+[[nvr]]
+=== NVR
+
+"`Network Video Recorder`" (primarily for security cameras).
+
+
+
+[[rtsp]]
+=== RTSP
+
+"`Real Time Streaming Protocol`"
+
+You can test an RTSP streaming camera using VLC media player. (File > Open Network Stream (Ctrl+N).
+
+
+
+[[samba]]
+=== SAMBA
+
+https://github.com/home-assistant/addons/blob/master/samba/DOCS.md[]
+
+
+[[wyzecam]]
+=== WyzeCam
+
+==== Wyze Camera v.3 Firmware Update
+
+// TODO
+
+4.36.0.125 -> 4.36.3.18 (non RTSP)
+demo_wcv3.bin -- MUST BE ON A 32GB MicroSD card or smaller.
+
+

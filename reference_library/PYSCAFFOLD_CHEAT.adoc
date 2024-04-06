@@ -1,0 +1,77 @@
+= Using PyScaffold to Create and Maintain a Python Library Project
+
+Make sure `C:\Python38\Scripts` (or whatever) is your PATH.
+
+`cd` _root-folder-for-new-library_
+
+[source,bash]
+----
+py -3 -m pip install -U pip setuptools
+py -3 -m pip install pyscaffold
+putup -h
+----
+
+Use `putup` _library-project_ `-d 'TODO' -l BSD-3-Clause --url https://github.com/gruntwurk/TODO/ --pre-commit --venv --venv-install pytest` to create a whole new project, or `putup --force` _library-project_ ... if the folder already exists.
+
+`cd` _library-project_
+
+[source,bash]
+----
+echo ".venv\Scripts\activate.bat" > activate.bat
+activate.bat
+pip install pre-commit
+pre-commit install
+pip install -e .
+cp C:\proj\proj_gruntwurk\gwpycore\.sourcery.yaml .
+----
+
+Edit `setup.cfg` (description, URL, classifiers, installation requirements, any ``TODO``s, etc.) as per https://setuptools.pypa.io/en/stable/userguide/declarative_config.html[].
+Edit `readme.rst` (start with searching for ``TODO``s).
+In most cases it is not necessary to tamper with `setup.py`.
+Additional data, e.g. images and text files, that reside within your package and are tracked by Git will automatically be included (in a wheel dist) if `include_package_data = True` in setup.cfg. It is not necessary to have a `MANIFEST.in` file for this to work.
+
+* Use `tox -e build` to build your package distribution (source or wheel)
+* Use `tox -e publish` to test your project uploads correctly in test.pypi.org
+* Use `tox -e publish -- --repository pypi` to release your package to PyPI
+* Use `tox -av` to list all the tasks available
+
+== Dependencies
+
+Use `install_requires =` within `setup.cfg` (as opposed to `requirements.txt`).
+
+== Versioning
+
+Tag the git repo with names in the MAJOR.MINOR[.PATCH] format, e.g. 0.0.1 or 0.1.
+This version will be used when building a package and is also accessible through __library-project__``.__version__``.
+
+== Sphinx Documentation
+
+Start by editing `docs/index.rst`
+
+* Use `tox -e docs` to compile the docs.
+* Use `tox -e doctests` to run the doctests.
+
+== Extensions
+
+``pip install pyscaffoldext-``__NAME__
+
+* `dsproject` -- data science. Then `putup --dsproject`
+* `django` -- Then `putup --django`
+* `cookiecutter` -- Then `putup --cookiecutter`
+
+== Updating to Latest PyScaffold Version
+
+`putup --update` _library-project_ (or `putup --update --force` _library-project_)
+
+An update (without `--force`) will only overwrite files that are not often altered by users like `setup.py`.
+
+== Troubleshooting
+
+
+== Notes
+
+
+== References
+
+https://github.com/pyscaffold/pyscaffold[]
+
