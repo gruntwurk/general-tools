@@ -1,146 +1,266 @@
 = Unicode Cheat Sheet
 
+== Full Index
+
+https://unicode.org/charts/charindex.html[]
+
 == Selected Unicode Characters for Common Typesetting Purposes
 
+[opts="heading"]
 |===
-|Category     |  |Short Name             |Hex   |Dec  |Unicode Name
-|Arrow        |  |arrow-down-heavy       |U+F0EA|61674|(Wingding font)
-|Arrow        |  |arrow-down-light       |U+F0E2|61666|(Wingding font)
-|Arrow        |  |arrow-left-heavy       |U+F0E7|61671|(Wingding font)
-|Arrow        |  |arrow-left-light       |U+F0DF|61663|(Wingding font)
-|Arrow        |  |arrow-lower-left-heavy |U+F0ED|61677|(Wingding font)
-|Arrow        |  |arrow-lower-left-light |U+F0E5|61669|(Wingding font)
-|Arrow        |  |arrow-lower-right-heavy|U+F0EE|61678|(Wingding font)
-|Arrow        |  |arrow-lower-right-light|U+F0E6|61670|(Wingding font)
-|Arrow        |  |arrow-right-heavy      |U+F0E8|61672|(Wingding font)
-|Arrow        |  |arrow-right-light      |U+F0E0|61664|(Wingding font)
-|Arrow        |  |arrow-up-heavy         |U+F0E9|61673|(Wingding font)
-|Arrow        |  |arrow-up-light         |U+F0E1|61665|(Wingding font)
-|Arrow        |  |arrow-upper-left-heavy |U+F0EB|61675|(Wingding font)
-|Arrow        |  |arrow-upper-left-light |U+F0E3|61667|(Wingding font)
-|Arrow        |  |arrow-upper-right-heavy|U+F0EC|61676|(Wingding font)
-|Arrow        |  |arrow-upper-right-light|U+F0E4|61668|(Wingding font)
-|Arrow        |← |arrow-left             |U+2190|     |LEFTWARDS ARROW
-|Arrow        |↑ |arrow-up               |U+2191|     |UPWARDS ARROW
-|Arrow        |→ |arrow-right            |U+2192|     |RIGHTWARDS ARROW
-|Arrow        |↓ |arrow-down             |U+2193|     |DOWNWARDS ARROW
-|Arrow        |↔ |arrow-left-right       |U+2194|     |LEFT RIGHT ARROW
-|Arrow        |↕ |arrow-up-down          |U+2195|     |UP DOWN ARROW
-|Bullet       |  |arrow-right-heavy      |U+F0E8|61672|(Wingding font)
-|Bullet       |  |arrow-right-light      |U+F0E0|61664|(Wingding font)
-|Bullet       |  |cancel-mark            |U+F0FB|61691|(Wingding font)
-|Bullet       |  |check-mark             |U+F0FC|61692|(Wingding font)
-|Bullet       |  |checkbox-cancelled     |U+F0FD|61693|(Wingding font)
-|Bullet       |  |checkbox-checked       |U+F0FE|61694|(Wingding font)
-|Bullet       |  |checkbox-empty         |U+F0A8|61608|(Wingding font)
-|Bullet       |  |crosshairs             |U+F0B1|61617|(Wingding font)
-|Bullet       |  |star-12-pointed        |U+F0AE|61614|(Wingding font)
-|Bullet       |  |star-3-pointed         |U+F0A9|61609|(Wingding font)
-|Bullet       |  |star-4-pointed         |U+F0AA|61610|(Wingding font)
-|Bullet       |  |star-5-pointed         |U+F0AB|61611|(Wingding font)
-|Bullet       |  |star-6-pointed         |U+F0AC|61612|(Wingding font)
-|Bullet       |  |star-8-pointed         |U+F0AD|61613|(Wingding font)
-|Bullet       |→ |arrow-right            |U+2192|     |RIGHTWARDS ARROW
-|Bullet       |■ |black-square           |U+25A0|     |BLACK SQUARE
-|Bullet       |□ |white-square           |U+25A1|     |WHITE SQUARE
-|Bullet       |▪ |black-small-square     |U+25AA|     |BLACK SMALL SQUARE
-|Bullet       |▫ |white-small-square     |U+25AB|     |WHITE SMALL SQUARE
-|Bullet       |▲ |triangle-up            |U+25B2|     |BLACK UP-POINTING TRIANGLE
-|Bullet       |► |triangle-right         |U+25BA|     |BLACK RIGHT-POINTING POINTER
-|Bullet       |▼ |triangle-down          |U+25BC|     |BLACK DOWN-POINTING TRIANGLE
-|Bullet       |◄ |triangle-left          |U+25C4|     |BLACK LEFT-POINTING POINTER
-|Bullet       |○ |white-circle           |U+25CB|     |WHITE CIRCLE
-|Bullet       |● |black-circle           |U+25CF|     |BLACK CIRCLE
-|Bullet       |● |bullet                 |U+2022|8226 |BULLET
-|Bullet       |◦ |white-bullet           |U+25E6|     |WHITE BULLET
-|Bullet       |⦾ |circled-white-bullet   |U+29BE|10686|CIRCLED WHITE BULLET
-|Bullet       |⦿ |circled-bullet         |U+29BF|10687|CIRCLED BULLET
-|Currency     |¢ |cent                   |U+A2  |162  |CENT SIGN
-|Currency     |£ |sterling               |U+A3  |163  |POUND SIGN
-|Currency     |¥ |yen                    |U+A5  |165  |YEN SIGN
-|Currency     |€ |euro                   |U+20AC|8364 |EURO SIGN
-|Entertainment|« |rewind                 |U+AB  |171  |LEFT-POINTING DOUBLE ANGLE QUOTATION MARK
-|Entertainment|» |fast-forward           |U+BB  |187  |RIGHT-POINTING DOUBLE ANGLE QUOTATION MARK
-|Entertainment|‖ |pause                  |U+2016|     |DOUBLE VERTICAL LINE
-|Entertainment|■ |stop                   |U+25A0|     |BLACK SQUARE
-|Entertainment|► |play                   |U+25BA|     |BLACK RIGHT-POINTING POINTER
-|Entertainment|♠ |spades                 |U+2660|     |BLACK SPADE SUIT
-|Entertainment|♣ |clubs                  |U+2663|     |BLACK CLUB SUIT
-|Entertainment|♥ |hearts                 |U+2665|     |BLACK HEART SUIT
-|Entertainment|♦ |diamonds               |U+2666|     |BLACK DIAMOND SUIT
-|Entertainment|♪ |music-note             |U+266A|     |EIGHTH NOTE
-|Entertainment|♫ |music-notes            |U+266B|     |BEAMED EIGHTH NOTES
-|Fraction     |¼ |quarter                |U+BC  |188  |VULGAR FRACTION ONE QUARTER
-|Fraction     |½ |half                   |U+BD  |189  |VULGAR FRACTION ONE HALF
-|Fraction     |¾ |three-quarters         |U+BE  |190  |VULGAR FRACTION THREE QUARTERS
-|Fraction     |⁄ |fraction-slash         |U+2044|8260 |VULGAR FRACTION SLASH
-|Fraction     |⅓ |third                  |U+2153|8531 |VULGAR FRACTION ONE THIRD
-|Fraction     |⅔ |two-thirds             |U+2154|8532 |VULGAR FRACTION TWO THIRDS
-|Fraction     |⅕ |fifth                  |U+2155|8533 |VULGAR FRACTION ONE FIFTH
-|Fraction     |⅖ |two-fifths             |U+2155|8533 |VULGAR FRACTION TWO FIFTHS
-|Fraction     |⅗ |three-fifths           |U+2157|8535 |VULGAR FRACTION THREE FIFTHS
-|Fraction     |⅘ |four-fifths            |U+2158|8536 |VULGAR FRACTION FOUR FIFTHS
-|Fraction     |⅙ |sixth                  |U+2159|8537 |VULGAR FRACTION ONE SIXTH
-|Fraction     |⅚ |five-sixths            |U+215A|8538 |VULGAR FRACTION FIVE SIXTHS
-|Fraction     |⅛ |eighth                 |U+215B|8539 |VULGAR FRACTION ONE EIGHTH
-|Fraction     |⅜ |three-eighths          |U+215C|8540 |VULGAR FRACTION THREE EIGHTHS
-|Fraction     |⅝ |five-eighths           |U+215D|8541 |VULGAR FRACTION FIVE EIGHTHS
-|Fraction     |⅞ |seven-eighths          |U+215E|8542 |VULGAR FRACTION SEVEN EIGHTHS
-|Greek        |Δ |cap-delta              |U+394 |916  |GREEK CAPITAL LETTER DELTA
-|Greek        |Θ |cap-theta              |U+398 |920  |GREEK CAPITAL LETTER THETA
-|Greek        |Λ |cap-lambda             |U+39B |923  |GREEK CAPITAL LETTER LAMBDA
-|Greek        |π |pi                     |U+3C0 |960  |GREEK SMALL LETTER PI
-|Greek        |Σ |cap-sigma              |U+3A3 |931  |GREEK CAPITAL LETTER SIGMA
-|Greek        |Ω |cap-omega              |U+3A9 |937  |GREEK CAPITAL LETTER OMEGA
-|Invisible    |  |em-space               |U+2003|8195 |EM SPACE
-|Invisible    |  |en-space               |U+2002|8194 |EN SPACE
-|Invisible    |  |narrow-nb-space        |U+202F|8239 |NARROW NO-BREAK SPACE
-|Invisible    |  |nb-hyphen              |U+2011|8209 |NON-BREAKING HYPHEN
-|Invisible    |  |nb-space               |U+A0  |160  |NO-BREAK SPACE
-|Invisible    |  |soft-hyphen            |U+AD  |173  |SOFT HYPHEN
-|Invisible    |  |space                  |U+20  |32   |SPACE
-|Invisible    |  |thin-space             |U+2009|8201 |THIN SPACE
-|Invisible    |  |zero-width-space       |U+200B|8203 |ZERO WIDTH SPACE
-|Legal        |§ |section                |U+A7  |167  |SECTION SIGN
-|Legal        |© |copyright              |U+A9  |169  |COPYRIGHT SIGN
-|Legal        |® |registered             |U+AE  |174  |REGISTERED SIGN
-|Legal        |℠ |service-mark           |U+2120|8480 |SERVICE MARK
-|Legal        |™ |trademark              |U+2122|8482 |TRADE MARK SIGN
-|Numeric      |№ |numero                 |U+2116|8470 |NUMERO SIGN
-|Numeric      |∞ |infinity               |U+221E|8734 |INFINITY
-|Operator     |× |times                  |U+D7  |215  |MULTIPLICATION SIGN
-|Operator     |÷ |divide                 |U+F7  |247  |DIVISION SIGN
-|Operator     |≈ |aprox                  |U+2248|8776 |ALMOST EQUAL TO
-|Operator     |≠ |ne                     |U+2260|8800 |NOT EQUAL TO
-|Operator     |≤ |le                     |U+2264|8804 |LESS-THAN OR EQUAL TO
-|Operator     |≥ |ge                     |U+2265|8805 |GREATER-THAN OR EQUAL TO
-|Typesetting  |\^|caret                  |U+5E  |94   |CIRCUMFLEX ACCENT
-|Typesetting  |\`|grave                  |U+60  |96   |GRAVE ACCENT
-|Typesetting  |\~|tilde                  |U+7E  |126  |TILDE
-|Typesetting  |§ |section                |U+A7  |167  |SECTION SIGN
-|Typesetting  |´ |accent                 |U+B4  |180  |ACUTE ACCENT
-|Typesetting  |– |en-dash                |U+2013|     |EN DASH
-|Typesetting  |— |em-dash                |U+2014|     |EM DASH
-|Typesetting  |‘ |lsquo                  |U+201C|8220 |LEFT SINGLE QUOTATION MARK
-|Typesetting  |’ |rsquo                  |U+201C|8220 |RIGHT SINGLE QUOTATION MARK
-|Typesetting  |“ |ldquo                  |U+201C|8220 |LEFT DOUBLE QUOTATION MARK
-|Typesetting  |” |ditto                  |U+201C|8220 |RIGHT DOUBLE QUOTATION MARK
-|Typesetting  |” |rdquo                  |U+201C|8220 |RIGHT DOUBLE QUOTATION MARK
-|Typesetting  |† |dagger                 |U+2020|8224 |DAGGER
-|Typesetting  |‡ |double-dagger          |U+2021|8225 |DOUBLE DAGGER
-|Typesetting  |⸗ |hyphen2                |U+2E17|11799|DOUBLE OBLIQUE HYPHEN
-|Unit         |° |deg                    |U+B0  |176  |DEGREE SIGN
-|Unit         |’ |foot                   |U+201C|8220 |RIGHT SINGLE QUOTATION MARK
-|Unit         |” |inch                   |U+201C|8220 |RIGHT DOUBLE QUOTATION MARK
+|Category     |  |Short Name                     |Hex    |Dec  |Unicode Name
+|Admonition   |☠ |poison                         |U+2620 |     |SKULL AND CROSSBONES
+|Admonition   |☡ |caution-z                      |U+2621 |     |CAUTION SIGN
+|Admonition   |☢ |radiation                      |U+2622 |     |
+|Admonition   |☣ |biohazard                      |U+2623 |     |
+|Admonition   |⚐ |flag-white                     |U+2690 |     |WHITE FLAG
+|Admonition   |⚑ |flag-black                     |U+2691 |     |BLACK FLAG
+|Admonition   |⚠ |important                      |U+26A0 |     |WARNING SIGN
+|Admonition   |⚡ |high-voltage                   |U+26A1 |     |HIGH VOLTAGE SIGN
+|Admonition   |⛔ |no-entry                       |U+26D4 |     |NO ENTRY
+|Admonition   |🏳 |flag-white-waving              |U+1F3F3|     |WAVING WHITE FLAG
+|Admonition   |💥 |collision                      |U+1F4A5|     |COLLISION SYMBOL
+|Admonition   |🔔 |bell                           |U+1F514|     |BELL
+|Admonition   |🕭 |ringing-bell                   |U+1F56D|     |RINGING BELL
+|Admonition   |🛑 |stop-sign                      |U+1F6D1|     |OCTAGONAL SIGN
+|Admonition   |🤚 |caution                        |U+1F91A|     |RAISED BACK OF HAND
+|Arrow        |  |arrow-down-heavy               |U+F0EA |61674|(Wingding font)
+|Arrow        |  |arrow-down-light               |U+F0E2 |61666|(Wingding font)
+|Arrow        |  |arrow-left-heavy               |U+F0E7 |61671|(Wingding font)
+|Arrow        |  |arrow-left-light               |U+F0DF |61663|(Wingding font)
+|Arrow        |  |arrow-lower-left-heavy         |U+F0ED |61677|(Wingding font)
+|Arrow        |  |arrow-lower-left-light         |U+F0E5 |61669|(Wingding font)
+|Arrow        |  |arrow-lower-right-heavy        |U+F0EE |61678|(Wingding font)
+|Arrow        |  |arrow-lower-right-light        |U+F0E6 |61670|(Wingding font)
+|Arrow        |  |arrow-right-heavy              |U+F0E8 |61672|(Wingding font)
+|Arrow        |  |arrow-right-light              |U+F0E0 |61664|(Wingding font)
+|Arrow        |  |arrow-up-heavy                 |U+F0E9 |61673|(Wingding font)
+|Arrow        |  |arrow-up-light                 |U+F0E1 |61665|(Wingding font)
+|Arrow        |  |arrow-upper-left-heavy         |U+F0EB |61675|(Wingding font)
+|Arrow        |  |arrow-upper-left-light         |U+F0E3 |61667|(Wingding font)
+|Arrow        |  |arrow-upper-right-heavy        |U+F0EC |61676|(Wingding font)
+|Arrow        |  |arrow-upper-right-light        |U+F0E4 |61668|(Wingding font)
+|Arrow        |← |arrow-left                     |U+2190 |     |LEFTWARDS ARROW
+|Arrow        |↑ |arrow-up                       |U+2191 |     |UPWARDS ARROW
+|Arrow        |→ |arrow-right                    |U+2192 |     |RIGHTWARDS ARROW
+|Arrow        |↓ |arrow-down                     |U+2193 |     |DOWNWARDS ARROW
+|Arrow        |↔ |arrow-left-right               |U+2194 |     |LEFT RIGHT ARROW
+|Arrow        |↕ |arrow-up-down                  |U+2195 |     |UP DOWN ARROW
+|Bullet       |  |arrow-right-heavy              |U+F0E8 |61672|(Wingding font)
+|Bullet       |  |arrow-right-light              |U+F0E0 |61664|(Wingding font)
+|Bullet       |  |cancel-mark                    |U+F0FB |61691|(Wingding font)
+|Bullet       |  |check-mark                     |U+F0FC |61692|(Wingding font)
+|Bullet       |  |checkbox-cancelled             |U+F0FD |61693|(Wingding font)
+|Bullet       |  |checkbox-checked               |U+F0FE |61694|(Wingding font)
+|Bullet       |  |checkbox-empty                 |U+F0A8 |61608|(Wingding font)
+|Bullet       |  |crosshairs                     |U+F0B1 |61617|(Wingding font)
+|Bullet       |  |star-12-pointed                |U+F0AE |61614|(Wingding font)
+|Bullet       |  |star-3-pointed                 |U+F0A9 |61609|(Wingding font)
+|Bullet       |  |star-4-pointed                 |U+F0AA |61610|(Wingding font)
+|Bullet       |  |star-5-pointed                 |U+F0AB |61611|(Wingding font)
+|Bullet       |  |star-6-pointed                 |U+F0AC |61612|(Wingding font)
+|Bullet       |  |star-8-pointed                 |U+F0AD |61613|(Wingding font)
+|Bullet       |→ |arrow-right                    |U+2192 |     |RIGHTWARDS ARROW
+|Bullet       |⊙ |circled-dot-operator           |U+2299 |     |CIRCLED DOT OPERATOR
+|Bullet       |■ |black-square                   |U+25A0 |     |BLACK SQUARE
+|Bullet       |□ |white-square                   |U+25A1 |     |WHITE SQUARE
+|Bullet       |▪ |black-small-square             |U+25AA |     |BLACK SMALL SQUARE
+|Bullet       |▫ |white-small-square             |U+25AB |     |WHITE SMALL SQUARE
+|Bullet       |▲ |triangle-up                    |U+25B2 |     |BLACK UP-POINTING TRIANGLE
+|Bullet       |► |triangle-right                 |U+25BA |     |BLACK RIGHT-POINTING POINTER
+|Bullet       |▼ |triangle-down                  |U+25BC |     |BLACK DOWN-POINTING TRIANGLE
+|Bullet       |◄ |triangle-left                  |U+25C4 |     |BLACK LEFT-POINTING POINTER
+|Bullet       |◉ |fisheye                        |U+25C9 |     |FISHEYE
+|Bullet       |○ |white-circle                   |U+25CB |     |WHITE CIRCLE
+|Bullet       |◎ |bullseye                       |U+25CE |     |BULLSEYE
+|Bullet       |● |black-circle                   |U+25CF |     |BLACK CIRCLE
+|Bullet       |● |bullet                         |U+2022 |8226 |BULLET
+|Bullet       |◦ |white-bullet                   |U+25E6 |     |WHITE BULLET
+|Bullet       |☀ |black-sun-with-rays            |U+2600 |     |BLACK SUN WITH RAYS
+|Bullet       |☛ |bullet-finger                  |U+261B |     |BLACK RIGHT POINTING INDEX
+|Bullet       |☞ |bullet-finger-white            |U+261E |     |WHITE RIGHT POINTING INDEX
+|Bullet       |☼ |white-sun-with-rays            |U+263C |     |WHITE SUN WITH RAYS
+|Bullet       |⦾ |circled-white-bullet           |U+29BE |10686|CIRCLED WHITE BULLET
+|Bullet       |⦿ |circled-bullet                 |U+29BF |10687|CIRCLED BULLET
+|Bullet       |🖛 |bullet-finger-sideways         |U+1F59B|     |SIDEWAYS BLACK RIGHT POINTING INDEX
+|Bullet       |🗲 |bullet-lightning-bolt          |U+1F5F2|     |LIGHTNING MOOD
+|Comms        |🔇 |speaker-muted                  |U+1F507|     |SPEAKER WITH CANCELLATION STROKE
+|Comms        |🔈 |speaker                        |U+1F508|     |SPEAKER
+|Comms        |🔉 |speaker-soft                   |U+1F509|     |SPEAKER WITH ONE SOUND WAVE
+|Comms        |🔊 |speaker-loud                   |U+1F50A|     |SPEAKER WITH THREE SOUND WAVES
+|Comms        |🕨 |right-speaker                  |U+1F568|     |RIGHT SPEAKER
+|Comms        |🕩 |right-speaker-soft             |U+1F569|     |RIGHT SPEAKER WITH ONE SOUND WAVE
+|Comms        |🕪 |right-speaker-loud             |U+1F56A|     |RIGHT SPEAKER WITH THREE SOUND WAVES
+|Comms        |🕫 |bullhorn                       |U+1F56B|     |BULLHORN
+|Comms        |🕬 |bullhorn-loud                  |U+1F56C|     |BULLHORN WITH SOUND WAVES
+|Currency     |¢ |cent                           |U+A2   |162  |CENT SIGN
+|Currency     |£ |sterling                       |U+A3   |163  |POUND SIGN
+|Currency     |¥ |yen                            |U+A5   |165  |YEN SIGN
+|Currency     |€ |euro                           |U+20AC |8364 |EURO SIGN
+|Emoji        |☹ |emoji-white-frowning-face      |U+2639 |     |WHITE FROWNING FACE
+|Emoji        |☺ |emoji-white-smiling-face       |U+263A |     |WHITE SMILING FACE
+|Emoji        |☻ |emoji-black-smiling-face       |U+263B |     |BLACK SMILING FACE
+|Emoji        |🙁 |emoji-slightly-frowning-face   |U+1F641|     |SLIGHTLY FROWNING FACE
+|Emoji        |🙂 |emoji-slightly-smiling-face    |U+1F642|     |SLIGHTLY SMILING FACE
+|Emoji        |🤝 |emoji-handshake                |U+1F91D|     |HANDSHAKE
+|Entertainment|« |rewind                         |U+AB   |171  |LEFT-POINTING DOUBLE ANGLE QUOTATION MARK
+|Entertainment|» |fast-forward                   |U+BB   |187  |RIGHT-POINTING DOUBLE ANGLE QUOTATION MARK
+|Entertainment|‖ |pause                          |U+2016 |     |DOUBLE VERTICAL LINE
+|Entertainment|■ |stop                           |U+25A0 |     |BLACK SQUARE
+|Entertainment|► |play                           |U+25BA |     |BLACK RIGHT-POINTING POINTER
+|Entertainment|♚ |chess-king                     |U+265A |     |BLACK CHESS KING
+|Entertainment|♛ |chess-queen                    |U+265B |     |BLACK CHESS QUEEN
+|Entertainment|♜ |chess-rook                     |U+265C |     |BLACK CHESS ROOK
+|Entertainment|♝ |chess-bishop                   |U+265D |     |BLACK CHESS BISHOP
+|Entertainment|♞ |chess-knight                   |U+265E |     |BLACK CHESS KNIGHT
+|Entertainment|♟ |chess-pawn                     |U+265F |     |BLACK CHESS PAWN
+|Entertainment|♠ |spades                         |U+2660 |     |BLACK SPADE SUIT
+|Entertainment|♣ |clubs                          |U+2663 |     |BLACK CLUB SUIT
+|Entertainment|♥ |hearts                         |U+2665 |     |BLACK HEART SUIT
+|Entertainment|♦ |diamonds                       |U+2666 |     |BLACK DIAMOND SUIT
+|Entertainment|♩ |quarter-note                   |U+2669 |     |QUARTER NOTE
+|Entertainment|♪ |eighth-note                    |U+266A |     |EIGHTH NOTE
+|Entertainment|♫ |beamed-eighth-notes            |U+266B |     |BEAMED EIGHTH NOTES
+|Entertainment|♬ |beamed-sixteenth-notes         |U+266C |     |BEAMED SIXTEENTH NOTES
+|Entertainment|𝅘𝅥 |musical-symbol-quarter-note    |U+1D15F|     |MUSICAL SYMBOL QUARTER NOTE
+|Entertainment|𝅘𝅥𝅮 |musical-symbol-eighth-note     |U+1D160|     |MUSICAL SYMBOL EIGHTH NOTE
+|Entertainment|🎝 |beamed-descending-musical-notes|U+1F39D|     |BEAMED DESCENDING MUSICAL NOTES
+|Entertainment|🎲 |game-die                       |U+1F3B2|     |GAME DIE
+|Entertainment|🎵 |musical-note                   |U+1F3B5|     |MUSICAL NOTE
+|Entertainment|🎶 |multiple-musical-notes         |U+1F3B6|     |MULTIPLE MUSICAL NOTES
+|Fraction     |¼ |quarter                        |U+BC   |188  |VULGAR FRACTION ONE QUARTER
+|Fraction     |½ |half                           |U+BD   |189  |VULGAR FRACTION ONE HALF
+|Fraction     |¾ |three-quarters                 |U+BE   |190  |VULGAR FRACTION THREE QUARTERS
+|Fraction     |⁄ |fraction-slash                 |U+2044 |8260 |VULGAR FRACTION SLASH
+|Fraction     |⅓ |third                          |U+2153 |8531 |VULGAR FRACTION ONE THIRD
+|Fraction     |⅔ |two-thirds                     |U+2154 |8532 |VULGAR FRACTION TWO THIRDS
+|Fraction     |⅕ |fifth                          |U+2155 |8533 |VULGAR FRACTION ONE FIFTH
+|Fraction     |⅖ |two-fifths                     |U+2155 |8533 |VULGAR FRACTION TWO FIFTHS
+|Fraction     |⅗ |three-fifths                   |U+2157 |8535 |VULGAR FRACTION THREE FIFTHS
+|Fraction     |⅘ |four-fifths                    |U+2158 |8536 |VULGAR FRACTION FOUR FIFTHS
+|Fraction     |⅙ |sixth                          |U+2159 |8537 |VULGAR FRACTION ONE SIXTH
+|Fraction     |⅚ |five-sixths                    |U+215A |8538 |VULGAR FRACTION FIVE SIXTHS
+|Fraction     |⅛ |eighth                         |U+215B |8539 |VULGAR FRACTION ONE EIGHTH
+|Fraction     |⅜ |three-eighths                  |U+215C |8540 |VULGAR FRACTION THREE EIGHTHS
+|Fraction     |⅝ |five-eighths                   |U+215D |8541 |VULGAR FRACTION FIVE EIGHTHS
+|Fraction     |⅞ |seven-eighths                  |U+215E |8542 |VULGAR FRACTION SEVEN EIGHTHS
+|Greek        |Δ |cap-delta                      |U+394  |916  |GREEK CAPITAL LETTER DELTA
+|Greek        |Θ |cap-theta                      |U+398  |920  |GREEK CAPITAL LETTER THETA
+|Greek        |Λ |cap-lambda                     |U+39B  |923  |GREEK CAPITAL LETTER LAMBDA
+|Greek        |π |pi                             |U+3C0  |960  |GREEK SMALL LETTER PI
+|Greek        |Σ |cap-sigma                      |U+3A3  |931  |GREEK CAPITAL LETTER SIGMA
+|Greek        |Ω |cap-omega                      |U+3A9  |937  |GREEK CAPITAL LETTER OMEGA
+|Invisible    |  |em-space                       |U+2003 |8195 |EM SPACE
+|Invisible    |  |en-space                       |U+2002 |8194 |EN SPACE
+|Invisible    |  |narrow-nb-space                |U+202F |8239 |NARROW NO-BREAK SPACE
+|Invisible    |  |nb-hyphen                      |U+2011 |8209 |NON-BREAKING HYPHEN
+|Invisible    |  |nb-space                       |U+A0   |160  |NO-BREAK SPACE
+|Invisible    |  |soft-hyphen                    |U+AD   |173  |SOFT HYPHEN
+|Invisible    |  |space                          |U+20   |32   |SPACE
+|Invisible    |  |thin-space                     |U+2009 |8201 |THIN SPACE
+|Invisible    |  |zero-width-space               |U+200B |8203 |ZERO WIDTH SPACE
+|Legal        |§ |section                        |U+A7   |167  |SECTION SIGN
+|Legal        |© |copyright                      |U+A9   |169  |COPYRIGHT SIGN
+|Legal        |® |registered                     |U+AE   |174  |REGISTERED SIGN
+|Legal        |℠ |service-mark                   |U+2120 |8480 |SERVICE MARK
+|Legal        |™ |trademark                      |U+2122 |8482 |TRADE MARK SIGN
+|Numeric      |№ |numero                         |U+2116 |8470 |NUMERO SIGN
+|Numeric      |∞ |infinity                       |U+221E |8734 |INFINITY
+|Objects      |⛭ |gear-without-hub               |U+26ED |     |GEAR WITHOUT HUB
+|Objects      |⛺ |tent                           |U+26FA |     |TENT
+|Objects      |⛼ |headstone-graveyard-symbol     |U+26FC |     |HEADSTONE GRAVEYARD SYMBOL
+|Objects      |⛽ |fuel-pump                      |U+26FD |     |FUEL PUMP
+|Objects      |🏕 |camping                        |U+1F3D5|     |CAMPING
+|Objects      |🔋 |battery                        |U+1F50B|     |BATTERY
+|Objects      |🔥 |fire                           |U+1F525|     |FIRE
+|Objects      |🔦 |flashlight                     |U+1F526|     |ELECTRIC TORCH
+|Objects      |🔧 |wrench                         |U+1F527|     |WRENCH
+|Objects      |🔨 |hammer                         |U+1F528|     |HAMMER
+|Objects      |🔩 |nut-and-bolt                   |U+1F529|     |NUT AND BOLT
+|Objects      |🔪 |chef-knife                     |U+1F52A|     |HOCHO
+|Objects      |🔫 |pistol                         |U+1F52B|     |PISTOL
+|Objects      |🔬 |microscope                     |U+1F52C|     |MICROSCOPE
+|Objects      |🔭 |telescope                      |U+1F52D|     |TELESCOPE
+|Objects      |🔮 |crystal-ball                   |U+1F52E|     |CRYSTAL BALL
+|Objects      |🕯 |candle                         |U+1F56F|     |CANDLE
+|Objects      |🗡 |dagger-knife                   |U+1F5E1|     |DAGGER KNIFE
+|Office       |✍ |writing-hand                   |U+270D |     |WRITING HAND
+|Office       |💡 |light-bulb                     |U+1F4A1|     |ELECTRIC LIGHT BULB
+|Office       |📌 |pushpin                        |U+1F4CC|     |PUSHPIN
+|Office       |📍 |round-pushpin                  |U+1F4CD|     |ROUND PUSHPIN
+|Office       |📎 |paperclip                      |U+1F4CE|     |PAPERCLIP
+|Office       |📕 |closed-book                    |U+1F4D5|     |CLOSED BOOK
+|Office       |📖 |open-book                      |U+1F4D6|     |OPEN BOOK
+|Office       |📜 |scroll                         |U+1F4DC|     |SCROLL
+|Office       |📣 |cheering-megaphone             |U+1F4E3|     |CHEERING MEGAPHONE
+|Office       |🔅 |low-brightness                 |U+1F505|     |LOW BRIGHTNESS SYMBOL
+|Office       |🔆 |high-brightness                |U+1F506|     |HIGH BRIGHTNESS SYMBOL
+|Office       |🔍 |magnifying-glass-left          |U+1F50D|     |LEFT-POINTING MAGNIFYING GLASS
+|Office       |🔎 |magnifying-glass               |U+1F50E|     |RIGHT-POINTING MAGNIFYING GLASS
+|Office       |🔗 |link                           |U+1F517|     |LINK SYMBOL
+|Office       |🕮 |book                           |U+1F56E|     |BOOK
+|Office       |🖈 |black-pushpin                  |U+1F588|     |BLACK PUSHPIN
+|Office       |🖉 |lower-left-pencil              |U+1F589|     |LOWER LEFT PENCIL
+|Office       |🖎 |left-writing-hand              |U+1F58E|     |LEFT WRITING HAND
+|Office       |🖹 |document-with-text             |U+1F5B9|     |DOCUMENT WITH TEXT
+|Office       |🖺 |document-with-text-and-picture |U+1F5BA|     |DOCUMENT WITH TEXT AND PICTURE
+|Office       |🗠 |stock-chart                    |U+1F5E0|     |STOCK CHART
+|Operator     |× |times                          |U+D7   |215  |MULTIPLICATION SIGN
+|Operator     |÷ |divide                         |U+F7   |247  |DIVISION SIGN
+|Operator     |≈ |aprox                          |U+2248 |8776 |ALMOST EQUAL TO
+|Operator     |≠ |ne                             |U+2260 |8800 |NOT EQUAL TO
+|Operator     |≤ |le                             |U+2264 |8804 |LESS-THAN OR EQUAL TO
+|Operator     |≥ |ge                             |U+2265 |8805 |GREATER-THAN OR EQUAL TO
+|Security     |⚿ |squared-key                    |U+26BF |     |SQUARED KEY
+|Security     |🔐 |closed-lock-with-key           |U+1F510|     |CLOSED LOCK WITH KEY
+|Security     |🔑 |key                            |U+1F511|     |KEY
+|Security     |🔒 |lock                           |U+1F512|     |LOCK
+|Security     |🗝 |old-key                        |U+1F5DD|     |OLD KEY
+|Thoughts     |💡 |idea                           |U+1F4A1|     |ELECTRIC LIGHT BULB
+|Thoughts     |💬 |speech-balloon                 |U+1F4AC|     |SPEECH BALLOON
+|Thoughts     |💭 |thought-balloon                |U+1F4AD|     |THOUGHT BALLOON
+|Thoughts     |🗨 |left-speech-bubble             |U+1F5E8|     |LEFT SPEECH BUBBLE
+|Thoughts     |🗩 |right-speech-bubble            |U+1F5E9|     |RIGHT SPEECH BUBBLE
+|Thoughts     |🗪 |two-speech-bubbles             |U+1F5EA|     |TWO SPEECH BUBBLES
+|Thoughts     |🗫 |three-speech-bubbles           |U+1F5EB|     |THREE SPEECH BUBBLES
+|Thoughts     |🗬 |left-thought-bubble            |U+1F5EC|     |LEFT THOUGHT BUBBLE
+|Thoughts     |🗭 |right-thought-bubble           |U+1F5ED|     |RIGHT THOUGHT BUBBLE
+|Thoughts     |🗮 |left-anger-bubble              |U+1F5EE|     |LEFT ANGER BUBBLE
+|Thoughts     |🗯 |right-anger-bubble             |U+1F5EF|     |RIGHT ANGER BUBBLE
+|Thoughts     |🗰 |mood-bubble                    |U+1F5F0|     |MOOD BUBBLE
+|Thoughts     |🗱 |lightning-mood-bubble          |U+1F5F1|     |LIGHTNING MOOD BUBBLE
+|Thoughts     |🗲 |lightning-bolt                 |U+1F5F2|     |LIGHTNING MOOD
+|Typesetting  |\^|caret                          |U+5E   |94   |CIRCUMFLEX ACCENT
+|Typesetting  |\`|grave                          |U+60   |96   |GRAVE ACCENT
+|Typesetting  |\~|tilde                          |U+7E   |126  |TILDE
+|Typesetting  |§ |section                        |U+A7   |167  |SECTION SIGN
+|Typesetting  |´ |accent                         |U+B4   |180  |ACUTE ACCENT
+|Typesetting  |– |en-dash                        |U+2013 |     |EN DASH
+|Typesetting  |— |em-dash                        |U+2014 |     |EM DASH
+|Typesetting  |‘ |lsquo                          |U+201C |8220 |LEFT SINGLE QUOTATION MARK
+|Typesetting  |’ |rsquo                          |U+201C |8220 |RIGHT SINGLE QUOTATION MARK
+|Typesetting  |“ |ldquo                          |U+201C |8220 |LEFT DOUBLE QUOTATION MARK
+|Typesetting  |” |ditto                          |U+201C |8220 |RIGHT DOUBLE QUOTATION MARK
+|Typesetting  |” |rdquo                          |U+201C |8220 |RIGHT DOUBLE QUOTATION MARK
+|Typesetting  |† |dagger                         |U+2020 |8224 |DAGGER
+|Typesetting  |‡ |double-dagger                  |U+2021 |8225 |DOUBLE DAGGER
+|Typesetting  |⚓ |anchor                         |U+2693 |     |ANCHOR
+|Typesetting  |⸗ |hyphen2                        |U+2E17 |11799|DOUBLE OBLIQUE HYPHEN
+|Unit         |° |deg                            |U+B0   |176  |DEGREE SIGN
+|Unit         |’ |foot                           |U+201C |8220 |RIGHT SINGLE QUOTATION MARK
+|Unit         |” |inch                           |U+201C |8220 |RIGHT DOUBLE QUOTATION MARK
 |===
 
 
 The "`Short Name`" is a suggested name to use when defining a substitution table. For example, in AsciiDoc, you can define an "`attribute`" such as this:
+
 ----
 :three-quarters:\&#xBE;
 :two-thirds:\&#x2154
 ----
+
 And then use that attribute by enclosing it in curly braces:
+
 ----
 Fold in {two-thirds} cup of whipped cream.
 ----
