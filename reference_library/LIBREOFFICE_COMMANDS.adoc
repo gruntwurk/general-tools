@@ -1,0 +1,1577 @@
+<<dispatch-commands-writer,Dispatch Commands (Writer-Specific)>>
+<<dispatch-commands-global,Dispatch Commands (Global)>>
+
+
+[[dispatch-commands-writer]]
+=== Dispatch Commands (Writer-Specific)
+
+AVMediaPlayer:: (Group=Application)
+AVMediaToolBox:: (Group=Application) Args: AVMediaToolBox (avmedia_media)
+AboveSpacing:: (Group=Format)
+AcceptAllTrackedChanges:: Accept All Changes (Group=Edit)
+AcceptTrackedChange:: Accept Change (Group=Edit) Args: AcceptTrackedChange (long)
+AcceptTrackedChangeToNext:: Accept Track Change and select next (Group=Edit)
+AcceptTrackedChanges:: Manage Track Changes (Group=Edit)
+AcceptTrackedChanges-more:: Manage Track Changes
+AddAllUnknownWords:: Add Unknown Words
+AddTextBox:: Add Text Box (Group=Drawing)
+Additionalog:: (Group=Application) Args: AdditionsTag (string)
+AlignBottom:: Align Bottom to Anchor (Group=Frame)
+AlignCharBottom:: Align to Bottom of Character (Group=Frame)
+AlignCharTop:: Align to Top of Character (Group=Frame)
+AlignHorizontalCenter:: Center Horizontal (Group=Frame)
+AlignLeft:: Align Left (Group=Frame)
+AlignRight:: Align Right (Group=Frame)
+AlignRowBottom:: Align to Bottom of Line (Group=Frame)
+AlignRowTop:: Align to Top of Line (Group=Frame)
+AlignTop:: Align Top to Anchor (Group=Frame)
+AlignVerticalCenter:: Align Middle to Anchor (Group=Frame)
+AlignVerticalCharCenter:: Align to Vertical Center of Char (Group=Frame)
+AlignVerticalRowCenter:: Align to Vertical Center of Line (Group=Frame)
+Alignment:: (Group=Format)
+AnchorMenu:: (Group=Format)
+ApplyStyleDefault::
+ApplyStyleHead1::
+ApplyStyleHead2::
+ApplyStyleHead3::
+ApplyStyleTextbody::
+AttributePage:: (Group=Format)
+AttributePageSize:: (Group=Format)
+AttributeParaModel:: (Group=Format)
+AuthoritiesEntryDialog:: Bibliography Entry... (Group=Edit)
+AutoCorrectDlg...:: Smart Tag Options...
+AutoFormatApply:: Apply (Group=Format)
+AutoFormatRedlineApply:: Apply and Edit Changes (Group=Format)
+BackgroundDialog:: Background (Group=Format)
+BackgroundImage:: (Group=Insert) Args: Background (brush),Position (integer)
+BackgroundPattern:: (Group=Format)
+BelowSpacing:: (Group=Format)
+BitmapListState:: (Group=Edit)
+BoldCJK:: (Group=Format)
+BoldCTL:: (Group=Format)
+BorderDialog:: Borders (Group=Format)
+BorderDialog-label:: Borders
+BorderDialog-more:: Borders
+BorderInner:: (Group=Format)
+BorderOuter:: (Group=Format)
+BorderReducedMode:: (Group=Controls)
+BorderShadow:: (Group=Format)
+BulletsAndNumberingDialog:: Bullets and Numbering... (Group=Enumeration)
+CTLFontState:: (Group=Application)
+Calc:: Calculate Table (Group=Table)
+CalculateSel:: Calculate (Group=Options)
+CaseMap:: (Group=Format)
+ChainFrames:: Link Frames (Group=Frame)
+ChangeDatabaseField:: Exchange Database... (Group=Data)
+ChangeTabStop:: (Group=NONE) Args: Index (long),Position (long),Remove (bool)
+ChapterNumberingDialog:: Set Heading Numbering (Group=Options)
+CharBackgroundExt:: (Group=Format)
+CharColorExt:: Font Color Fill (Group=Format) Args: FontColor (color)
+CharFontNameCJK:: (Group=Format)
+CharFontNameCTL:: (Group=Format)
+CharLeftSel:: Select Character Left (Group=Navigator)
+CharRightSel:: Select Character Right (Group=Navigator)
+CharStyle:: (Group=Document)
+CharacterRelief:: (Group=Controls)
+CharacterRotation:: (Group=Format)
+CharacterWidthScalingFactor:: (Group=Format)
+ClassificationApply:: (Group=Document) Args: Name (string),Type (string)
+ClassificationDialog:: (Group=Document)
+ClipboardFormatItems:: (Group=Edit) Args: SelectedFormat (long)
+ClosePreview:: Close Preview (Group=View)
+ColorSettings:: (Group=Modify)
+ColorTableState:: (Group=Edit)
+CommentChangeTracking:: Insert Track Change Comment (Group=Insert) Args: ChangeTrackingId (long),Text (postittext)
+ContentControlProperties:: Content Control Properties (Group=Insert)
+ContentControlsMenu:: Content Controls
+ContinueNumbering:: (Group=Enumeration)
+ContourExecute:: (Group=Edit)
+ControlCodes:: Toggle Formatting Marks (Group=View)
+ConvertTableText:: Text <-> Table... (Group=Table)
+ConvertTableToText:: Table to Text... (Group=Table) Args: Delimiter (string)
+ConvertTextToTable:: Text to Table... (Group=Table) Args: Delimiter (string),WithHeader (bool),RepeatHeaderLines (integer),WithBorder (bool),DontSplitTable (bool)
+CreateAbstract:: Create AutoAbstract... (Group=Document)
+CreateControl:: (Group=Controls)
+CreateFieldControl:: (Group=Controls)
+CreateSWDrawView:: (Group=Insert)
+CurrentFootnoteDialog:: Footnote/Endnote Settings... (Group=Format)
+CurrentOutlineType:: (Group=Enumeration)
+CustomShape:: (Group=Drawing)
+DashListState:: (Group=Edit)
+DecrementIndentValue:: Decrement Indent Value (Group=Format)
+DecrementLevel:: Demote Outline Level (Group=Enumeration)
+DecrementSubLevels:: Demote Outline Level w/Subpoints (Group=Enumeration)
+DefTabStop:: (Group=Edit)
+DelLine:: Delete Row (Group=Edit)
+DelToEndOfLine:: Delete to End of Line (Group=Edit)
+DelToEndOfPara:: Delete to End of Paragraph (Group=Edit)
+DelToEndOfSentence:: Delete to End of Sentence (Group=Edit)
+DelToEndOfWord:: Delete to End of Word (Group=Edit)
+DelToStartOfLine:: Delete to Start of Line (Group=Edit)
+DelToStartOfPara:: Delete to Start of Paragraph (Group=Edit)
+DelToStartOfSentence:: Delete to Start of Sentence (Group=Edit)
+DelToStartOfWord:: Delete to Start of Word (Group=Edit)
+DeleteBookmark:: (Group=Edit) Args: Bookmark (string)
+DeleteBookmarks:: (Group=Controls) Args: BookmarkNamePrefix (string)
+DeleteColumns:: Delete selected columns (Group=Table)
+DeleteFields:: (Group=Controls) Args: TypeName (string),NamePrefix (string)
+DeleteRows:: Delete Rows (unprotected cells) (Group=Table)
+DeleteSections:: (Group=Controls) Args: SectionNamePrefix (string)
+DeleteStyle:: (Group=Template) Args: Param (string),Family (integer)
+DeleteTable:: Delete table (Group=Table)
+DeleteTextFormFields:: (Group=Controls) Args: FieldType (string),FieldCommandPrefix (string)
+DistributeColumns:: Distribute Columns Evenly (Group=Table)
+DistributeRows:: Distribute Rows Evenly (Group=Table)
+DocumentLanguage:: (Group=Edit)
+DocumentLanguageCJK:: (Group=Edit)
+DocumentLanguageCTL:: (Group=Edit)
+EditAnnotation:: (Group=Edit) Args: Id (postitid),Author (postitauthor),Date (postitdate),Text (postittext),PositionX (long)
+EditBookmark:: (Group=Insert) Args: Bookmark (string)
+EditCurIndex:: Edit index (Group=Edit)
+EditCurrentRegion:: Edit Section... (Group=Edit)
+EditDiagram:: (Group=Modify)
+EditFootnote:: Footnote or Endnote... (Group=Edit)
+EditGlossary:: AutoText... (Group=Edit)
+EditQrCode:: (Group=Edit)
+EditRegion:: Sections... (Group=Edit)
+EditSignatureLine:: (Group=Edit)
+EditStyleFont:: (Group=Template) Args: Param (string),Family (integer)
+EndOfDocumentSel:: Select to Document End (Group=Navigator)
+EndOfLineSel:: Select to End of Line (Group=Navigator)
+EndOfParaSel:: Select to Paragraph End (Group=Navigator)
+EntireCell:: Select Cell (Group=Table)
+EntireColumn:: Column (Group=Table)
+EntireRow:: Row (Group=Table)
+Escape:: Cancel (Group=Edit)
+Escapement:: (Group=Format)
+ExecHyperlinks:: Hyperlinks Active
+ExecuteMacroField:: Run Macro Field (Group=Macro)
+ExecuteSearch:: (Group=Edit) Args: SearchItem (search),Quiet (bool)
+ExpandGlossary:: Run AutoText Entry (Group=Edit)
+ExternalEdit:: (Group=Graphic)
+ExtrusionDirection:: (Group=Drawing)
+ExtrusionLightingDirection:: (Group=Drawing)
+ExtrusionLightingIntensity:: (Group=Drawing)
+ExtrusionProjection:: (Group=Drawing)
+ExtrusionSurface:: (Group=Drawing)
+FieldDialog:: Edit Fields... (Group=Edit)
+Fieldnames:: Field Names (Group=View)
+Fields:: Fields (Group=View)
+FillBitmap:: (Group=Special)
+FillGradient:: (Group=Format) Args: FillGradientJSON (string)
+FillHatch:: (Group=Special)
+FillPageBitmap:: (Group=Special)
+FillPageColor:: (Group=Format) Args: FillColor (xfillcolor)
+FillPageGradient:: (Group=Format) Args: FillPageGradientJSON (string)
+FillPageHatch:: (Group=Special)
+FillPageStyle:: (Group=Format)
+FirstLineParaMargin:: (Group=Format)
+FontColor:: Font Color (Group=Format) Args: FontColor (color)
+FontDialog:: (Group=Format) Args: Page (string)
+FontDialog-more:: Character
+FontDialogForParagraph:: (Group=Format)
+FontEffectalog:: (Group=Format)
+FontHeightCJK:: (Group=Format)
+FontHeightCTL:: (Group=Format)
+FontNameList:: (Group=Document)
+FontPositionDialog:: (Group=Format)
+FontWorkTextAdjust:: (Group=Special)
+FontWorkTextDistance:: (Group=Special)
+FontWorkTextMirror:: (Group=Special)
+FontWorkTextOutline:: (Group=Special)
+FontWorkTextShadow:: (Group=Special)
+FontWorkTextShadowColor:: (Group=Special)
+FontWorkTextShadowXVal:: (Group=Special)
+FontWorkTextShadowYVal:: (Group=Special)
+FontWorkTextStart:: (Group=Special)
+FontWorkTextStyle:: (Group=Special)
+FontworkAlignment:: (Group=Drawing)
+FontworkCharacterSpacing:: (Group=Drawing)
+FontworkCharacterSpacingDialog:: (Group=Drawing) Args: FontworkCharacterSpacing (long)
+FontworkKernCharacterPairs:: (Group=Drawing)
+FontworkShape:: (Group=Drawing)
+FootnoteDialog:: Footnote/Endnote Settings... (Group=Format)
+FormatArea-label:: Area
+FormatArea-more:: Area
+FormatColumns:: Columns... (Group=Format)
+FormatDropcap:: Drop Caps (Group=Format)
+FormatFontWorkClose:: (Group=Special)
+FormatLine-label:: Line
+FormatLine-more:: Line
+FormatObjectMenu:: Text Box and Shape
+FormatPaintbrush:: Clone Formatting ... (Group=Edit)
+FrameDialog:: Properties... (Group=Frame)
+FrameDialog-more:: Frame Properties
+FrameStyle:: (Group=Document)
+GalleryEnableAddCopy:: (Group=Insert)
+GetRedoStrings:: (Group=Edit)
+GetUndoStrings:: (Group=Edit)
+GlowColor:: (Group=Document)
+GlowRadius:: (Group=Document)
+GlowTransparency:: (Group=Document)
+GoDown:: To Line Below (Group=Navigator) Args: Count (long),Select (bool)
+GoLeft:: To Character Left (Group=Navigator) Args: Count (long),Select (bool)
+GoRight:: Go Right (Group=Navigator) Args: Count (long),Select (bool)
+GoToAnchor:: Set Cursor To Anchor (Group=Frame)
+GoToEnd:: To Table End (Group=Navigator)
+GoToEndOfColumn:: To Column End (Group=Navigator)
+GoToEndOfDoc:: To Document End (Group=Navigator)
+GoToEndOfLine:: To End of Line (Group=Navigator)
+GoToEndOfNextColumn:: To End of Next Column (Group=Navigator)
+GoToEndOfNextPage:: To End of Next Page (Group=Navigator)
+GoToEndOfNextPageSel:: Select to End of Next Page (Group=Navigator)
+GoToEndOfPage:: To Page End (Group=Navigator)
+GoToEndOfPageSel:: Select to Page End (Group=Navigator)
+GoToEndOfPara:: To Paragraph End (Group=Navigator)
+GoToEndOfPrevColumn:: To Previous Column (Group=Navigator)
+GoToEndOfPrevPage:: To End of Previous Page (Group=Navigator)
+GoToEndOfPrevPageSel:: Select to End of Previous Page (Group=Navigator)
+GoToNextPage:: To Next Page (Group=Navigator)
+GoToNextPara:: To Next Paragraph (Group=Navigator)
+GoToNextSentence:: To Next Sentence (Group=Navigator)
+GoToNextWord:: To Word Right (Group=Navigator)
+GoToPrevPage:: To Previous Page (Group=Navigator)
+GoToPrevPara:: To Previous Paragraph (Group=Navigator)
+GoToPrevSentence:: To Previous Sentence (Group=Navigator)
+GoToPrevWord:: To Word Left (Group=Navigator)
+GoToStartOfColumn:: To Column Begin (Group=Navigator)
+GoToStartOfDoc:: To Document Begin (Group=Navigator)
+GoToStartOfLine:: To Line Begin (Group=Navigator)
+GoToStartOfNextColumn:: To Begin of Next Column (Group=Navigator)
+GoToStartOfNextPage:: To Begin of Next Page (Group=Navigator)
+GoToStartOfNextPageSel:: Select to Begin of Next Page (Group=Navigator)
+GoToStartOfPage:: To Page Begin (Group=Navigator)
+GoToStartOfPageSel:: Select to Page Begin (Group=Navigator)
+GoToStartOfPara:: To Paragraph Begin (Group=Navigator)
+GoToStartOfPrevColumn:: To Begin of Previous Column (Group=Navigator)
+GoToStartOfPrevPage:: To Begin of Previous Page (Group=Navigator)
+GoToStartOfPrevPageSel:: Select to Begin of Previous Page (Group=Navigator)
+GoToStartOfTable:: To Table Begin (Group=Navigator)
+GoUp:: To Top Line (Group=Navigator) Args: Count (long),Select (bool)
+GotoMark:: (Group=Navigator) Args: GotoMark (string)
+GotoNextIndexMark:: Go to Next Index Entry (Group=Navigator)
+GotoNextInputField:: To Next Input Field (Group=Navigator)
+GotoNextObject:: To Next Object (Group=Navigator)
+GotoNextPlacemarker:: To Next Placeholder (Group=Navigator)
+GotoNextSentenceSel:: Select to Next Sentence (Group=Navigator)
+GotoNextTableFormula:: Go to next table formula (Group=Navigator)
+GotoNextWrongTableFormula:: Go to next faulty table formula (Group=Navigator)
+GotoPage:: Go to Page... (Group=Navigator)
+GotoPrevIndexMark:: Go to Previous Index Entry (Group=Navigator)
+GotoPrevInputField:: To Previous Input Field (Group=Navigator)
+GotoPrevObject:: To Previous Object (Group=Navigator)
+GotoPrevPlacemarker:: To Previous Placeholder (Group=Navigator)
+GotoPrevSentenceSel:: Select to Previous Sentence (Group=Navigator)
+GotoPrevTableFormula:: Go to previous table formula (Group=Navigator)
+GotoPrevWrongTableFormula:: Go to previous faulty table formula (Group=Navigator)
+GradientListState:: (Group=Edit)
+GraphicDialog:: Properties... (Group=Graphic)
+GraphicDialog-more:: Image Properties
+GraphicSizeCheck:: (Group=Modify)
+HScroll:: Horizontal Scroll Bar (Group=View)
+HangingIndent:: (Group=Format)
+HatchListState:: (Group=Edit)
+HeaderFooterBorder:: (Group=NONE)
+HeadingRowsRepeat:: Header Rows Repeat Across Pages (Group=Table)
+HideAuthor:: (Group=Edit)
+HideStyle:: (Group=Template) Args: Param (string),Family (integer)
+HideWhitespace:: Hide whitespace between pages (Group=View)
+HighlightCharDF:: Character Direct Formatting (Group=Format)
+HtmlMode:: (Group=View)
+Hyperlink:: (Group=Insert)
+HyperlinkAttributes:: (Group=Format)
+Hyphenate:: Hyphenation... (Group=Options)
+ImageMapExecute:: (Group=Edit)
+ImageOrientation:: (Group=View)
+IncrementIndentValue:: Increment Indent Value (Group=Format)
+IncrementLevel:: Promote Outline Level (Group=Enumeration)
+IncrementSubLevels:: Promote Outline Level w/Subpoints (Group=Enumeration)
+IndexEntryDialog:: Edit Index Entry... (Group=Edit)
+IndexMarkToIndex:: Index Entry to Index (Group=Navigator)
+InsertAVMedia:: (Group=Application) Args: URL (string),Size (size),IsLink (bool)
+InsertAnchor:: Anchor...
+InsertAuthorField:: First Author (Group=Insert)
+InsertAuthoritiesEntry:: Bibliography Entry... (Group=Insert)
+InsertBookmark:: Insert Bookmark (Group=Insert) Args: Bookmark (string),BookmarkText (string)
+InsertBreak:: Manual Break... (Group=Insert) Args: Kind (integer),TemplateName (string),PageNumber (integer),PageNumberFilled (bool)
+InsertCaptionDialog:: Insert Caption... (Group=Insert)
+InsertCheckboxContentControl:: Insert Check Box Content Control (Group=Insert)
+InsertColumnBreak:: Insert Column Break (Group=Insert)
+InsertColumnDialog:: Columns... (Group=Table)
+InsertColumns:: (Group=Table)
+InsertColumnsAfter:: Insert Columns After (Group=Table)
+InsertColumnsBefore:: Insert Columns Before (Group=Table)
+InsertComboBoxContentControl:: Insert Combo Box Content Control (Group=Insert)
+InsertContentControl:: Insert Rich Text Content Control (Group=Insert)
+InsertCtrl:: Insert (Group=Insert)
+InsertDBField:: (Group=Insert) Args: Type (integer),DBName (string),Command (string),ColumnName (string),CommandType (long),Content (string),Format (long)
+InsertDateContentControl:: Insert Date Content Control (Group=Insert)
+InsertDateField:: Date (fix) (Group=Insert)
+InsertDateFieldVar:: Date (variable) (Group=Insert)
+InsertDropdownContentControl:: Insert Drop-Down List Content Control(Group=Insert)
+InsertEndnote:: Insert Endnote (Group=Insert) Args: FootnoteAnchorText (string),FontName (string)
+InsertEnvelope:: Envelope... (Group=Insert) Args: Envelope (swenv),NewDocument (bool)
+InsertField:: More Fields... (Group=Insert) Args: Type (integer),SubType (integer),Name (string),Content (string),Format (long),Separator (string),TypeName (string),Wrapper (string)
+InsertFieldCtrl:: Insert Field (Group=Insert)
+InsertFieldDataOnly:: (Group=Insert)
+InsertFooter:: Insert Footer
+InsertFootnote:: Insert Footnote (Group=Insert) Args: NoteAnchorText (string),FontName (string)
+InsertFootnoteDialog:: Insert Special Footnote/Endnote... (Group=Insert)
+InsertFormula:: Insert or Edit Formulak (Group=Insert) Args: Formula (string)
+InsertFrame:: Insert Frame (Group=Insert) Args: AnchorType (integer),Pos (point),Size (size)
+InsertFrameInteract:: Frame Interactively (Group=Insert) Args: Columns (integer),Modifier (integer)
+InsertFrameInteractNoColumns:: Insert single-column frame manually (Group=Insert)
+InsertGalleryPic:: (Group=Insert) Args: GalleryItem (gallery)
+InsertGlossary:: (Group=Insert) Args: Group (string),ShortName (string)
+InsertHardHyphen:: (Group=Insert)
+InsertHeader:: Insert Header
+InsertHeaderFooterMenu:: Header and Footer
+InsertHyperlinkDlg:: Insert Hyperlink (Group=Insert)
+InsertIndexesEntry:: Insert Index Entry (Group=Insert)
+InsertLRM:: (Group=Insert)
+InsertLinebreak:: Insert Manual Row Break (Group=Insert)
+InsertMultiIndex:: ToC, Index or Biblio... (Group=Insert)
+InsertNarrowNobreakSpace:: (Group=Insert)
+InsertNeutralParagraph:: Insert Unnumbered Entry (Group=Enumeration)
+InsertNonBreakingSpace:: (Group=Insert)
+InsertObjCtrl:: Insert OLE Object (Group=Insert)
+InsertObjectDialog:: Insert Other Objects
+InsertObjectStarMath:: Insert Formula Object (Group=Insert)
+InsertPageCountField:: Page Count (Group=Insert)
+InsertPageFooter:: Footer (Group=Insert) Args: PageStyle (string),On (bool)
+InsertPageHeader:: Header (Group=Insert) Args: PageStyle (string),On (bool)
+InsertPageNumberField:: Insert Page Number (Group=Insert)
+InsertPagebreak:: Insert Page Break (Group=Insert)
+InsertPara:: Insert Paragraph (Group=Insert)
+InsertPictureContentControl:: (Group=Insert)
+InsertPlainTextContentControl:: (Group=Insert)
+InsertQrCode:: (Group=Insert)
+InsertRLM:: (Group=Insert)
+InsertReferenceField:: Insert Cross-reference (Group=Insert)
+InsertRowDialog:: Rows... (Group=Table)
+InsertRows:: (Group=Table)
+InsertRowsAfter:: Insert Rows Below (Group=Table)
+InsertRowsBefore:: Insert Rows Above (Group=Table)
+InsertScript:: Script... (Group=Insert) Args: Text (string),IsURL (bool),Type (string)
+InsertSection:: Section... (Group=Insert) Args: Columns (integer),RegionName (string),RegionCondition (string),RegionHidden (bool),RegionProtect (bool),LinkName (string),FilterName (string),SubRegion (string),Content (string)
+InsertSignatureLine:: (Group=Insert)
+InsertSoftHyphen:: (Group=Insert)
+InsertTable:: Insert Table... (Group=Insert) Args: TableName (string),Columns (integer),Rows (integer),Flags (long),AutoFormat (string)
+InsertText:: (Group=Insert) Args: Text (string)
+InsertTimeField:: Time (fix) (Group=Insert)
+InsertTimeFieldVar:: Time (variable) (Group=Insert)
+InsertTitleField:: Title (Group=Insert)
+InsertTopicField:: Subject (Group=Insert)
+InsertWJ:: (Group=Insert)
+InsertZWSP:: (Group=Insert)
+ItalicCJK:: (Group=Format)
+ItalicCTL:: (Group=Format)
+JumpDownThisLevel:: To Next Paragraph in Level (Group=Enumeration)
+JumpToEndOfDoc:: Directly to Document End
+JumpToFooter:: To Footer (Group=Navigator)
+JumpToFootnoteArea:: Edit Footnote/Endnote (Group=Navigator)
+JumpToFootnoteOrAnchor:: To Footnote Anchor (Group=Navigator)
+JumpToHeader:: To Header (Group=Navigator)
+JumpToMark:: (Group=Navigator) Args: Bookmark (string)
+JumpToNextBookmark:: To Next Bookmark (Group=Navigator)
+JumpToNextCell:: (Group=Navigator) Args: AppendLineInReadonlyFlag (bool)
+JumpToNextFootnote:: To Next Footnote (Group=Navigator)
+JumpToNextFrame:: To Next Frame (Group=Navigator)
+JumpToNextRegion:: To Next Section (Group=Navigator)
+JumpToNextTable:: To Next Table (Group=Navigator)
+JumpToPrevBookmark:: To Previous Bookmark (Group=Navigator)
+JumpToPrevCell:: (Group=Navigator)
+JumpToPrevFootnote:: To Previous Footnote (Group=Navigator)
+JumpToPrevRegion:: To Previous Section (Group=Navigator)
+JumpToPrevTable:: To Previous Table (Group=Navigator)
+JumpToReference:: To Reference (Group=Navigator)
+JumpToSpecificPage:: Jump To Specific Page (Group=Navigator) Args: JumpToSpecificPage (integer)
+JumpToStartOfDoc:: Directly to Document Begin
+JumpUpThisLevel:: To Previous Paragraph in Level (Group=Enumeration)
+Language:: (Group=Format)
+LeftParaMargin:: (Group=Format)
+LeftRightMargin:: (Group=Edit)
+LeftRightParaMargin:: (Group=Format) Args: LRSpace (lrspace)
+LeftRightParaMargin_Vertical:: (Group=Format) Args: LRSpace (lrspace)
+LibreLogo-clearscreen:: Line
+LibreLogo-gobackward:: Line
+LibreLogo-goforward:: Line
+LibreLogo-home:: Line
+LibreLogo-left:: Line
+LibreLogo-right:: Line
+LibreLogo-run:: Line
+LibreLogo-stop:: Line
+LibreLogo-translate:: Line
+LineDownSel:: Select Down (Group=Navigator)
+LineEnd:: (Group=Format)
+LineEndListState:: (Group=Edit)
+LineNumber:: (Group=Format)
+LineNumberingDialog:: Line Numbering... (Group=Format)
+LineStart:: (Group=Format)
+LineUpSel:: Select to Top Line (Group=Navigator)
+LinkDialog:: External Links... (Group=Edit)
+ListStyle:: (Group=Document)
+LoadStyles:: Load Styles from Template (Group=Template) Args: FileName (string),Flags (long)
+MailExportFinished:: (Group=Explorer)
+MailMergeCreateDocuments:: Edit Individual Documents (Group=Document)
+MailMergeCurrentEntry:: Current Mail Merge Entry (Group=Document)
+MailMergeEmailDocuments:: Send Email Messages (Group=Document)
+MailMergeExcludeEntry:: Exclude Mail Merge Entry (Group=Document)
+MailMergeFirstEntry:: First Mail Merge Entry (Group=Document)
+MailMergeLastEntry:: Last Mail Merge Entry (Group=Document)
+MailMergeNextEntry:: Next Mail Merge Entry (Group=Document)
+MailMergePrevEntry:: Previous Mail Merge Entry (Group=Document)
+MailMergePrintDocuments:: Print Merged Documents (Group=Document)
+MailMergeSaveDocuments:: Save Merged Documents (Group=Document)
+MailMergeWizard:: Mail Merge Wizard... (Group=Document)
+Marks:: Field Shadings (Group=View)
+MergeDialog:: Mail Merge... (Group=Document)
+MergeTable:: Merge Table (Group=Table)
+MetricUnit:: (Group=NONE)
+MirrorGraphicOnEvenPages:: Flip Images on Even Pages (Group=Format)
+MirrorOnEvenPages:: Mirror Object on Even Pages (Group=Format)
+MoveDown:: Move Item Down (Group=Edit)
+MoveDownSubItems:: Move Item Down with Subpoints (Group=Enumeration)
+MoveShapeHandle:: (Group=Format) Args: HandleNum (long)
+MoveUp:: Move Item Up (Group=Edit)
+MoveUpSubItems:: Move Item Up with Subpoints (Group=Enumeration)
+NameGroup:: (Group=Format)
+NavElement:: (Group=Navigator)
+NavigateBack:: (Group=Navigator)
+NavigateForward:: (Group=Navigator)
+NewGlobalDoc:: Create Master Document (Group=Application) Args: FileName (string),TemplateName (string)
+NewGlossary:: (Group=Edit) Args: Group (string),Name (string),ShortName (string)
+NewHtmlDoc:: Create HTML Document (Group=Application) Args: FileName (string),TemplateName (string)
+NewStyle:: (Group=Template) Args: Param (string),Family (integer)
+NewXForms:: (Group=Insert) Args: Frame (unoframe),Hidden (bool)
+NextTrackedChange:: Next Track Change (Group=Edit) Args: NextTrackedChange (long)
+NumNewStartAt:: (Group=Format)
+NumRule:: (Group=Format)
+NumberFormat:: (Group=Format)
+NumberFormatCurrency:: Number Format: Currency (Group=Format) Args: NumberFormatCurrency (long)
+NumberFormatDate:: Number Format: Date (Group=Format)
+NumberFormatDecimal:: Number Format: Decimal (Group=Format)
+NumberFormatPercent:: Number Format: Percent (Group=Format)
+NumberFormatScientific:: Number Format: Exponential (Group=Format)
+NumberFormatStandard:: Number Format: Standard (Group=Format)
+NumberFormatTime:: Number Format: Time (Group=Format)
+NumberOrNoNumber:: Numbering On/Off (Group=Enumeration)
+NumberingStart:: Toggle Restart Numbering (Group=Enumeration)
+ObjectAlign:: (Group=Format)
+ObjectDialog-more:: OLE Object Properties
+OnlineAutoFormat:: While Typing (Group=Format)
+OpenFromWriter:: Open... (Group=Application)
+OpenLocalURL:: (Group=Navigator)
+OptimizeTable:: Optimize Size (Group=Table)
+Orientation:: (Group=Format)
+Orphan:: (Group=Format)
+OutlineLevel:: (Group=Format)
+OutlineLevelsShown:: Show Up to Outline Level... (Group=View)
+PageAreaDialog:: (Group=Format)
+PageColumnDialog:: Page Columns (Group=Format)
+PageColumnType:: Page Columns (Group=Format)
+PageDialog:: Page Style... (Group=Format)
+PageDown:: Next Page (Group=Navigator)
+PageDownSel:: Select to Next Page (Group=Navigator)
+PageLRMargin:: (Group=Format)
+PageMargin:: (Group=Format) Args: PageLeft (long),PageRight (long),PageTop (long),PageBottom (long),ScaleObjects (bool)
+PageNumber:: (Group=Format)
+PageNumberWizard:: Insert page number (Group=Insert)
+PageOffsetDialog:: Page Number (Group=Options) Args: nOffset (integer)
+PagePaperBin:: (Group=Format)
+PageSettingDialog:: (Group=Format)
+PageStyle:: (Group=Document)
+PageStyleApply:: Apply Page Style (Group=Format)
+PageStyleName:: Page Style (Group=View)
+PageULMargin:: (Group=Format)
+PageUp:: Previous Page (Group=Navigator)
+PageUpSel:: Select to Previous Page (Group=Navigator)
+Pagebreak:: (Group=Format)
+PairKerning:: (Group=Format)
+ParaKeepTogether:: (Group=Format)
+ParaSplit:: (Group=Format)
+ParaStyle:: (Group=Document)
+ParagraphChangeState:: (Group=NONE) Args: FirstLineIndent (string),LeftParaIndent (string),RightParaIndent (string)
+ParagraphClassificationDialog:: (Group=Document)
+ParagraphDialog-more:: Paragraph
+PasteColumnsBefore:: Columns Before (Group=Edit)
+PasteNestedTable:: Nested Table (Group=Edit)
+PasteRowsBefore:: Rows Above (Group=Edit)
+PasteSpecial:: More Options... (Group=Edit) Args: Format (long)
+PatternListState:: (Group=Edit)
+Position:: (Group=Edit)
+PrepareMailExport:: (Group=Explorer) Args: On (bool)
+PreviewZoom:: Preview Zoom (Group=View) Args: PreviewZoom (integer)
+PreviousTrackedChange:: Previous Track Change (Group=Edit)
+PrintLayout:: Normal (Group=View)
+PrintPagePreview:: Print document (Group=View)
+Protect:: Protect Cells (Group=Table) Args: Protect (bool)
+ProtectBookmarks:: (Group=Controls)
+ProtectFields:: (Group=Controls)
+ProtectPos:: (Group=Format)
+ProtectSize:: (Group=Format)
+ReadOnlyMode:: (Group=Edit)
+RegenerateDiagram:: (Group=Modify)
+RegisterTrue:: (Group=Format)
+RejectAllTrackedChanges:: Reject All Changes (Group=Edit)
+RejectTrackedChange:: Reject Change (Group=Edit) Args: RejectTrackedChange (long)
+RejectTrackedChangeToNext:: Reject Track Change and select next (Group=Edit)
+RemoveBullets:: No List (Group=Enumeration)
+RemoveDirectCharFormats:: Remove Direct Character Formats (Group=Format)
+RemoveHyperlink:: (Group=Edit)
+RemoveTableOf:: Delete index (Group=Insert)
+RemoveTextBox:: Remove Text Box (Group=Drawing)
+Repaginate:: Update Page Formatting (Group=Format)
+RepeatSearch:: Repeat Search (Group=Edit) Args: Quiet (bool)
+ReplaceSet:: (Group=Edit)
+ResetAttributes:: Clear Direct Formatting (Group=Format)
+ResetTableProtection:: Unprotect sheet (Group=Table)
+RightParaMargin:: (Group=Format)
+Rotate180:: Rotate 180° (Group=Graphic)
+RotateLeft:: Rotate 90° Left (Group=Graphic)
+RotateReset:: Reset Rotation (Group=Graphic)
+RotateRight:: Rotate 90° Right (Group=Graphic)
+RowSplit:: Row to Break Across Pages (Group=Format)
+Ruler:: Rulers (Group=View)
+RulerBorderDistance:: (Group=View)
+RulerBorders:: (Group=View)
+RulerBordersVertical:: (Group=View)
+RulerChangeState:: (Group=NONE) Args: Margin1 (string),Margin2 (string)
+RulerPagePos:: (Group=NONE)
+RulerProtect:: (Group=View)
+RulerRows:: (Group=View)
+RulerRowsVertical:: (Group=View)
+SbaInsert:: (Group=Data)
+SbaInsertField:: (Group=Data)
+SbaMerge:: (Group=Data)
+ScrollNavigation:: (Group=View)
+ScrollToNext:: (Group=Navigator)
+ScrollToPrevious:: (Group=Navigator)
+SearchOff:: (Group=Edit) Args: SearchItem (search)
+SearchOn:: (Group=Edit) Args: SearchItem (search)
+SearchOptions:: (Group=Intern)
+SearchProperties:: (Group=NONE)
+SearchSet:: (Group=Edit)
+SectionBoundaries:: Section Boundaries (Group=View)
+SelectSentence:: Select Sentence (Group=Navigator)
+SelectTable:: Select Table (Group=Table)
+SelectText:: Select Paragraph (Group=Edit)
+SelectTextMode:: Select Text (Group=Edit)
+SelectWord:: Select Word (Group=Navigator)
+SelectionCycle:: Select Cycle (Group=Navigator)
+SelectionMode:: Selection Mode (Group=View)
+SelectionModeBlock:: Block Area (Group=Edit)
+SelectionModeDefault:: Standard (Group=Edit)
+SendAbstractToStarImpress:: AutoAbstract to Presentation... (Group=Document)
+SendMailChildWindow:: (Group=Edit)
+SendMailDocAsMS:: Email as Microsoft Word... (Group=Document) Args: Recipient (string),Subject (string),MailText (string),Priority (integer)
+SendMailDocAsOOo:: Email as OpenDocument Text... (Group=Document) Args: Recipient (string),Subject (string),MailText (string),Priority (integer)
+SendOutlineToClipboard:: Outline to Clipboard (Group=Document)
+SendOutlineToStarImpress:: Outline to Presentation (Group=Document)
+SetActGlossaryGroup:: (Group=Edit) Args: Group (string)
+SetAnchorAtChar:: To Character (Group=Format)
+SetAnchorToChar:: As Character (Group=Format)
+SetAnchorToFrame:: To Frame (Group=Format)
+SetAnchorToPage:: Anchor to page (Group=Format)
+SetAnchorToPara:: To Paragraph (Group=Format)
+SetBullet:: (Group=Special)
+SetColumnWidth:: Column Width... (Group=Table)
+SetDropCapCharStyleName:: (Group=Format) Args: CharStyleName (string)
+SetDropCapText:: (Group=Format) Args: DropCapText (string)
+SetExtSelection:: Extended Selection On (Group=Edit)
+SetHyperlink:: (Group=Insert) Args: Hyperlink (hyperlink)
+SetHyphenZone:: (Group=Format)
+SetLongLeftRightMargin:: (Group=NONE)
+SetLongTopBottomMargin:: (Group=Format) Args: Space (longulspace)
+SetMinimalColumnWidth:: Minimal Column Width (Group=Table)
+SetMinimalRowHeight:: Minimal Row Height (Group=Table)
+SetMultiSelection:: MultiSelection On (Group=Edit)
+SetNumber:: (Group=Special)
+SetOptimalColumnWidth:: Optimal Column Width (Group=Table) Args: aExtraWidth (integer)
+SetOptimalRowHeight:: Optimal Row Height (Group=Table) Args: aExtraHeight (integer)
+SetPageMaxSize:: (Group=Format) Args: Size (size)
+SetReminder:: Set Reminder (Group=Insert)
+SetRowHeight:: Row Height... (Group=Table)
+SetTrackedChangesInText:: All Changes Inline (Group=View)
+SetTrackedDeletionsInMargin:: Deletions In Margin (Group=View)
+SetTrackedInsertionsInMargin:: Insertions In Margin (Group=View)
+ShadowCursor:: Direct Cursor Mode (Group=Options)
+ShiftBackspace:: Shift+Backspace (Group=Edit)
+ShowBookview:: Book Preview (Group=View)
+ShowChangesInMargin:: Show tracked deletions in margin (Group=View)
+ShowGraphics:: Images and Charts (Group=View)
+ShowHiddenParagraphs:: Field Hidden Paragraphs (Group=Options)
+ShowInlineTooltips:: Show change authorship in tooltips (Group=View)
+ShowMultiplePages:: Multiple Pages Preview (Group=View) Args: Columns (integer),Rows (integer)
+ShowOutlineContentVisibilityButton:: Shows a button next to headings... (Group=View)
+ShowResolvedAnnotations:: Resolved Comments (Group=View)
+ShowSinglePage:: Single Page Preview (Group=View)
+ShowStyle:: (Group=Template) Args: Param (string),Family (integer)
+ShowTrackedChanges:: Show track changes (Group=View)
+ShowTrackedChangesMenu:: (Group=View)
+ShowTwoPages:: Two Pages Preview (Group=View)
+ShowWhitespace:: Show whitespace between pages (Group=View)
+SignSignatureLine:: (Group=Edit)
+SoftEdgeRadius:: (Group=Document)
+SortDialog:: Sort... (Group=Data)
+SpellCheckerChanged:: (Group=Special)
+SplitTable:: Split Table... (Group=Table) Args: Type (integer)
+SpotlightCharStyles:: Character Styles (Group=Format)
+SpotlightParaStyles:: Paragraph Styles (Group=Format)
+StartAutoCorrect:: AutoCorrect (Group=Options)
+StartOfDocumentSel:: Select to Document Begin (Group=Navigator)
+StartOfLineSel:: Select to Begin of Line (Group=Navigator)
+StartOfParaSel:: Select to Paragraph Begin (Group=Navigator)
+StateAccessibilityCheck:: (Group=View)
+StateBookmark:: (Group=Intern)
+StatePageNumber:: Page Number (Group=View)
+StateWordCount:: (Group=View)
+StateZoom:: (Group=Edit)
+StyleWatercanMode:: (Group=Format)
+SubScript:: Subscript (Group=Format)
+SuperScript:: Superscript (Group=Format)
+SwBackspace:: Backspace (Group=Edit)
+SwBrwInsert::
+SwMailMerge::
+SwPageFooterItem:: (Group=Format)
+SwPageFooterLRMargin:: (Group=Format)
+SwPageFooterLayout:: (Group=Format)
+SwPageFooterSpacing:: (Group=Format)
+SwPageHeaderItem:: (Group=Format)
+SwPageHeaderLRMargin:: (Group=Format)
+SwPageHeaderLayout:: (Group=Format)
+SwPageHeaderSpacing:: (Group=Format)
+SwUpdate::
+SynchronizeLabelsDlg:: (Group=Edit)
+TableAlignment:: (Group=Table) Args: TableLeftSpace (long),TableRightSpace (long)
+TableBackground:: (Group=Format)
+TableBoundaries:: Table Boundaries (Group=View)
+TableCellBackgroundColor:: (Group=Format)
+TableChangeCurrentBorderPosition:: (Group=NONE) Args: BorderType (string),Index (integer),Offset (long)
+TableColumWidth:: (Group=Table)
+TableDialog:: Table Properties... (Group=Table)
+TableDialog-more:: Table Properties
+TableLeftSpace:: (Group=Table)
+TableModeFix:: Table: Fixed (Group=Table)
+TableModeFixProp:: Table: Fixed, Proportional (Group=Table)
+TableModeVariable:: Table: Variable (Group=Table)
+TableNumberFormatDialog:: Number Format... (Group=Format)
+TableNumberRecognition:: Number Recognition (Group=Table)
+TableRightSpace:: (Group=Table)
+TableRowBackground:: (Group=Format)
+TableRowHeight:: (Group=Table)
+TableSort:: Sort... (Group=Table)
+TableStyle:: (Group=Document)
+Tabstops:: (Group=Format)
+TabstopsVertical:: (Group=Format)
+TextAttributes:: Text Attributes... (Group=Format) Args: IsAutoGrow (bool),IsCenter (bool),IsFitToSize (bool),LeftBorder (long),RightBorder (long),TopBorder (long),BottomBorder (long)
+TextColumnsNumber:: (Group=Format)
+TextColumnsSpacing:: (Group=Format)
+TextFormFields:: (Group=Controls) Args: FieldType (string),FieldCommandPrefix (string),Fields (unoany)
+TextRTL:: (Group=Controls)
+TextWrap:: Edit... (Group=Format)
+TextWrap-more:: Text Wrap
+ThemeDialog:: (Group=Modify)
+Thesaurualog:: Thesaurus... (Group=Options)
+TitlePageDialog:: Title Page... (Group=Format)
+ToggleAnchorType:: Change Anchor (Group=Format)
+ToggleObjectLayer:: Change Position (Group=Format)
+ToggleOutlineContentVisibility:: (Group=View)
+TopBottomMargin:: (Group=Format)
+TrackChanges:: Record Track Changes (Group=Edit)
+TrackChangesBar:: Show Track Changes Functions (Group=Edit)
+TransformDialog-more:: Position and Size
+TransformHeight:: (Group=Special)
+TransformPosX:: (Group=Special)
+TransformPosY:: (Group=Special)
+TransformWidth:: (Group=Special)
+Translate:: Translate... (Group=Format) Args: TargetLang (string)
+ULSpacing:: (Group=Format)
+UndoCount:: (Group=NONE)
+UnfloatFrame:: Unfloat Frame Content (Group=Edit)
+UnhainFrames:: Unlink Frames (Group=Frame)
+UnsetCellsReadOnly:: Unprotect Cells (Group=Table)
+UpdateAll:: Update All (Group=Edit)
+UpdateAllIndexes:: Update Indexes and Tables (Group=Edit)
+UpdateAllLinks:: Update Links (Group=Edit)
+UpdateBookmark:: (Group=Insert) Args: BookmarkNamePrefix (string),Bookmark (unoany)
+UpdateBookmarks:: (Group=Insert) Args: BookmarkNamePrefix (string),Bookmarks (unoany)
+UpdateCharts:: Update Charts (Group=Edit)
+UpdateCurIndex:: Update Index (Group=Edit)
+UpdateField:: (Group=Edit) Args: TypeName (string),NamePrefix (string),Field (unoany)
+UpdateFields:: Update Fields (Group=Edit) Args: TypeName (string),NamePrefix (string),Fields (unoany)
+UpdateInputFields:: Update Input Fields (Group=Edit)
+UpdateSections:: (Group=Insert) Args: SectionNamePrefix (string),Sections (unoany)
+UpdateSelectedField:: Update Selected Field (Group=Edit)
+UpdateTextFormField:: (Group=Controls) Args: FieldType (string),FieldCommandPrefix (string),Field (unoany)
+UseHeaderFooterMenu:: ... create h/f on the fly (Group=View)
+VRuler:: Vertical Ruler (Group=View)
+VScroll:: Vertical Scroll Bar (Group=View)
+VerticalParagraphAlignment:: (Group=Controls)
+VerticalTextState:: (Group=Application)
+ViewBounds:: Text Boundaries (Group=View)
+ViewLayout:: (Group=View)
+ViewTrackChanges:: Show Tracked Changes
+Watermark:: (Group=Document) Args: Text (string),Font (string),Angle (integer),Transparency (integer),Color (long)
+Widow:: (Group=Format)
+WordCountDialog:: (Group=Options)
+WordLeftSel:: Select to Begin of Word (Group=Navigator)
+WordMode:: (Group=Format)
+WordRightSel:: Select to End of Word (Group=Navigator)
+WrapAnchorOnly:: First Paragraph (Group=Frame)
+WrapContour:: Contour (Group=Frame)
+WrapIdeal:: Optimal (Group=Frame)
+WrapLeft:: Before (Group=Frame)
+WrapOff:: None (Group=Frame)
+WrapOn:: Parallel (Group=Frame)
+WrapRight:: After (Group=Frame)
+WrapThrough:: Through (Group=Frame)
+WrapThroughTransparencyToggle:: In Background (Group=Frame)
+WrapThroughTransparent:: In Background (Group=Frame)
+Year2000:: (Group=Intern)
+Zoom-more:: Zoom
+ZoomSlider:: (Group=View)
+
+
+[[dispatch-commands-global]]
+=== Dispatch Commands (Global)
+
+About (global):: About %PRODUCTNAMEApplication
+AbsoluteRecord (global):: Absolute RecordControls Args: Position (long)
+AccessibilityCheckOnline (global):: Toggle Automatic Accessibility CheckingOptions Args: Enable (bool)
+Activate (global):: View
+ActivateStyleApply (global):: Template
+ActiveHelp (global):: Extended TipsApplication
+ActualStyleFamily (global):: Document
+AddBookmark (global):: Explorer
+AddDirect (global):: NewApplication
+AddTable (global):: Add Table...
+AddressBookSource (global):: Address Book Source...Template
+AlignCenter (global):: CenteredFormat
+AlignDown (global):: BottomFormat
+AlignMiddle (global):: CenterFormat
+AlignUp (global):: TopFormat
+Arc (global):: ArcDrawing Args: CenterX (long),CenterY (long),AxisX (long),AxisY (long),StartAngle (long),EndAngle (long)
+ArrowShapes (global):: Block Arrows (double click for multi-selection)Options Args: ArrowShapes (string)
+ArrowShapes.chevron (global):: Chevron
+ArrowShapes.circular-arrow (global):: Circular Arrow
+ArrowShapes.corner-right-arrow (global):: Corner Right Arrow
+ArrowShapes.down-arrow (global):: Down Arrow
+ArrowShapes.down-arrow-callout (global):: Down Arrow Callout
+ArrowShapes.left-arrow (global):: Left Arrow
+ArrowShapes.left-arrow-callout (global):: Left Arrow Callout
+ArrowShapes.left-right-arrow (global):: Left and Right Arrow
+ArrowShapes.left-right-arrow-callout (global):: Left and Right Arrow Callout
+ArrowShapes.notched-right-arrow (global):: Notched Right Arrow
+ArrowShapes.pentagon-right (global):: Pentagon
+ArrowShapes.quad-arrow (global):: 4-way Arrow
+ArrowShapes.quad-arrow-callout (global):: 4-way Arrow Callout
+ArrowShapes.right-arrow (global):: Right Arrow
+ArrowShapes.right-arrow-callout (global):: Right Arrow Callout
+ArrowShapes.s-sharped-arrow (global):: S-shaped Arrow
+ArrowShapes.split-arrow (global):: Split Arrow
+ArrowShapes.split-round-arrow (global):: Right or Left Arrow
+ArrowShapes.striped-right-arrow (global):: Striped Right Arrow
+ArrowShapes.up-arrow (global):: Up Arrow
+ArrowShapes.up-arrow-callout (global):: Up Arrow Callout
+ArrowShapes.up-down-arrow (global):: Up and Down Arrow
+ArrowShapes.up-down-arrow-callout (global):: Up and Down Arrow Callout
+ArrowShapes.up-right-arrow (global):: Up and Right Arrow
+ArrowShapes.up-right-arrow-callout (global):: Up and Right Arrow Callout
+ArrowShapes.up-right-down-arrow (global):: Up, Right and Down Arrow
+ArrowsToolbox (global):: Lines and Arrows (double click for multi-selection)Drawing
+Author (global):: NONE
+AutoControlFocus (global):: Automatic Control FocusControls
+AutoCorrectDlg (global):: AutoCorrect Options...Options Args: ShowSwOptions (bool),OpenSmartTag (bool)
+AutoFilter (global):: AutoFilterTable
+AutoFormat (global):: AutoFormat Styles...Format Args: aFormatName (string)
+AutoPilotAddressDataSource (global):: AutoPilot: Address Data SourceApplication
+AutoPilotAgenda (global):: AutoPilot: Agenda
+AutoPilotFax (global):: AutoPilot: Fax
+AutoPilotLetter (global):: AutoPilot: Letter
+AutoPilotMemo (global):: AutoPilot: Memo
+AutoPilotMenu (global):: WizardsApplication
+AutoRedactDoc (global):: Auto-Redact DocumentDocument Args: URL (string),FilterName (string)
+AutoSum (global):: SumTable Args: Function (string)
+AvailableToolbars (global):: ToolbarsApplication Args: Toolbar (string)
+BackgroundColor (global):: Background ColorFormat Args: BackgroundColor (color)
+BackgroundPatternController (global):: Background Pattern
+BasicBreak (global):: Interrupt MacroMacro
+BasicIDEAppear (global):: Edit Macros...Application Args: Document (string),LibName (string),Name (string),Type (string),Line (long),Column1 (integer),Column2 (integer)
+BasicShapes (global):: Basic Shapes (double click for multi-selection)Options Args: BasicShapes (string),CreateDirectly (bool)
+BasicShapes.block-arc (global):: Block Arc
+BasicShapes.can (global):: Cylinder
+BasicShapes.circle (global):: Circle
+BasicShapes.circle-pie (global):: Circle Pie
+BasicShapes.cross (global):: Cross
+BasicShapes.cube (global):: Cube
+BasicShapes.diamond (global):: Diamond
+BasicShapes.ellipse (global):: Ellipse (double click for multi-selection)
+BasicShapes.frame (global):: Frame
+BasicShapes.hexagon (global):: Hexagon
+BasicShapes.isosceles-triangle (global):: Isosceles Triangle
+BasicShapes.octagon (global):: Octagon
+BasicShapes.paper (global):: Folded Corner
+BasicShapes.parallelogram (global):: Parallelogram
+BasicShapes.pentagon (global):: Regular Pentagon
+BasicShapes.quadrat (global):: Square
+BasicShapes.rectangle (global):: Rectangle (double click for multi-selection)
+BasicShapes.right-triangle (global):: Right Triangle
+BasicShapes.ring (global):: Ring
+BasicShapes.round-quadrat (global):: Square, Rounded
+BasicShapes.round-rectangle (global):: Rectangle, Rounded
+BasicShapes.trapezoid (global):: Trapezoid
+BasicStop (global):: StopMacro
+Beamer (global):: View
+BezierClose (global):: Close BézierDrawing
+BezierConvert (global):: Convert to CurveDrawing
+BezierCutLine (global):: Split CurveDrawing
+BezierDelete (global):: Delete PointsDrawing
+BezierEdge (global):: Corner PointDrawing
+BezierEliminatePoints (global):: Eliminate PointsDrawing
+BezierFill (global):: Curve, FilledDrawing
+BezierInsert (global):: Insert PointsDrawing
+BezierMove (global):: Move PointsDrawing
+BezierSmooth (global):: Smooth TransitionDrawing
+BezierSymmetric (global):: Symmetric TransitionDrawing
+Bezier_Unfilled (global):: CurveDrawing
+BibliographyComponent (global):: Bibliography DatabaseApplication
+BmpMask (global):: Color ReplacerDocument
+Bold (global):: BoldFormat
+BoldLatin (global):: Format
+BringToFront (global):: Bring to FrontFormat
+BrowseBackward (global):: Navigator Args: nSteps (integer)
+BrowseForward (global):: Navigator Args: nSteps (integer)
+BrowseView (global):: WebView
+CalloutShapes (global):: Callout Shapes (double click for multi-selection)Options Args: CalloutShapes (string)
+CalloutShapes.cloud-callout (global):: Cloud
+CalloutShapes.line-callout-1 (global):: Line Callout 1
+CalloutShapes.line-callout-2 (global):: Line Callout 2
+CalloutShapes.line-callout-3 (global):: Line Callout 3
+CalloutShapes.rectangular-callout (global):: Rectangular Callout
+CalloutShapes.round-callout (global):: Round Callout
+CalloutShapes.round-rectangular-callout (global):: Rounded Rectangular Callout
+CancelCheckOut (global):: Cancel Checkout...Document
+CellVertBottom (global):: Align BottomTable
+CellVertCenter (global):: Center VerticallyTable
+CellVertTop (global):: Align TopTable
+CenterPara (global):: Align CenterFormat
+ChangeCaseRotateCase (global):: Cycle Case (Title Case, Sentence case, UPPERCASE, lowercase)Format
+ChangeCaseToFullWidth (global):: Full-widthFormat
+ChangeCaseToHalfWidth (global):: Half-widthFormat
+ChangeCaseToHiragana (global):: HiraganaFormat
+ChangeCaseToKatakana (global):: KatakanaFormat
+ChangeCaseToLower (global):: lowercaseFormat
+ChangeCaseToSentenceCase (global):: Sentence caseFormat
+ChangeCaseToTitleCase (global):: Capitalize Every WordFormat
+ChangeCaseToToggleCase (global):: tOGGLE cASEFormat
+ChangeCaseToUpper (global):: UPPERCASEFormat
+ChangeControlType (global):: Replace withNONE
+ChangePicture (global):: Replace...Graphic
+ChangeTheme (global):: Application Args: NewTheme (string)
+CharBackColor (global):: Character Highlighting ColorFormat Args: CharBackColor (color)
+CharFontName (global):: Font NameFormat
+CharFontNameLatin (global):: Format
+CharacterBackgroundPattern (global):: Highlight ColorFormat
+CharmapControl (global):: Insert Special CharactersSpecial
+CheckBox (global):: Check BoxControls
+CheckBoxFormField (global):: Check Box Form FieldControls
+CheckIn (global):: Check In...Document Args: VersionComment (string),VersionMajor (bool)
+CheckOut (global):: Check OutDocument
+CheckPLZ (global):: Special Args: PLZ (string)
+ChineseConversion (global):: Chinese Conversion...Options
+Circle (global):: CircleDrawing Args: CenterX (long),CenterY (long),AxisX (long),AxisY (long)
+CircleArc (global):: Circle ArcDrawing Args: CenterX (long),CenterY (long),AxisX (long),AxisY (long),StartAngle (long),EndAngle (long)
+CircleCut (global):: Circle SegmentDrawing Args: CenterX (long),CenterY (long),AxisX (long),AxisY (long),StartAngle (long),EndAngle (long)
+CircleCut_Unfilled (global):: Circle Segment, UnfilledDrawing Args: CenterX (long),CenterY (long),AxisX (long),AxisY (long),StartAngle (long),EndAngle (long)
+CirclePie (global):: Circle PieDrawing Args: CenterX (long),CenterY (long),AxisX (long),AxisY (long),StartAngle (long),EndAngle (long)
+CirclePie_Unfilled (global):: Circle Pie, UnfilledDrawing Args: CenterX (long),CenterY (long),AxisX (long),AxisY (long),StartAngle (long),EndAngle (long)
+Circle_Unfilled (global):: Circle, UnfilledDrawing Args: CenterX (long),CenterY (long),AxisX (long),AxisY (long)
+ClearHistory (global):: Delete HistoryOptions
+ClearOutline (global):: Remove OutlineData
+CloseDoc (global):: CloseDocument Args: saveChanges (bool),fileName (string)
+CloseDocs (global):: Application
+CloseWin (global):: Close WindowView
+Closing (global):: Intern
+Color (global):: Font ColorFormat Args: Color (color)
+ColorControl (global):: Color BarFormat
+ComboBox (global):: Combo BoxControls
+CommandPopup (global):: Search CommandsView
+Comments (global):: NONE
+CommonAlignBottom (global):: BottomFormat
+CommonAlignHorizontalCenter (global):: CenteredFormat
+CommonAlignHorizontalDefault (global):: DefaultFormat
+CommonAlignJustified (global):: JustifiedFormat
+CommonAlignLeft (global):: LeftFormat
+CommonAlignRight (global):: RightFormat
+CommonAlignTop (global):: TopFormat
+CommonAlignVerticalCenter (global):: CenterFormat
+CommonAlignVerticalDefault (global):: DefaultFormat
+CommonTaskBarVisible (global):: Presentation
+CompareDocuments (global):: Compare Non-Track Changed DocumentEdit Args: URL (string),FilterName (string),Password (string),FilterOptions (string),Version (integer),NoAcceptDialog (bool)
+CompressGraphic (global):: Compress...Modify
+Config (global):: ControlsControls
+ConfigureDialog (global):: Customize...Options Args: ResourceURL (string)
+ConfigureToolboxVisible (global):: Customize...
+Context (global):: Current ContextView
+ContourDialog (global):: Edit Contour...Graphic
+ConvertToButton (global):: Replace with ButtonControls
+ConvertToCheckBox (global):: Replace with Check BoxControls
+ConvertToCombo (global):: Replace with Combo BoxControls
+ConvertToCurrency (global):: Replace with Currency FieldControls
+ConvertToDate (global):: Replace with Date FieldControls
+ConvertToEdit (global):: Replace with Text BoxControls
+ConvertToFileControl (global):: Replace with File SelectionControls
+ConvertToFixed (global):: Replace with Label FieldControls
+ConvertToFormatted (global):: Replace with Formatted FieldControls
+ConvertToGroup (global):: Replace with Group BoxControls
+ConvertToImageBtn (global):: Replace with Image ButtonControls
+ConvertToImageControl (global):: Replace with Image ControlControls
+ConvertToList (global):: Replace with List BoxControls
+ConvertToNavigationBar (global):: Replace with Navigation BarControls
+ConvertToNumeric (global):: Replace with Numerical FieldControls
+ConvertToPattern (global):: Replace with Pattern FieldControls
+ConvertToRadio (global):: Replace with Radio ButtonControls
+ConvertToScrollBar (global):: Replace with ScrollbarControls
+ConvertToSpinButton (global):: Replace with Spin ButtonControls
+ConvertToTime (global):: Replace with Time FieldControls
+Copy (global):: CopyEdit
+CopyHyperlinkLocation (global):: Copy Hyperlink LocationEdit
+Crop (global):: Crop ImageDocument
+CurrencyField (global):: Currency FieldControls
+CurrentBulletListType (global):: Current Bullet List TypeEnumeration
+CurrentDate (global):: Current Date
+CurrentNumListType (global):: Current Numbering List TypeEnumeration
+CurrentTime (global):: Current Time
+CurrentURL (global):: NONE
+Cut (global):: CutEdit
+DSBrowserExplorer (global):: Explorer On/Off
+DatasourceAdministration (global):: Data Sources...
+DateField (global):: Date FieldControls
+DatePickerFormField (global):: Date Picker ControlControls
+DecrementIndent (global):: Decrease IndentFormat
+DefaultBullet (global):: Toggle Unordered ListEnumeration Args: On (bool)
+DefaultFileName (global):: 
+DefaultFilePath (global):: 
+DefaultNumbering (global):: Toggle Ordered ListEnumeration Args: On (bool)
+Delete (global):: Delete Contents...Edit
+DeleteAllNotes (global):: Delete All CommentsEdit
+DeleteAuthor (global):: Delete All Comments by This AuthorEdit
+DeleteComment (global):: Delete CommentEdit Args: Id (postitid)
+DeleteCommentThread (global):: Delete Comment ThreadEdit Args: Id (postitid)
+DeleteFrame (global):: Delete Frame
+DeleteRecord (global):: Delete RecordControls
+DesignerDialog (global):: Show the Styles SidebarView
+DevelopmentToolsDockingWindow (global):: Development ToolsApplication
+DocInfoTitle (global):: NONE
+DocPath (global):: NONE
+DockingWindow0 (global):: Application
+DockingWindow1 (global):: Application
+DockingWindow2 (global):: Application
+DockingWindow3 (global):: Application
+DockingWindow4 (global):: Application
+DockingWindow5 (global):: Application
+DockingWindow6 (global):: Application
+DockingWindow7 (global):: Application
+DockingWindow8 (global):: Application
+DockingWindow9 (global):: Application
+DocumentRepair (global):: NONE
+Documentation (global):: User GuidesApplication
+Donation (global):: Donate to LibreOfficeApplication
+DownSearch (global):: Find Next
+DragHierarchy (global):: NONE
+DrawCaption (global):: CalloutsDrawing
+DrawSelect (global):: 
+DrawText (global):: Insert Text BoxDrawing Args: CreateDirectly (bool)
+DropDownFormField (global):: Drop-Down Form FieldControls
+Edit (global):: Text BoxControls
+EditDoc (global):: Toggle Edit ModeDocument Args: Editable (bool)
+EditFrameSet (global):: Edit FrameSet
+EditHyperlink (global):: Edit Hyperlink...Edit
+EditStyle (global):: EditTemplate Args: Param (string),Family (integer)
+Ellipse (global):: Insert EllipseDrawing Args: CenterX (long),CenterY (long),AxisX (long),AxisY (long)
+EllipseCut (global):: Ellipse SegmentDrawing Args: CenterX (long),CenterY (long),AxisX (long),AxisY (long),StartAngle (long),EndAngle (long)
+EllipseCut_Unfilled (global):: Ellipse Segment, unfilledDrawing Args: CenterX (long),CenterY (long),AxisX (long),AxisY (long),StartAngle (long),EndAngle (long)
+Ellipse_Unfilled (global):: Ellipse, UnfilledDrawing Args: CenterX (long),CenterY (long),AxisX (long),AxisY (long)
+EmphasisMark (global):: Format
+EnterGroup (global):: Enter GroupFormat
+EqualizeHeight (global):: Equalize HeightModify
+EqualizeWidth (global):: Equalize WidthModify
+ExitSearch (global):: Close Find Bar
+ExportAsMenu (global):: Export As
+ExportDirectToEPUB (global):: Export as EPUBDocument Args: URL (string),FilterName (string)
+ExportDirectToPDF (global):: Export Directly as PDFDocument Args: URL (string),FilterName (string),IsRedactMode (bool),RedactionStyle (string)
+ExportTo (global):: Export...Document Args: URL (string),FilterName (string),Overwrite (bool),FilterOptions (string),SaveACopy (bool)
+ExportToEPUB (global):: Export as EPUBDocument Args: URL (string),FilterName (string)
+ExportToPDF (global):: Export as PDFDocument Args: URL (string),FilterName (string)
+ExtendedHelp (global):: What's This?Application
+Extrusion3DColor (global):: 3D ColorDrawing
+ExtrusionDepth (global):: ExtrusionDrawing
+ExtrusionDepthDialog (global):: Extrusion DepthDrawing Args: Depth (double),Metric (integer)
+ExtrusionDepthFloater (global):: DepthDrawing
+ExtrusionDirectionFloater (global):: DirectionDrawing
+ExtrusionLightingFloater (global):: LightingDrawing
+ExtrusionSurfaceFloater (global):: SurfaceDrawing
+ExtrusionTiltDown (global):: Tilt DownDrawing
+ExtrusionTiltLeft (global):: Tilt LeftDrawing
+ExtrusionTiltRight (global):: Tilt RightDrawing
+ExtrusionTiltUp (global):: Tilt UpDrawing
+ExtrusionToggle (global):: Toggle ExtrusionDrawing
+FieldController (global):: NONE
+FileControl (global):: File SelectionControls
+FileDocument (global):: File Document
+FileName (global):: 
+FillColor (global):: Fill ColorFormat Args: FillColor (xfillcolor)
+FillFloatTransparence (global):: Gradient Fill TransparencyFormat
+FillShadow (global):: ShadowDocument
+FillStyle (global):: Area Style / FillingFormat
+FillTransparence (global):: Fill TransparencyFormat
+FilterCrit (global):: Standard Filter...
+FindAll (global):: Find All
+FindText (global):: Find text in values, to search in formulas use the dialog
+FirstRecord (global):: First RecordControls
+FitCellSize (global):: Fit to Cell SizeFormat
+FlipHorizontal (global):: Flip HorizontallyFormat
+FlipVertical (global):: Flip VerticallyFormat
+FlowChartShapes (global):: Flowchart (double click for multi-selection)Options Args: FlowChartShapes (string)
+FlowChartShapes.flowchart-alternate-process (global):: Flowchart: Alternate Process
+FlowChartShapes.flowchart-card (global):: Flowchart: Card
+FlowChartShapes.flowchart-collate (global):: Flowchart: Collate
+FlowChartShapes.flowchart-connector (global):: Flowchart: Connector
+FlowChartShapes.flowchart-data (global):: Flowchart: Data
+FlowChartShapes.flowchart-decision (global):: Flowchart: Decision
+FlowChartShapes.flowchart-delay (global):: Flowchart: Delay
+FlowChartShapes.flowchart-direct-access-storage (global):: Flowchart: Direct Access Storage
+FlowChartShapes.flowchart-display (global):: Flowchart: Display
+FlowChartShapes.flowchart-document (global):: Flowchart: Document
+FlowChartShapes.flowchart-extract (global):: Flowchart: Extract
+FlowChartShapes.flowchart-internal-storage (global):: Flowchart: Internal Storage
+FlowChartShapes.flowchart-magnetic-disk (global):: Flowchart: Magnetic Disc
+FlowChartShapes.flowchart-manual-input (global):: Flowchart: Manual Input
+FlowChartShapes.flowchart-manual-operation (global):: Flowchart: Manual Operation
+FlowChartShapes.flowchart-merge (global):: Flowchart: Merge
+FlowChartShapes.flowchart-multidocument (global):: Flowchart: Multidocument
+FlowChartShapes.flowchart-off-page-connector (global):: Flowchart: Off-page Connector
+FlowChartShapes.flowchart-or (global):: Flowchart: Or
+FlowChartShapes.flowchart-predefined-process (global):: Flowchart: Predefined Process
+FlowChartShapes.flowchart-preparation (global):: Flowchart: Preparation
+FlowChartShapes.flowchart-process (global):: Flowchart: Process
+FlowChartShapes.flowchart-punched-tape (global):: Flowchart: Punched Tape
+FlowChartShapes.flowchart-sequential-access (global):: Flowchart: Sequential Access
+FlowChartShapes.flowchart-sort (global):: Flowchart: Sort
+FlowChartShapes.flowchart-stored-data (global):: Flowchart: Stored Data
+FlowChartShapes.flowchart-summing-junction (global):: Flowchart: Summing Junction
+FlowChartShapes.flowchart-terminator (global):: Flowchart: Terminator
+FmDataNavigatorController (global):: NONE
+FmExplorerController (global):: NONE
+FmFilterNavigatorController (global):: NONE
+FocusUrlBox (global):: Explorer
+FontHeighLatin (global):: Format
+FontHeight (global):: Font SizeFormat
+FontWork (global):: FontworkFormat
+FontworkAlignmentFloater (global):: Fontwork AlignmentDrawing
+FontworkCharacterSpacingFloater (global):: Fontwork Character SpacingDrawing
+FontworkGalleryFloater (global):: Insert Fontwork TextDrawing
+FontworkSameLetterHeights (global):: Fontwork Same Letter HeightsDrawing
+FontworkShapeType (global):: Fontwork ShapeOptions Args: FontworkShapeType (string)
+FontworkShapeType.fontwork-arch-down-curve (global):: Arch Down (Curve)
+FontworkShapeType.fontwork-arch-down-pour (global):: Arch Down (Pour)
+FontworkShapeType.fontwork-arch-left-curve (global):: Arch Left (Curve)
+FontworkShapeType.fontwork-arch-left-pour (global):: Arch Left (Pour)
+FontworkShapeType.fontwork-arch-right-curve (global):: Arch Right (Curve)
+FontworkShapeType.fontwork-arch-right-pour (global):: Arch Right (Pour)
+FontworkShapeType.fontwork-arch-up-curve (global):: Arch Up (Curve)
+FontworkShapeType.fontwork-arch-up-pour (global):: Arch Up (Pour)
+FontworkShapeType.fontwork-chevron-down (global):: Chevron Down
+FontworkShapeType.fontwork-chevron-up (global):: Chevron Up
+FontworkShapeType.fontwork-circle-curve (global):: Circle (Curve)
+FontworkShapeType.fontwork-circle-pour (global):: Circle (Pour)
+FontworkShapeType.fontwork-curve-down (global):: Curve Down
+FontworkShapeType.fontwork-curve-up (global):: Curve Up
+FontworkShapeType.fontwork-fade-down (global):: Fade Down
+FontworkShapeType.fontwork-fade-left (global):: Fade Left
+FontworkShapeType.fontwork-fade-right (global):: Fade Right
+FontworkShapeType.fontwork-fade-up (global):: Fade Up
+FontworkShapeType.fontwork-fade-up-and-left (global):: Fade Up and Left
+FontworkShapeType.fontwork-fade-up-and-right (global):: Fade Up and Right
+FontworkShapeType.fontwork-inflate (global):: Inflate
+FontworkShapeType.fontwork-open-circle-curve (global):: Open Circle (Curve)
+FontworkShapeType.fontwork-open-circle-pour (global):: Open Circle (Pour)
+FontworkShapeType.fontwork-plain-text (global):: Plain Text
+FontworkShapeType.fontwork-slant-down (global):: Slant Down
+FontworkShapeType.fontwork-slant-up (global):: Slant Up
+FontworkShapeType.fontwork-stop (global):: Stop
+FontworkShapeType.fontwork-triangle-down (global):: Triangle Down
+FontworkShapeType.fontwork-triangle-up (global):: Triangle Up
+FontworkShapeType.fontwork-wave (global):: Wave
+FormDesignTools (global):: Form DesignControls
+FormFilter (global):: Form-Based FiltersTable
+FormFilterExecute (global):: Apply Form-Based FilterTable
+FormFilterExit (global):: CloseTable
+FormFilterNavigator (global):: Filter NavigationTable
+FormFiltered (global):: Apply FilterControls
+FormProperties (global):: Form Properties...Controls
+FormatAllNotes (global):: Format All CommentsEdit
+FormatArea (global):: Area...Format
+FormatBulletsMenu (global):: Lists
+FormatFormMenu (global):: Form
+FormatFrameMenu (global):: Frame and Object
+FormatGroup (global):: GroupFormat
+FormatImageFiltersMenu (global):: Filter
+FormatImageMenu (global):: Image
+FormatLine (global):: Line...Format
+FormatSpacingMenu (global):: Spacing
+FormatStylesMenu (global):: Styles
+FormatTextMenu (global):: Text
+FormatUngroup (global):: UngroupFormat
+FormattedField (global):: Formatted FieldControls
+FrameContent (global):: Contents
+FrameLineColor (global):: Border ColorFrame Args: FrameLineColor (color)
+FrameName (global):: Name
+FrameSpacing (global):: FrameSet Spacing
+Freeline (global):: Freeform Line, FilledDrawing
+Freeline_Unfilled (global):: Freeform LineDrawing Args: Transparence (integer),Color (string),Width (integer),IsSticky (bool),ShapeName (string)
+FullName (global):: NONE
+FullScreen (global):: Full ScreenView
+FunctionBarVisible (global):: Function Bar
+Gallery (global):: Open Clip Art and Media GalleryInsert
+GetColorTable (global):: Color PaletteEdit
+GetFrameWindow (global):: NONE Args: WindowName (string)
+GetInvolved (global):: Get InvolvedApplication
+GoDownBlock (global):: Page DownNavigator Args: By (integer),Sel (bool)
+GoDownBlockSel (global):: Select Page DownNavigator Args: By (integer)
+GoDownSel (global):: Select DownNavigator Args: By (integer)
+GoLeftBlock (global):: Page LeftNavigator Args: By (integer),Sel (bool)
+GoLeftBlockSel (global):: Select Page LeftNavigator Args: By (integer)
+GoLeftSel (global):: Select LeftNavigator Args: By (integer)
+GoRightSel (global):: Select RightNavigator Args: By (integer)
+GoToEndOfData (global):: To File EndNavigator Args: Sel (bool)
+GoToEndOfDataSel (global):: Select to File EndNavigator
+GoToEndOfRow (global):: To Document EndNavigator Args: Sel (bool)
+GoToEndOfRowSel (global):: Select to Document EndNavigator
+GoToStart (global):: To File BeginNavigator Args: Sel (bool)
+GoToStartOfRow (global):: To Document BeginNavigator
+GoToStartOfRowSel (global):: Select to Document BeginNavigator
+GoToStartSel (global):: Select to File BeginNavigator
+GoUpBlock (global):: Page UpNavigator Args: By (integer),Sel (bool)
+GoUpBlockSel (global):: Select Page UpNavigator Args: By (integer)
+GoUpSel (global):: Select UpNavigator Args: By (integer)
+GrafAttrCrop (global):: Crop Dialog...Modify
+GrafBlue (global):: BlueFormat
+GrafContrast (global):: ContrastFormat
+GrafGamma (global):: GammaFormat
+GrafGreen (global):: GreenFormat
+GrafInvert (global):: InvertFormat
+GrafLuminance (global):: BrightnessFormat
+GrafMode (global):: Image ModeFormat
+GrafRed (global):: RedFormat
+GrafTransparence (global):: TransparencyFormat
+GraphicFilterInvert (global):: InvertModify
+GraphicFilterMosaic (global):: MosaicModify
+GraphicFilterPopart (global):: Pop ArtModify
+GraphicFilterPoster (global):: PosterizeModify
+GraphicFilterRelief (global):: ReliefModify
+GraphicFilterRemoveNoise (global):: Remove NoiseModify
+GraphicFilterSepia (global):: AgingModify
+GraphicFilterSharpen (global):: SharpenModify
+GraphicFilterSmooth (global):: SmoothModify
+GraphicFilterSobel (global):: Charcoal SketchModify
+GraphicFilterSolarize (global):: SolarizationModify
+GraphicFilterToolbox (global):: FilterModify
+Grid (global):: Table ControlControls
+GridUse (global):: Snap to GridView
+GridVisible (global):: Display GridView
+Group (global):: Group...Data Args: RowOrCol (string)
+GroupBox (global):: Group BoxControls
+Grow (global):: Increase Font SizeFormat
+HangulHanjaConversion (global):: Hangul/Hanja Conversion...Options
+HelpIndex (global):: %PRODUCTNAME HelpApplication
+HelpTip (global):: TipsApplication
+HelplinesMove (global):: Helplines While MovingView
+HideDetail (global):: Hide DetailsData
+HideSpellMark (global):: Do Not Mark Errors
+HyperlinkDialog (global):: Insert HyperlinkEdit
+HyphenationMissing (global):: Application
+ImageMapDialog (global):: ImageMapGraphic
+Imagebutton (global):: Image ButtonControls
+IncrementIndent (global):: Increase IndentFormat
+InfoBar (global):: Document
+InsertAnnotation (global):: Insert CommentInsert Args: Text (postittext),Author (postitauthor),Date (postitdate)
+InsertBusinessCard (global):: Insert Business CardsInsert Args: Frame (unoframe),Hidden (bool)
+InsertDoc (global):: Text from File...Insert Args: Name (string),Filter (string)
+InsertDraw (global):: Show Draw FunctionsDrawing
+InsertFootnotesMenu (global):: Footnote and Endnote
+InsertFormMenu (global):: Form Control
+InsertFrameMenu (global):: Frame
+InsertGraphic (global):: Insert Image...Insert Args: FileName (string),FilterName (string),AsLink (bool),Style (string)
+InsertLabels (global):: Insert LabelsInsert Args: Frame (unoframe),Hidden (bool)
+InsertMath (global):: Insert Formula ObjectInsert
+InsertMode (global):: Insert ModeEdit
+InsertObject (global):: Open dialog to insert OLE objectInsert Args: ClassId (globalname)
+InsertObjectChart (global):: Insert ChartInsert Args: ColHeaders (bool),RowHeaders (bool),InNewTable (bool),RangeList (string)
+InsertObjectFloatingFrame (global):: Floating Frame...Insert Args: Name (string),URL (string),Margin (size),ScrollingMode (byte),IsBorder (bool)
+InsertSpreadsheet (global):: SpreadsheetInsert
+InsertSymbol (global):: Insert Special CharacterInsert Args: Symbols (string),FontName (string)
+InsertTextFrame (global):: Insert Text FrameInsert
+InspectSelectedObject (global):: View
+InternetDialog (global):: Internet OptionsOptions
+Intersect (global):: IntersectModify
+IsLoading (global):: Load DocumentView
+IsLoadingImages (global):: View
+Italic (global):: ItalicFormat
+ItalicLatin (global):: Format
+JustifyPara (global):: JustifiedFormat
+Keywords (global):: NONE
+Label (global):: LabelControls
+LanguageLatin (global):: Format
+LanguageStatus (global):: Language StatusFormat Args: Language (string)
+LastRecord (global):: Last RecordControls
+LaunchStarImage (global):: Start Image Editor
+LeaveFMCreateMode (global):: Edit Args: Leave (bool)
+LeaveGroup (global):: Exit GroupFormat
+LeftPara (global):: Align LeftFormat
+Line (global):: Insert Line (double click for multi-selection)Drawing
+LineArrowCircle (global):: Line with Arrow/CircleDrawing
+LineArrowEnd (global):: Line Ends with ArrowDrawing
+LineArrowSquare (global):: Line with Arrow/SquareDrawing
+LineArrowStart (global):: Line Starts with ArrowDrawing
+LineArrows (global):: Line with ArrowsDrawing
+LineCap (global):: Line Cap StyleFormat
+LineCircleArrow (global):: Line with Circle/ArrowDrawing
+LineDash (global):: Line Dash/DotFormat
+LineEndStyle (global):: Select start and end arrowheads for lines.Format Args: LineStart (xlinestart),LineEnd (xlineend),StartWidth (long),EndWidth (long)
+LineJoint (global):: Line Corner StyleFormat
+LineSpacing (global):: Set Line SpacingFormat
+LineSquareArrow (global):: Line with Square/ArrowDrawing
+LineStyle (global):: Border StyleFrame
+LineToolbox (global):: Curves and Polygons (double click for multi-selection)Drawing
+LineTransparence (global):: Line TransparencyFormat
+LineWidth (global):: Line ThicknessFormat Args: Width (double),LineWidth (xlinewidth)
+Line_Diagonal (global):: Line (45°)Drawing
+ListBox (global):: List BoxControls
+LoadAccel (global):: Options Args: FileName (string)
+LoadMenu (global):: Options Args: FileName (string)
+LoadStatusBar (global):: Options Args: FileName (string)
+LoadToolBox (global):: Options
+Logout (global):: Application
+MacroBarVisible (global):: Macro Toolbar On/Off
+MacroDialog (global):: Basic...Macro
+MacroOrganizer (global):: Macro Args: TabId (integer),CurrentDocument (bool)
+MacroRecorder (global):: Record MacroMacro
+MacroRecordingFloat (global):: Macro
+MacroSignature (global):: Digital Signature...Document
+MatchCase (global):: Match Case
+MeasureAttributes (global):: Dimensions...Format
+MeasureLine (global):: Dimension LineDrawing
+Menubar (global):: View
+Merge (global):: MergeModify
+MergeCells (global):: Merge CellsTable Args: MoveContents (bool)
+MergeDocuments (global):: Merge Track Changed DocumentEdit Args: URL (string),Version (integer)
+Modified (global):: View
+ModifiedStatus (global):: Document ModifiedView
+ModifyFrame (global):: Frame Properties
+MoreDictionaries (global):: Options
+NavigationBar (global):: Navigation BarControls
+NavigationBarVisible (global):: Navigation Bar Visible
+Navigator (global):: Show Navigator WindowNavigator
+NewDoc (global):: Open Templates ManagerApplication Args: Region (string),Name (string)
+NewFrameSet (global):: New FrameSet
+NewPresentation (global):: New PresentationApplication Args: Frame (unoframe),Hidden (bool)
+NewRecord (global):: New RecordControls
+NewWindow (global):: New WindowView
+NextRecord (global):: Next RecordControls
+Notebookbar (global):: NotebookbarView Args: File (string)
+NumericField (global):: Numerical FieldControls
+ObjectAlignLeft (global):: LeftFormat
+ObjectAlignRight (global):: RightFormat
+ObjectBackOne (global):: Back OneFormat
+ObjectBarVisible (global):: Object Bar
+ObjectForwardOne (global):: Forward OneFormat
+ObjectMenue (global):: Menu for editing or saving OLE objectsEdit Args: VerbID (integer)
+Open (global):: Open...Application Args: URL (string),FilterName (string),OpenFlags (string),Password (string),FilterOptions (string),Version (integer),Referer (string),SuggestedSaveAr (string),SuggestedSaveAsName (string)
+OpenHyperlink (global):: Application Args: URL (string),FilterName (string),OpenFlags (string),Password (string),FilterOptions (string),Version (integer),Referer (string)
+OpenHyperlinkOnCursor (global):: Open HyperlinkEdit
+OpenReadOnly (global):: Open in Design ModeControls
+OpenRemote (global):: Open Remote File...Application Args: URL (string),FilterName (string),OpenFlags (string),Password (string),FilterOptions (string),Version (integer),Referer (string),SuggestedSaveAr (string),SuggestedSaveAsName (string)
+OpenSmartTagMenuOnCursor (global):: Smart TagsEdit
+OpenTemplate (global):: Edit Template...Template Args: Region (string),Name (string)
+OpenUrl (global):: Load URLApplication
+OpenXMLFilterSettings (global):: XML Filter Settings...Options
+OptionBarVisible (global):: Option Bar
+Options (global):: 
+OptionsSecurityDialog (global):: Options
+OptionsTreeDialog (global):: Options...Options
+OrderCrit (global):: Sort...Table
+OriginalSize (global):: Original SizeModify
+OutlineBullet (global):: Bullets and Numbering...Format Args: Page (string)
+OutlineCollapse (global):: Hide SubpointsView
+OutlineCollapseAll (global):: Show Only First LevelView
+OutlineDown (global):: Move selected paragraphs down one paragraphView
+OutlineExpand (global):: Show SubpointsView
+OutlineExpandAll (global):: Show All LevelsView
+OutlineFont (global):: Apply outline attribute to font. Not all fonts implement this attribute.Format
+OutlineFormat (global):: Show FormattingFormat
+OutlineLeft (global):: Promote outline level of selected list paragraphsView
+OutlineRight (global):: Demote outline level of selected list paragraphsView
+OutlineUp (global):: Move selected paragraphs up one paragraphView
+Overline (global):: OverlineFormat
+ParaLeftToRight (global):: Left-To-RightFormat
+ParaRightToLeft (global):: Right-To-LeftFormat
+ParagraphDialog (global):: Paragraph...Format
+ParaspaceDecrease (global):: Decrease Paragraph SpacingFormat
+ParaspaceIncrease (global):: Increase Paragraph SpacingFormat
+Paste (global):: PasteEdit Args: AnchorType (integer),IgnoreComments (bool)
+PasteUnformatted (global):: Unformatted TextEdit
+PatternField (global):: Pattern FieldControls
+Pie (global):: Ellipse PieDrawing Args: CenterX (long),CenterY (long),AxisX (long),AxisY (long),StartAngle (long),EndAngle (long)
+Pie_Unfilled (global):: Ellipse Pie, UnfilledDrawing Args: CenterX (long),CenterY (long),AxisX (long),AxisY (long),StartAngle (long),EndAngle (long)
+Polygon (global):: Polygon, FilledDrawing
+Polygon_Diagonal (global):: Polygon (45°), FilledDrawing
+Polygon_Diagonal_Unfilled (global):: Polygon (45°)Drawing
+Polygon_Unfilled (global):: PolygonDrawing
+PrevRecord (global):: Previous RecordControls
+Print (global):: Print...Document Args: PrinterName (string),FileName (string),Copies (integer),RangeText (string),Selection (bool),Asynchron (bool),Collate (bool),Silent (bool)
+PrintDefault (global):: Print DirectlyDocument
+PrintOut (global):: Document Args: copies (integer),silent (bool)
+PrintPreview (global):: Toggle Print PreviewView
+Printer (global):: NONE
+PrinterSetup (global):: Printer Settings...Document Args: PrinterName (string)
+PropertyController (global):: NONE
+ProtectTraceChangeMode (global):: Protect Track ChangesEdit
+Pushbutton (global):: Push ButtonControls
+QuestionAnswers (global):: Get Help OnlineApplication
+Quit (global):: ExitApplication
+RadioButton (global):: Option ButtonControls
+ReadOnly (global):: NONE
+ReadOnlyDoc (global):: Toggle Read Only ModeDocument Args: Editable (bool)
+RecFromText (global):: Text -> RecordControls
+RecSave (global):: Save RecordControls
+RecSearch (global):: Find Record...Controls
+RecText (global):: RecordControls
+RecTotal (global):: Total No. of RecordsControls
+RecUndo (global):: Undo: Data entryControls
+RecentFileList (global):: Recent DocumentsApplication
+RecheckDocument (global):: Recheck Document...Document
+Rect (global):: Insert RectangleDrawing Args: MouseStartX (long),MouseStartY (long),MouseEndX (long),MouseEndY (long),FillTransparence (integer),FillColor (string),LineStyle (integer),IsSticky (bool),ShapeName (string)
+Rect_Rounded (global):: Rectangle, RoundedDrawing Args: MouseStartX (long),MouseStartY (long),MouseEndX (long),MouseEndY (long)
+Rect_Rounded_Unfilled (global):: Rounded Rectangle, UnfilledDrawing Args: MouseStartX (long),MouseStartY (long),MouseEndX (long),MouseEndY (long)
+Rect_Unfilled (global):: Rectangle, UnfilledDrawing Args: MouseStartX (long),MouseStartY (long),MouseEndX (long),MouseEndY (long)
+RedactDoc (global):: Redact DocumentDocument Args: URL (string),FilterName (string)
+Redo (global):: RedoEdit Args: Redo (integer),Repair (bool)
+Refresh (global):: RefreshTable
+RefreshFormControl (global):: Refresh ControlTable
+RefreshView (global):: Refresh document layoutView
+Reload (global):: ReloadDocument
+RemoveFilterSort (global):: Reset Filter/SortTable
+Repaint (global):: RedrawView
+Repeat (global):: RepeatEdit
+ReplyComment (global):: Reply CommentEdit Args: Id (postitid),Text (postittext)
+ResolveComment (global):: ResolvedEdit Args: Id (postitid)
+ResolveCommentThread (global):: Resolved ThreadEdit Args: Id (postitid)
+RestoreEditingView (global):: Restore Editing ViewView
+RightPara (global):: Align RightFormat
+RubyDialog (global):: Asian Phonetic Guide...Format
+RulerMenu (global):: Rulers
+RunMacro (global):: Run Macro...Macro
+SafeMode (global):: Application
+Save (global):: SaveDocument Args: VersionComment (string),Author (string),DontTerminateEdit (bool),NoFileSync (bool)
+SaveACopy (global):: Save a Copy...Document Args: URL (string),FilterName (string),Overwrite (bool),FilterOptions (string),SaveACopy (bool)
+SaveAll (global):: Save AllApplication
+SaveAs (global):: Save As...Document Args: URL (string),FilterName (string),Password (string),PasswordInteraction (bool),FilterOptions (string),VersionComment (string),VersionAuthor (string),Overwrite (bool),Unpacked (bool),SaveTo (bool),NoFileSync (bool),NoThumbnail (bool)
+SaveAsRemote (global):: Save Remote File...Document Args: URL (string),FilterName (string),Password (string),PasswordInteraction (bool),FilterOptions (string),VersionComment (string),VersionAuthor (string),Overwrite (bool),Unpacked (bool),SaveTo (bool)
+SaveAsTemplate (global):: Save as Template...Template Args: TemplateRegion (string),TemplateName (string)
+SaveAsUrl (global):: Save Document as URL
+SaveGraphic (global):: Save...Modify
+SaveSimple (global):: Save DocumentDocument
+Saved (global):: NONE
+SbaExecuteSql (global):: Run Query
+SbaNativeSql (global):: Run SQL command directly
+ScEditOptions (global):: Spreadsheet Options
+SchEditOptions (global):: Chart Options
+ScriptOrganizer (global):: Organize MacrosMacro Args: ScriptOrganizer (scriptorganizer)
+ScrollBar (global):: ScrollbarControls
+ScrollBarMenu (global):: Scrollbars
+SdEditOptions (global):: Presentation Options
+SdGraphicOptions (global):: Presentation Image Options
+SearchDialog (global):: Find and Replace...Edit
+SearchFormattedDisplayString (global):: Search Formatted Display String
+SearchLabel (global):: Search results
+Select (global):: Select AllEdit
+SelectAll (global):: Select AllEdit
+SelectObject (global):: SelectEdit
+SendFax (global):: Send Default FaxDocument
+SendFeedback (global):: Send FeedbackApplication
+SendMail (global):: Attach to EmailDocument Args: Recipient (string),Subject (string),MailText (string),Priority (integer)
+SendMailDocAsFormat (global):: Document Args: Recipient (string),Subject (string),MailText (string),Priority (integer),TypeName (string)
+SendMailDocAsPDF (global):: Email as PDF...Document Args: Recipient (string),Subject (string),MailText (string),Priority (integer)
+SendToBack (global):: Send to BackFormat
+SendViaBluetooth (global):: Send via Bluetooth...Document
+SetBorderStyle (global):: Borders (Shift to overwrite)Table Args: OuterBorder (box),InnerBorder (boxinfo)
+SetDefault (global):: Clear Direct FormattingFormat
+SetDocumentProperties (global):: Properties...Document Args: Properties (documentinfo),UpdatedProperties (unoany)
+SetObjectToBackground (global):: To BackgroundFormat
+SetObjectToForeground (global):: To ForegroundFormat
+SetOptions (global):: NONE
+SetOutline (global):: Select Outline FormatEnumeration Args: SetOutline (integer)
+Shadowed (global):: Toggle ShadowFormat
+ShapesLineMenu (global):: Line
+ShapesMenu (global):: Shape
+ShowAnnotations (global):: CommentsView
+ShowCredits (global):: %PRODUCTNAME CreditsApplication
+ShowDataNavigator (global):: Data Navigator...Controls
+ShowDetail (global):: Show DetailsData
+ShowFmExplorer (global):: Form Navigator...Controls
+ShowLicense (global):: License InformationApplication
+ShowPopups (global):: Options
+ShowProperties (global):: Controls
+ShowPropertyBrowser (global):: Controls
+ShowToolbar (global):: Toolbars
+Shrink (global):: Decrease Font SizeFormat
+Sidebar (global):: SidebarView
+SidebarDeck (global):: NONE Args: SidebarDeck (string),SidebarDeckToggle (bool)
+SidebarMenu (global):: Sidebar
+SignPDF (global):: Sign Existing PDF...Application Args: URL (string),FilterName (string),OpenFlags (string),Password (string),FilterOptions (string),Version (integer),Referer (string),SuggestedSaveAr (string),SuggestedSaveAsName (string)
+Signature (global):: Digital Signatures...Document
+Size (global):: SizeView
+SmEditOptions (global):: Formula Options
+SmallCaps (global):: Small capitalsFormat
+SortDown (global):: Sort DescendingTable
+Sortup (global):: Sort AscendingTable
+SourceView (global):: HTML SourceOptions
+SpacePara1 (global):: Line Spacing: 1Format
+SpacePara115 (global):: Line Spacing: 1.15Format
+SpacePara15 (global):: Line Spacing: 1.5Format
+SpacePara2 (global):: Line Spacing: 2Format
+Spacing (global):: Set Character SpacingFormat
+SpellCheckApplySuggestion (global):: Apply SuggestionFormat Args: ApplyRule (string)
+SpellCheckIgnore (global):: IgnoreFormat Args: Type (string)
+SpellCheckIgnoreAll (global):: Ignore AllFormat Args: Type (string)
+SpellDialog (global):: Spelling...Edit
+SpellOnline (global):: Toggle Automatic Spell CheckingOptions Args: Enable (bool)
+SpellingAndGrammarDialog (global):: Check SpellingEdit
+SpellingDialog (global):: Check Spelling
+SpinButton (global):: Spin ButtonControls
+SplitCell (global):: Split Cells...Table Args: Amount (long),Horizontal (bool),Proportional (bool)
+SplitHorizontal (global):: Split Frame Horizontally
+SplitParentHorizontal (global):: Split FrameSet Horizontally
+SplitParentVertical (global):: Split FrameSet Vertically
+SplitVertical (global):: Split Frame Vertically
+Square (global):: SquareDrawing Args: MouseStartX (long),MouseStartY (long),MouseEndX (long),MouseEndY (long)
+Square_Rounded (global):: Rounded SquareDrawing Args: MouseStartX (long),MouseStartY (long),MouseEndX (long),MouseEndY (long)
+Square_Rounded_Unfilled (global):: Rounded Square, UnfilledDrawing Args: MouseStartX (long),MouseStartY (long),MouseEndX (long),MouseEndY (long)
+Square_Unfilled (global):: Square, UnfilledDrawing Args: MouseStartX (long),MouseStartY (long),MouseEndX (long),MouseEndY (long)
+StarShapes (global):: Stars and Banners (double click for multi-selection)Options Args: StarShapes (string)
+StarShapes.bang (global):: Explosion
+StarShapes.concave-star6 (global):: 6-Point Star, Concave
+StarShapes.doorplate (global):: Doorplate
+StarShapes.horizontal-scroll (global):: Horizontal Scroll
+StarShapes.signet (global):: Signet
+StarShapes.star12 (global):: 12-Point Star
+StarShapes.star24 (global):: 24-Point Star
+StarShapes.star4 (global):: 4-Point Star
+StarShapes.star5 (global):: 5-Point Star
+StarShapes.star6 (global):: 6-Point Star
+StarShapes.star8 (global):: 8-Point Star
+StarShapes.vertical-scroll (global):: Vertical Scroll
+StateTableCell (global):: CellView
+StatusBarVisible (global):: Status BarView
+Stop (global):: Stop Loading
+StopRecording (global):: Stop RecordingMacro Args: DontRecord (bool)
+Strikeout (global):: StrikethroughFormat
+StyleApply (global):: Apply StyleDocument Args: Template (string),Family (integer),FamilyName (string),Style (string)
+StyleNewByExample (global):: NewTemplate Args: Param (string),Family (integer)
+StyleUpdateByExample (global):: UpdateTemplate Args: Param (string),Family (integer)
+StylesPreview (global):: Styles Preview
+Substract (global):: SubtractModify
+SwEditOptions (global):: Text Document Options
+SwitchControlDesignMode (global):: Design ModeControls
+SwitchViewShell (global):: View
+SwitchXFormsDesignMode (global):: Design Mode On/OffControls
+SymbolShapes (global):: Symbol Shapes (double click for multi-selection)Options Args: SymbolShapes (string)
+SymbolShapes.brace-pair (global):: Double Brace
+SymbolShapes.bracket-pair (global):: Double Bracket
+SymbolShapes.cloud (global):: Cloud
+SymbolShapes.diamond-bevel (global):: Diamond Bevel
+SymbolShapes.flower (global):: Flower
+SymbolShapes.forbidden (global):: Prohibited
+SymbolShapes.heart (global):: Heart
+SymbolShapes.left-brace (global):: Left Brace
+SymbolShapes.left-bracket (global):: Left Bracket
+SymbolShapes.lightning (global):: Lightning Bolt
+SymbolShapes.moon (global):: Moon
+SymbolShapes.octagon-bevel (global):: Octagon Bevel
+SymbolShapes.puzzle (global):: Puzzle
+SymbolShapes.quad-bevel (global):: Square Bevel
+SymbolShapes.right-brace (global):: Right Brace
+SymbolShapes.right-bracket (global):: Right Bracket
+SymbolShapes.smiley (global):: Smiley Face
+SymbolShapes.sun (global):: Sun
+TabDialog (global):: Activation Order...Controls
+TableDesign (global):: Table Design...Format
+TableStyleSettings (global)::  Args: UseFirstRowStyle (bool),UseLastRowStyle (bool),UseBandingRowStyle (bool),UseFirstColumnStyle (bool),UseLastColumnStyle (bool),UseBandingColumnStyle (bool)
+TaskBarVisible (global):: Presentation
+TemplateManager (global):: Application
+TerminateInplaceActivation (global):: NONE
+Text (global):: Insert Text Box (double click for multi-selection)Drawing Args: CreateDirectly (bool)
+TextFitToSize (global):: Fit to FrameFormat
+TextFormField (global):: Text Form FieldControls Args: FieldType (string),FieldCommand (string),FieldResult (string),Wrapper (string)
+Text_Marquee (global):: Text AnimationDrawing
+TextdirectionLeftToRight (global):: Text direction from left to rightFormat
+TextdirectionTopToBottom (global):: Text direction from top to bottomFormat
+ThesaurusFromContext (global):: SynonymsText Args: WordReplace (string)
+TimeField (global):: Time FieldControls
+TipOfTheDay (global):: Show the Tip of the Day dialogApplication
+Title (global):: NONE
+ToggleControlFocus (global):: Control FocusControls
+ToggleObjectBezierMode (global):: Toggle Point Edit ModeDrawing
+ToggleObjectRotateMode (global):: RotateDrawing
+ToolBarVisible (global):: Main Toolbar
+ToolbarLock (global):: Lock or unlock all toolbarsApplication
+ToolbarMode (global):: User InterfaceApplication Args: Mode (string)
+ToolbarModeUI (global):: Shows a dialog to select the user interfaceApplication
+ToolsFormsMenu (global):: Forms
+TransformDialog (global):: Position and Size...Format Args: TransformPosX (long),TransformPosY (long),TransformWidth (long),TransformHeight (long),TransformRotationDeltaAngle (sdrangle),TransformRotationAngle (sdrangle),TransformRotationX (long),TransformRotationY (long)
+TransformRotationAngle (global):: Rotation AngleFormat
+TransformRotationX (global):: Rotation Pivot Point XFormat
+TransformRotationY (global):: Rotation Pivot Point YFormat
+TwainSelect (global):: Select Source...Insert
+TwainTransfer (global):: Request...Insert
+Underline (global):: UnderlineFormat
+UnderlineDotted (global):: Dotted UnderlineFormat
+UnderlineDouble (global):: Double UnderlineFormat
+UnderlineNone (global):: Underline: OffFormat
+UnderlineSimple (global):: Underline
+UnderlineSingle (global):: Single UnderlineFormat
+Undo (global):: UndoEdit Args: Undo (integer),Repair (bool)
+UndoAction (global):: Undo
+Ungroup (global):: Ungroup...Data Args: RowOrCol (string)
+UnicodeNotationToggle (global):: Toggle Unicode NotationOptions
+UpSearch (global):: Find Previous
+UseWizards (global):: Toggle Form Control WizardsControls
+VersionDialog (global):: Versions...Document
+VerticalCaption (global):: Vertical CalloutsDrawing
+VerticalText (global):: Insert Vertical TextDrawing
+ViewDataSourceBrowser (global):: Data SourcesView
+ViewFormAsGrid (global):: Data source as TableControls
+ViewSidebarStyles (global):: Styles
+WebHtml (global):: Preview in Web BrowserApplication
+WhatsNew (global):: Open the release notes for the installed version in the default browserApplication
+WidgetTestDialog (global):: Application
+Window3D (global):: 3D EffectsOptions
+XLineColor (global):: Line ColorFormat Args: XLineColor (xlinecolor)
+XLineStyle (global):: Line StyleFormat
+Zoom (global):: Zoom...View
+Zoom100Percent (global):: 100%View
+Zoom150Percent (global):: 150%View
+Zoom200Percent (global):: 200%View
+Zoom50Percent (global):: 50%View
+Zoom75Percent (global):: 75%View
+ZoomMenu (global):: Zoom
+ZoomMinus (global):: Zoom OutView
+ZoomNext (global):: Zoom NextView
+ZoomObjects (global):: Object ZoomView
+ZoomPage (global):: Entire PageView
+ZoomPageWidth (global):: Page WidthView
+ZoomPlus (global):: Zoom InView
+ZoomPrevious (global):: Zoom PreviousView
+ZoomToolBox (global):: ZoomView

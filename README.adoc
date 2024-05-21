@@ -12,8 +12,8 @@ on virtual machines and/or on Raspberry Pi's.
 |===
 | Project site        | https://github.com/gruntwurk/general-tools
 | Issues              | https://github.com/gruntwurk/general-tools/issues/
-| Authors             | polyglot-jones
-| License             | link:/LICENSE[BSD]
+| Authors             | Craig Jones (polyglot-jones)
+| License             | link:/LICENSE.txt[BSD-3-clause]
 | Status              | This is still a work in progress, but definitely usable.
 |===
 
@@ -67,8 +67,10 @@ Note: These scripts all assume that it's a Debian-based distribution of Linux (w
 
 * link:/reference_library/BASH_CHEAT.adoc[BASH_CHEAT.adoc.]
 * link:/reference_library/JAVASCRIPT_CHEAT.adoc[JAVASCRIPT_CHEAT.adoc.]
+* link:/reference_library/LIBREOFFICE_CHEAT.adoc[LIBREOFFICE_CHEAT.adoc.]
 * link:/reference_library/LINUX_CHEAT.adoc[LINUX_CHEAT.adoc.]
 * link:/reference_library/PYTHON_CHEAT.adoc[PYTHON_CHEAT.adoc.]
+* link:/reference_library/VSCODE_TIPS.adoc[VSCODE_TIPS.adoc.]
 * link:/reference_library/WINDOWS_CHEAT.adoc[WINDOWS_CHEAT.adoc.]
 
 

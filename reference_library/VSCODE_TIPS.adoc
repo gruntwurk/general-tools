@@ -12,11 +12,25 @@ After that, you can refine the bindings, one-by-one:
 
 	File > Preferences > Keyboard Shortcuts
 
-== The Python Extension
 
-See https://code.visualstudio.com/docs/python/editing for a summary of what VSCode's Python extension does for you.
 
-See also: https://switowski.com/blog/18-plugins-for-python-in-vscode
+== Extensions
+
+Here in the GruntWurk shop, we find these VSCode extensions useful (in no particular order):
+
+* *Python*, *Python Debugger*, *Pylance*, *autopep8*, *Flake8*, and *isort* (Microsoft) See https://code.visualstudio.com/docs/python/editing[] for a summary of what VSCode's Python extension does for you.
+* *autoDocstring* (Nils Werner)
+* *Even Better TOML* (tamasfe) -- Support for `*.toml` files
+* *Kivy* (BattleBas) -- Support for `*.kv` files (gui specs)
+* *Pytest IntelliSense* (Cameron Maske) -- Support for pytest unit tests
+* *Sourcery* (sourcery.ai) -- Instant refactoring into Pythonic code ($paid)
+* *Trailing Spaces* (Shardul Mahadik) -- Simply removes trailing spaces when saving
+* *vscode-icons* (VSCode Icons Team)
+* *AsciiDoc* (asciidoctor)
+* *AsciiDoc Author* (cadnza)
+
+See also: https://switowski.com/blog/18-plugins-for-python-in-vscode[]
+
 
 
 == Snippets
@@ -29,5 +43,5 @@ Some snippet files are included here (in vscode_snippets).
 
 * To repeat $1 but as lower case use: `${1/(.)/${1:/downcase}/}`
 
-There is also built-in support for Emmet, a unique snippet processor for generating HTML and CSS code based on CSS syntax. See http://emmet.io for an explanation.
+There is also built-in support for Emmet, a unique snippet processor for generating HTML and CSS code based on CSS syntax. See http://emmet.io[] for an explanation.
 

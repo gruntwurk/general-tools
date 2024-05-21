@@ -35,6 +35,7 @@ v0.01, 3/1/2023
 * <<operating-system,Operating System>>
 * <<pathlib,PathLib>>
 * <<pip-e,PIP Install Editable>>
+* <<poetry,poetry>> (Installing on Windows)
 * <<python-internals,Python Internals>>
 * <<python-tooling,Python Tooling>>
 * <<regex,RegEx>>
@@ -405,6 +406,8 @@ from deprecated import deprecated
 [[dictionaries]]
 == Dictionaries
 
+Dict.`update`() is the counterpart of List.`extend`().
+
 * `class dict(**kwarg)`
 * `class dict(mapping, **kwarg)`
 * `class dict(iterable, **kwarg)`
@@ -432,6 +435,7 @@ from deprecated import deprecated
 
 * repeat: `two_by_two_array = [[0]*2]*2`
 * Zipper: `list_of_tuples = zip(list1, list2, list3)`
+* `for key, value in d.items():`
 
 
 
@@ -1140,6 +1144,55 @@ poetry --version
 poetry config virtualenvs.in-project true
 ----
 
+[[pytest]]
+== pytest
+
+=== Running as main()
+
+[source,python]
+----
+import pytest
+
+def main():
+    pytest.main([__file__])
+
+if __name__ == '__main__':
+    main()
+----
+
+=== Testing *expected exceptions*:
+
+[source,python]
+----
+import pytest
+
+with pytest.raises(ValueError) as e_info:
+	pass
+assert 'my message substring' in str(e_info)
+----
+
+=== Testing *stdout* and *stderr* via the `capsys` fixture:
+
+[source,python]
+----
+# (capsys does not need to be imported -- not sure why)
+from gwpycore import logger_for_testing, grab_captured_err_text, stderr_start_marker, stderr_end_marker
+
+def test_GWError(capsys):
+    log = logger_for_testing()
+    stderr_start_marker()
+    log.exception(GWError("exception"))
+    log.exception(GWError("log as info", loglevel=INFO))
+    stderr_end_marker()
+    captured = capsys.readouterr()
+    assert captured.out == ""
+    err_txt = grab_captured_err_text(captured)
+    assert err_txt == "[ERROR  ] exception\n[INFO   ] log as info\n"
+----
+
+It's important that every test uses a different logger name (which `logger_for_testing()` does via the `random_token()` function); otherwise, you'll get errors trying to write to a closed file between one test to another.
+
+
 
 [[python-internals]]
 == Python Internals
@@ -1217,28 +1270,28 @@ Details: https://docs.python.org/3/library/re.html[]
 
 
 * re.*compile*(pattern, flags=0)
-* * re.*search*(pattern, string, flags=0) -- Any one match
-* * re.*match*(pattern, string, flags=0) -- Matches at the beginning of string only (regardless of any MULTILINE flag)
-* * re.*fullmatch*(pattern, string, flags=0) -- Matches the whole string only
-* * re.*split*(pattern, string, maxsplit=0, flags=0) -- Split using pattern as delimiters. List will include paren captures within the delimiter.
-* * re.*findall*(pattern, string, flags=0) -- Returns all non-overlapping matches as a list (strings or tuples).
+* re.*search*(pattern, string, flags=0) -- Any one match
+* re.*match*(pattern, string, flags=0) -- Matches at the beginning of string only (regardless of any MULTILINE flag)
+* re.*fullmatch*(pattern, string, flags=0) -- Matches the whole string only
+* re.*split*(pattern, string, maxsplit=0, flags=0) -- Split using pattern as delimiters. List will include paren captures within the delimiter.
+* re.*findall*(pattern, string, flags=0) -- Returns all non-overlapping matches as a list (strings or tuples).
 * re.*finditer*(pattern, string, flags=0)
 * re.*sub*(pattern, repl, string, count=0, flags=0)
-* * re.*subn*(pattern, repl, string, count=0, flags=0) -- Same as sub(), but returns a tuple (new_string, number_of_subs_made).
-* * re.*escape*(pattern) -- converts a string to a pattern
-* * re.*purge*() -- Clears the regular expression cache.
-* * Match.*expand*(template) -- do the substitution (with backrefs).
-* * Match.*group*([group1, ...]), m[group] -- Returns one or more subgroups of the match (string or tuple).
-* * Match.*groups*(default=None) -- Returns all subgroups as a tuple.
-* * Match.*groupdict*(default=None) -- Returns a named subgroups
-* * Match.*start*([group]), Match.end([group]) -- Return the indices of the matched string
-* * Match.*span*([group]) -- Returns a tuple: (m.start(group), m.end(group)).
-* * Match.*pos* -- Where the RE engine started looking for a match.
-* * Match.*endpos* -- Where the RE engine stopped looking for a match.
-* * Match.*lastindex* -- The integer index of the last matched capturing group, or None if no group was matched at all. For example, the expressions (a)b, ((a)(b)), and ((ab)) will have lastindex == 1 if applied to the string 'ab', while the expression (a)(b) will have lastindex == 2, if applied to the same string.
-* * Match.*lastgroup* -- The name of the last matched capturing group, or None if the group didn’t have a name, or if no group was matched at all.
-* * Match.*re* -- The regular expression object whose match() or search() method produced this match instance.
-* * Match.*string* -- The string passed to match() or search().
+* re.*subn*(pattern, repl, string, count=0, flags=0) -- Same as sub(), but returns a tuple (new_string, number_of_subs_made).
+* re.*escape*(pattern) -- converts a string to a pattern
+* re.*purge*() -- Clears the regular expression cache.
+* Match.*expand*(template) -- do the substitution (with backrefs).
+* Match.*group*([group1, ...]), m[group] -- Returns one or more subgroups of the match (string or tuple).
+* Match.*groups*(default=None) -- Returns all subgroups as a tuple.
+* Match.*groupdict*(default=None) -- Returns a named subgroups
+* Match.*start*([group]), Match.end([group]) -- Return the indices of the matched string
+* Match.*span*([group]) -- Returns a tuple: (m.start(group), m.end(group)).
+* Match.*pos* -- Where the RE engine started looking for a match.
+* Match.*endpos* -- Where the RE engine stopped looking for a match.
+* Match.*lastindex* -- The integer index of the last matched capturing group, or None if no group was matched at all. For example, the expressions (a)b, ((a)(b)), and ((ab)) will have lastindex == 1 if applied to the string 'ab', while the expression (a)(b) will have lastindex == 2, if applied to the same string.
+* Match.*lastgroup* -- The name of the last matched capturing group, or None if the group didn’t have a name, or if no group was matched at all.
+* Match.*re* -- The regular expression object whose match() or search() method produced this match instance.
+* Match.*string* -- The string passed to match() or search().
 
 
 === Replacement Backref Modifiers
@@ -1282,18 +1335,21 @@ Python Modules:
 [[sets]]
 == Sets
 
-s.add(some_new_element)
-s.remove(element)
-s.update(other_set)
-s.union(other_set) (or the vertical bar operator)
-s.intersection(other_set) (or the ampersand operator)
-s.difference(other_set) (or the minus sign operator)
-s.symmetric_difference(other_set) (or the carret operator)
-s.isdisjoint(other_set)
-s.issubset() (or `<=`, or `<` for a proper subset)
-s.issuperset() (or `>=`, or `>` for a proper superset)
-len(s)
-element in s
+Set.add() is the counterpart to List.append().
+Set.update() is the counterpart to List.extend().
+
+* s.add(some_new_element)
+* s.remove(element)
+* s.update(other_set)
+* s.union(other_set) (or the vertical bar operator)
+* s.intersection(other_set) (or the ampersand operator)
+* s.difference(other_set) (or the minus sign operator)
+* s.symmetric_difference(other_set) (or the carret operator)
+* s.isdisjoint(other_set)
+* s.issubset() (or `<=`, or `<` for a proper subset)
+* s.issuperset() (or `>=`, or `>` for a proper superset)
+* len(s)
+* element in s
 
 
 
@@ -1402,6 +1458,7 @@ Python Modules:
 * doctest -- Test pieces of code within docstrings.
 * test -- Regression tests package containing the testing suite for Python.
 * unittest -- Unit testing framework for Python.
+* <<pytest,pytest>> -- Simplified using testing using Python native assert statements
 
 
 

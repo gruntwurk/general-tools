@@ -4,6 +4,20 @@ v0.01, 4/24/2023
 
 == Intro
 
+Automating LibreOffice in Python is complicated as all get out.
+It's gotten easier with the `ooodev` wrapper library that allows IntelliSense to do its thing, but it only covers a portion of UNO features (albeit the most commonly used portion).
+Still, there are multiple different ways to perform automation tasks in Python, whether going through the wrapper or not:
+
+* Navigating the model via a Text Cursor and accessing the embedded constructs and properties directly.
+* Navigating the formatted text via a View Cursor and indirectly accessing the model's constructs and properties. 
+* Accessing the model's embedded constructs (graphics, frames, tables) via enumerated lists and working backwards to navigate from their anchor points.
+* Dispatching a command (https://wiki.documentfoundation.org/Development/DispatchCommands[]) -- as if the user interacting with the LibreOffice UI -- in conjuction with the View Cursor.
+
+In all of these cases, you might need to switch back and forth between taking advantage of the wrapper (code written in snake_case) and calling the original UNO code directly (code written in TitleCase).
+Usually, the latter is done by breaking out of the wrapper code by referencing the `component` property.
+You'll recognize this by code that looks like `snake_case.component.TitleCase` where the IDE won't be able to provide IntelliSense help on the TitleCase portion.
+
+
 === Quick Jumps
 
 * <<apso,APSO>>
@@ -231,6 +245,178 @@ Examples:
 * `com.sun.star.system.SystemShellExecute` -- executes system commands or documents registered for an application on the current platform
 * `com.sun.star.text.GlobalSettings` -- manages global view and print settings for text documents
 
+
+
+[[styles]]
+=== styles
+
+For a Writer Document...
+
+Default styles in the *CellStyles* family: _(none)_
+
+Default styles in the *CharacterStyles* family: `Bullet Symbols`, `Caption characters`, `Citation`, `Definition`, `Drop Caps`, `Emphasis`, `Endnote Symbol`, `Endnote anchor`, `Example`, `Footnote Symbol`, `Footnote anchor`, `Index Link`, `Internet link`, `Line numbering`, `Main index entry`, `Numbering Symbols`, `Page Number`, `Placeholder`, `Rubies`, `Source Text`, `Standard`, `Strong Emphasis`, `Teletype`, `User Entry`, `Variable`, `Vertical Numbering Symbols`, `Visited Internet Link`
+
+Default styles in the *FrameStyles* family: `Formula`, `Frame`, `Graphics`, `Labels`, `Marginalia`, `OLE`, `Watermark`
+
+Default styles in the *NumberingStyles* family: `List 1`, `List 2`, `List 3`, `List 4`, `List 5`, `No List`, `Numbering 123`, `Numbering ABC`, `Numbering IVX`, `Numbering abc`, `Numbering ivx`
+
+Default styles in the *PageStyles* family: `Endnote`, `Envelope`, `First Page`, `Footnote`, `HTML`, `Index`, `Landscape`, `Left Page`, `Right Page`, `Standard`
+
+Default styles in the *ParagraphStyles* family: `Addressee`, `Appendix`, `Bibliography 1`, `Bibliography Heading`, `Caption`, `Comment`, `Contents 1` thru `Contents 10`, `Contents Heading`, `Drawing`, `Endnote`, `Figure`, `Figure Index 1`, `Figure Index Heading`, `First line indent`, `Footer`, `Footer left`, `Footer right`, `Footnote`, `Frame contents`, `Hanging indent`, `Header`, `Header and Footer`, `Header left`, `Header right`, `Heading`, `Heading 1` thru `Heading 10`, `Horizontal Line`, `Illustration`, `Index`, `Index 1` thru `Index 3`, `Index Heading`, `Index Separator`, `List`, `List 1`, `List 1 Cont.`, `List 1 End`, `List 1 Start` thru `List 5`, `List 5 Cont.`, `List 5 End`, `List 5 Start`, `List Contents`, `List Heading`, `List Indent`, `Marginalia`, `Numbering 1`, `Numbering 1 Cont.`, `Numbering 1 End`, `Numbering 1 Start` thru `Numbering 5`, `Numbering 5 Cont.`, `Numbering 5 End`, `Numbering 5 Start`, `Object index 1`, `Object index heading`, `Preformatted Text`, `Quotations`, `Salutation`, `Sender`, `Signature`, `Standard`, `Subtitle`, `Table`, `Table Contents`, `Table Heading`, `Table index 1`, `Table index heading`, `Text`, `Text body`, `Text body indent`, `Title`, `User Index 1` thru `User Index 10`, `User Index Heading`
+
+Default styles in the *TableStyles* family: `Academic`, `Box List Blue`, `Box List Green`, `Box List Red`, `Box List Yellow`, `Default Style`, `Elegant`, `Financial`, `Simple Grid Columns`, `Simple Grid Rows`, `Simple List Shaded`,
+
+
+==== Paragraph Style Properties:
+
+* *BreakType*: `com.sun.star.style.BreakType`
+* Category: 4
+* *CharBackColor*: -1
+* CharBackTransparent: True
+* *CharColor*: -1
+* CharCrossedOut: False
+* *CharEmphasis*: 0
+* CharEscapement: 0
+* CharEscapementHeight: 100
+* CharFontFamily: 3
+* *CharFontName*: Liberation Serif
+* CharFontPitch: 2
+* CharFontStyleName:
+* *CharHeight*: 12.0
+* *CharHidden*: False
+* CharHighlight: -1
+* CharNoHyphenation: True
+* CharOverline: 0
+* CharOverlineColor: -1
+* CharOverlineHasColor: False
+* CharPosture: <Enum instance com.sun.star.awt.FontSlant ('NONE')>
+* CharPropHeight: 100
+* CharRotation: 0
+* CharRotationIsFitToLine: False
+* CharScaleWidth: 100
+* *CharShadingValue*: 0
+* CharShadowed: False
+* *CharStrikeout*: 0
+* CharTransparence: 100
+* *CharUnderline*: 0
+* CharUnderlineColor: -1
+* CharUnderlineHasColor: False
+* *CharWeight*: 100.0
+* CharWordMode: False
+* *DisplayName*: Header
+* *DropCapCharStyleName*:
+* *DropCapFormat*: (com.sun.star.style.DropCapFormat){ Lines = (byte)0x0, Count = (byte)0x0, Distance = (short)0x0 }
+* *DropCapWholeWord*: False
+* FollowStyle: Header
+* *Hidden*: False
+* IsAutoUpdate: False
+* IsPhysical: True
+* LinkStyle:
+* *NumberingLevel*: 0
+* *NumberingStyleName*:
+* *OutlineLevel*: 0
+* PageDescName: None
+* PageNumberOffset: None
+* ParaAdjust: 0
+* ParaExpandSingleWord: False
+* *ParaFirstLineIndent*: 0
+* *ParaFirstLineIndentRelative*: 100
+* ParaHyphenationMaxHyphens: 0
+* ParaHyphenationMaxLeadingChars: 2
+* ParaHyphenationMaxTrailingChars: 2
+* ParaHyphenationNoCaps: False
+* ParaInteropGrabBag: ()
+* *ParaIsAutoFirstLineIndent*: False
+* ParaIsCharacterDistance: True
+* ParaIsForbiddenRules: True
+* ParaIsHangingPunctuation: True
+* ParaIsHyphenation: False
+* *ParaKeepTogether*: False
+* *ParaLastLineAdjust*: 0
+* ParaLineNumberCount: False
+* ParaLineNumberStartValue: 0
+* *ParaLineSpacing*: (com.sun.star.style.LineSpacing){ Mode = (short)0x0, Height = (short)0x64 }
+* *ParaOrphans*: 2
+* ParaRegisterModeActive: False
+* ParaShadowFormat: (com.sun.star.table.ShadowFormat){ Location = (com.sun.star.table.ShadowLocation)NONE, ShadowWidth = (short)0xb0, IsTransparent = (boolean)false, Color = (long)0x808080 }
+* ParaSplit: True
+* *ParaTabStops*: ((com.sun.star.style.TabStop){ Position = (long)0x225b, Alignment = (com.sun.star.style.TabAlign)CENTER, DecimalChar = (char)'.', FillChar = (char)' ' }, (com.sun.star.style.TabStop){ Position = (long)0x44b6, Alignment = (com.sun.star.style.TabAlign)RIGHT, DecimalChar = (char)'.', FillChar = (char)' ' })
+* ParaUserDefinedAttributes: pyuno object (com.sun.star.container.XNameContainer)0x2599f4aa498{implementationName=SvUnoAttributeContainer, supportedServices={com.sun.star.xml.AttributeContainer}, supportedInterfaces={com.sun.star.lang.XServiceInfo,com.sun.star.lang.XUnoTunnel,com.sun.star.container.XNameContainer,com.sun.star.lang.XTypeProvider,com.sun.star.uno.XWeak,com.sun.star.uno.XAggregation}}
+* *ParaVertAlignment*: 0
+* ParaWidows: 2
+* Rsid: 0
+* SnapToGrid: True
+* StyleInteropGrabBag: ()
+* WritingMode: 4
+
+*CharWeight constants*:
+----
+DONTKNOW = 0.0
+THIN = 50.0
+ULTRALIGHT = 60.0
+LIGHT = 75.0
+SEMILIGHT = 90.0
+NORMAL = 100.0
+SEMIBOLD = 110.0
+BOLD = 150.0
+ULTRABOLD = 175.0
+BLACK = 200.0
+----
+
+
+*ParaLineSpacing Modes*:
+----
+PROP = 0  # The height value is a proportional value.
+MINIMUM = 1  # The height is the minimum line height.
+LEADING = 2  # The height value is the distance to the previous line.
+FIX = 3  # The height value is a fixed line height.
+----
+
+*ParaVertAlignment Modes*:
+----
+AUTOMATIC = 0  # In automatic mode, horizontal text is aligned to the baseline. The same applies to text that is rotated 90°. Text that is rotated 270° is aligned to the center.
+BASELINE = 1  # The text is aligned to the baseline.
+TOP = 2  # The text is aligned to the top.
+CENTER = 3  # The text is aligned to the center.
+BOTTOM = 4  # The text is aligned to bottom.
+----
+
+*Borders*:
+
+* CharBorderDistance: 0
+* CharBottomBorder: (com.sun.star.table.BorderLine2){ (com.sun.star.table.BorderLine){ Color = (long)0x0, InnerLineWidth = (short)0x0, OuterLineWidth = (short)0x0, LineDistance = (short)0x0 }, LineStyle = (short)0x0, LineWidth = (unsigned long)0x0 }
+* CharBottomBorderDistance: 0
+* CharLeftBorder: (com.sun.star.table.BorderLine2){ (com.sun.star.table.BorderLine){ Color = (long)0x0, InnerLineWidth = (short)0x0, OuterLineWidth = (short)0x0, LineDistance = (short)0x0 }, LineStyle = (short)0x0, LineWidth = (unsigned long)0x0 }
+* CharLeftBorderDistance: 0
+* CharRightBorder: (com.sun.star.table.BorderLine2){ (com.sun.star.table.BorderLine){ Color = (long)0x0, InnerLineWidth = (short)0x0, OuterLineWidth = (short)0x0, LineDistance = (short)0x0 }, LineStyle = (short)0x0, LineWidth = (unsigned long)0x0 }
+* CharRightBorderDistance: 0
+* CharTopBorder: (com.sun.star.table.BorderLine2){ (com.sun.star.table.BorderLine){ Color = (long)0x0, InnerLineWidth = (short)0x0, OuterLineWidth = (short)0x0, LineDistance = (short)0x0 }, LineStyle = (short)0x0, LineWidth = (unsigned long)0x0 }
+* CharTopBorderDistance: 0
+
+* BorderDistance: 0
+* BottomBorder: (com.sun.star.table.BorderLine2){ (com.sun.star.table.BorderLine){ Color = (long)0x0, InnerLineWidth = (short)0x0, OuterLineWidth = (short)0x0, LineDistance = (short)0x0 }, LineStyle = (short)0x0, LineWidth = (unsigned long)0x0 }
+* BottomBorderDistance: 0
+* LeftBorder: (com.sun.star.table.BorderLine2){ (com.sun.star.table.BorderLine){ Color = (long)0x0, InnerLineWidth = (short)0x0, OuterLineWidth = (short)0x0, LineDistance = (short)0x0 }, LineStyle = (short)0x0, LineWidth = (unsigned long)0x0 }
+* LeftBorderDistance: 0
+* RightBorder: (com.sun.star.table.BorderLine2){ (com.sun.star.table.BorderLine){ Color = (long)0x0, InnerLineWidth = (short)0x0, OuterLineWidth = (short)0x0, LineDistance = (short)0x0 }, LineStyle = (short)0x0, LineWidth = (unsigned long)0x0 }
+* RightBorderDistance: 0
+* TopBorder: (com.sun.star.table.BorderLine2){ (com.sun.star.table.BorderLine){ Color = (long)0x0, InnerLineWidth = (short)0x0, OuterLineWidth = (short)0x0, LineDistance = (short)0x0 }, LineStyle = (short)0x0, LineWidth = (unsigned long)0x0 }
+* TopBorderDistance: 0
+
+* ParaIsConnectBorder: True
+
+*Margins*:
+
+* ParaContextMargin: False
+
+* ParaBottomMargin: 0
+* ParaBottomMarginRelative: 100
+* ParaLeftMargin: 0
+* ParaLeftMarginRelative: 100
+* ParaRightMargin: 0
+* ParaRightMarginRelative: 100
+* ParaTopMargin: 0
+* ParaTopMarginRelative: 100
 
 [[uno]]
 === UNO
